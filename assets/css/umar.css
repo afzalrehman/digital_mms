@@ -1,0 +1,141 @@
+/* ================================================
+============== Universal CSS (Start) ==============
+================================================ */
+
+.urdu-gray {
+    color: #5A6A85;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #5A6A85 !important;
+    font-family: "Jameel-Kasheeda";
+    font-weight: bold !important;
+    word-spacing: 2px !important;
+}
+
+a {
+    color: #5A6A85;
+    font-family: "Jameel-Kasheeda";
+    font-weight: bold;
+    word-spacing: 2px !important;
+}
+
+p {
+    color: #5A6A85;
+    font-weight: bold;
+    font-family: "Jameel-Kasheeda";
+}
+
+span {
+    font-weight: bold;
+}
+
+button {
+    font-family: "Jameel-Kasheeda";
+    font-weight: bold;
+    word-spacing: 4px;
+}
+
+li {
+    color: #5A6A85;
+    font-family: "Jameel-Kasheeda";
+    font-weight: bold;
+    word-spacing: 2px !important;
+}
+
+tr th {
+    font-family: "Jameel-Kasheeda";
+    font-weight: bold;
+    word-spacing: 2px;
+}
+
+label {
+    color: #5A6A85 !important;
+    font-family: "Jameel-Kasheeda";
+    font-weight: bold;
+    word-spacing: 2px;
+}
+
+input[type=text] {
+    font-family: "Jameel-Kasheeda";
+    font-weight: bold;
+    word-spacing: 2px;
+}
+
+::placeholder {
+    font-family: "Jameel-Kasheeda" !important;
+    font-weight: bold;
+    word-spacing: 2px;
+}
+
+input[type=number] {
+    font-family: "inter";
+}
+
+input[type=password] {
+    font-family: "inter";
+}
+
+textarea {
+    word-spacing: 2px;
+}
+
+.urdu-gray {
+    color: #5A6A85 !important;
+}
+
+.card {
+    box-shadow: rgba(89, 89, 89, 0.24) 0px 2px 4px !important;
+}
+
+.breadcurmb-card-shadow {
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px !important;
+    outline: 2px solid rgba(158, 158, 255, 0.144);
+}
+
+/* .breadcrumb-card-shadow{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+} */
+
+
+/* ================================================
+=============== Universal CSS (End) ===============
+================================================ */
+
+
+/* ================================================
+=============== Login Form (Start) ===============
+================================================ */
+.madarsa-name {
+    font-size: 50px;
+    
+}
+#sign-in{
+    font-family: "Jameel-Kasheeda" !important;
+    font-weight: bold;
+    word-spacing: 2px;
+    font-size: 18px;
+}
+
+/* ================================================
+=============== Login Form (End) ===============
+================================================ */
+
+
+/* ================================================
+=============== User Form (Start) ===============
+================================================ */
+
+.user-email, .user-password{
+    font-family: "inter" !important;
+    /* font-weight: 400 !important; */
+}
+
+/* ================================================
+=============== User Form (End) ===============
+================================================ */

@@ -1,0 +1,274 @@
+* {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url(../../font/inter/Inter-Regular.ttf);
+}
+
+
+@font-face {
+    font-family: "Jameel-Kasheeda";
+    src: url(../../font/urdu/Jameel-Noori-Nastaleeq-Kasheeda.ttf);
+}
+
+@font-face {
+    font-family: "Jameel-Regular";
+    src: url(../../font/urdu/Jameel-Noori-Nastaleeq-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Alvi";
+    src: url(../../font/urdu/Alvi-Nastaleeq-Regular.ttf);
+}
+
+.box {
+
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+    background-color: #fff;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 8vh;
+}
+
+.botton {
+    /* font-family: "Alvi" !important; */
+    font-family: "Jameel-Kasheeda" !important;
+    border-radius: 40px;
+    border: 1px solid #6673FC;
+    background-color: #6673FC;
+    /* background: -webkit-linear-gradient(to right, #6673FC, #FF416C);
+    background: linear-gradient(to right, #FF4B2B, #6673FC); */
+    color: #FFFFFF;
+    font-size: 16px;
+    margin-top: 15px;
+    font-weight: bold;
+    padding: 4px 30px;
+    /* letter-spacing: 2px; */
+    cursor: pointer;
+    transition: transform 80ms ease-in;
+}
+
+input[type=password] {
+    direction: ltr;
+    font-family: "Inter" !important;
+    border-radius: 20px;
+    background-color: #eee;
+    border: none;
+    text-align: end;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 20px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+input[type=number]::placeholder,
+input[type=text]::placeholder,
+input[type=password]::placeholder {
+    /* font-family: "Alvi" !important; */
+    font-family: "Jameel-Kasheeda" !important;
+}
+
+input[type=number],
+input[type=text] {
+    direction: ltr;
+    /* font-family: "Alvi" !important; */
+    font-family: "Jameel-Kasheeda" !important;
+    border-radius: 20px;
+    background-color: #eee;
+    border: none;
+    text-align: end;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 20px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number],
+input[type=text],
+input[type=password] {
+    outline: 1px solid #6673fc77;
+}
+
+button {
+    text-align: center;
+    /* width: 50%; */
+    /* margin:  0 auto  0 auto; */
+    transition: 0.5s;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button:hover {
+    background-color: #131fa5;
+    border: 1px solid #131fa5;
+    
+}
+.btn1{
+    width: 50%;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.sign-in {
+    position: relative;
+    margin-top: 100px;
+    margin-bottom: 40px;
+    font-size: 45px;
+    font-family: "Jameel-Kasheeda";
+    font-weight: 700;
+}
+
+
+.box-1 {
+    background: #6673FC;
+    background: -webkit-linear-gradient(to right, #6673FC, #B05F96);
+    background: linear-gradient(to right, #B05F96, #6673FC); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #FFFFFF;
+    height: 500px;
+    width: 395px;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+    border-radius: 0px 20px 20px 0px;
+}
+
+@media only screen and (max-width: 990px) {
+    .box-1 {
+        display: none;
+    }
+
+    .mobile-name {
+        margin-top: 30px;
+        padding-bottom: 15px;
+         /* border-width: 100%; */
+        color: rgb(24, 24, 119);
+        margin-bottom: 10px; 
+        border-bottom: 2px solid black;
+        border-width: 200%;
+        font-size: 45px;
+        letter-spacing: 1px;
+        font-weight: bolder;
+        font-family: "Jameel-Kasheeda";
+    }
+    .sign-in {
+        margin-top: 40px;
+       
+    }
+
+    .sign-in{
+        font-size: 30px;
+    }
+}
+@media only screen and (min-width: 990px) and (max-width:30000px){
+    .mobile-name {
+        display: none;
+    }
+}
+
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: -20px;
+    height: 100%;
+    width: 100%;
+}
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.sign_up {
+    font-family: "Jameel-Kasheeda";
+    word-spacing: 3px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.school-name {
+    font-family: "Jameel-Kasheeda";
+    margin-bottom: 40px;
+    font-size: 50px;
+    letter-spacing: 1px;
+    font-weight: bolder;
+    color: white;
+}
+.school-name1 {
+    font-family: "Jameel-Kasheeda";
+    margin-bottom: 40px;
+    margin-top: 30px;
+    font-size: 50px;
+    letter-spacing: 1px;
+    font-weight: bolder;
+    
+}
+
+.school-description {
+    margin-top: -15px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    font-family: "Jameel-Kasheeda";
+}
+
+button {
+    font-family: "Alvi" !important;
+    border-radius: 40px;
+    border: 1px solid #6673FC;
+    background-color: #6673FC;
+    /* background: -webkit-linear-gradient(to right, #6673FC, #FF416C);
+    background: linear-gradient(to right, #FF4B2B, #6673FC); */
+    color: #FFFFFF;
+    font-size: 16px;
+    /* margin-top: 15px; */
+    font-weight: bold;
+    /* padding: 4px 30px; */
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: transform 80ms ease-in;
+    transition: 0.5s;
+}
+
+.fa-eye-slash,
+.fa-eye {
+    position: relative;
+    right: 89%;
+    font-size: 14px;
+    top: -42px;
+    /* overflow: hidden; */
+    
+}
+
+
+
