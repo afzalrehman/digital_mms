@@ -31,6 +31,9 @@ body {
  
 }
 
+.error-border{
+    border: 1px solid red !important;
+}
 /* 
 ================================================
 =============== All Complete Css ===============
@@ -70,6 +73,7 @@ input[type="number"] {
     font-family: "Nafees";
     font-weight: 600;
 }
+
 
 .jameel-kasheeda {
     font-family: "Jameel-Kasheeda";

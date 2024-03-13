@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="stylesheet" href="./assets/css/umar.css">
 
+
+
   <!-- <link rel="stylesheet" href="./assets/css/template/owl.carousel.min.css"> -->
   <link rel="stylesheet" href="./assets/css/bootstrap/style.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">

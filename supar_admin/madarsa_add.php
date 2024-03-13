@@ -5,6 +5,7 @@ include "includes/header.php";
 include "includes/sidebar.php";
 include "includes/navbar.php";
 ?>
+
 <!-- Main Content (Start) -->
 <div class="container-fluid">
   <!-- Main Content Header Card (Start) -->
@@ -43,68 +44,51 @@ include "includes/navbar.php";
           <h4 class="card-title mb-0 fs-7 text-primary"> 1۔ مدرسہ کے معلومات</h4>
         </div>
         <div class="card-body">
-          <form method="post" action="code.php">
+          <form method="post" id="MadarsaAdd" action="code.php">
             <div class="row g-4">
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="reg-number">رجسٹریشن نمبر</label>
-                <input type="number" name="register" class="form-control fw-semibold fs-3"  placeholder="#04321" />
-                <span class="inter error text-danger"> <?php if (isset($_SESSION['errors']['register'])) {
-                                                          echo $_SESSION['errors']['register'];
-                                                          unset($_SESSION['errors']['register']);
-                                                        } ?></span>
+                <label class="fs-5 mb-1" for="reg-number">رجسٹریشن نمبر <span class="text-danger fs-7">*</span></label>
+                <input type="number" id="RegNumber" name="register" class="form-control fw-semibold fs-3" placeholder="#04321" />
+                <span class="text-danger RegNumber"></span>
+              </div>
 
-              </div>
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="std-area">مدرسہ کا نام</label>
-                <input type="text" name="name" class="form-control fw-semibold fs-3 urduInput"  placeholder="مدرسہ کا نام" />
-                <span class="inter error text-danger"> <?php if (isset($_SESSION['errors']['name'])) {
-                                                          echo $_SESSION['errors']['name'];
-                                                          unset($_SESSION['errors']['name']);
-                                                        } ?></span>
+                <label class="fs-5 mb-1" for="std-area">مدرسہ کا نام <span class="text-danger fs-7">*</span></label>
+                <input type="text" name="name" id="Name" class="form-control fw-semibold fs-3 urduInput" placeholder="مدرسہ کا نام" />
+                <span class="text-danger Name"></span>
               </div>
+
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="std-area">شہر ایڈ کریں</label>
-                <input type="text" name="city" class="form-control fw-semibold fs-3 urduInput"  placeholder="شہر ایڈ کریں" />
-                <span class="inter error text-danger"> <?php if (isset($_SESSION['errors']['city'])) {
-                                                          echo $_SESSION['errors']['city'];
-                                                          unset($_SESSION['errors']['city']);
-                                                        } ?></span>
+                <label class="fs-5 mb-1" for="std-area">شہر ایڈ کریں <span class="text-danger fs-7">*</span></label>
+                <input type="text" name="city" id="madCity" class="form-control fw-semibold fs-3 urduInput" placeholder="شہر ایڈ کریں" />
+                <span class="text-danger madCity"></span>
               </div>
+
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="std-area">مدرسہ کا پتہ</label>
-                <input type="text" name="address" class="form-control fw-semibold fs-3 urduInput"  placeholder="مدرسہ کا پتہ" />
-                <span class="inter error text-danger"> <?php if (isset($_SESSION['errors']['address'])) {
-                                                          echo $_SESSION['errors']['address'];
-                                                          unset($_SESSION['errors']['address']);
-                                                        } ?></span>
+                <label class="fs-5 mb-1" for="std-area">مدرسہ کا پتہ <span class="text-danger fs-7">*</span></label>
+                <input type="text" name="address" id="madAddress" class="form-control fw-semibold fs-3 urduInput" placeholder="مدرسہ کا پتہ" />
+                <span class="text-danger madAddress"></span>
               </div>
+
               <div class="col-md-6">
-                <label class="fs-5  mb-1" for="std-area">قایؑم شدہ تاریخ</label>
-                <input type="number" name="date" class="form-control fw-semibold fs-3"  placeholder="قایؑم شدہ تاریخ" />
-                <span class="inter error text-danger"> <?php if (isset($_SESSION['errors']['date'])) {
-                                                          echo $_SESSION['errors']['date'];
-                                                          unset($_SESSION['errors']['date']);
-                                                        } ?></span>
+                <label class="fs-5  mb-1" for="std-area">قایؑم شدہ تاریخ <span class="text-danger fs-7">*</span></label>
+                <input type="date" name="date" id="madDate" class="form-control fw-semibold fs-3" placeholder="قایؑم شدہ تاریخ" />
+                <span class="text-danger madDate"></span>
               </div>
+
               <div class="col-md-6">
-                <label class="fs-5  mb-1" for="std-area">مدرسہ کا ای میل</label>
-                <input type="email" name="email" class="form-control fw-semibold fs-3"  placeholder="مدرسہ کا ای میل" />
-                <span class="inter error text-danger"> <?php if (isset($_SESSION['errors']['email'])) {
-                                                          echo $_SESSION['errors']['email'];
-                                                          unset($_SESSION['errors']['email']);
-                                                        } ?></span>
+                <label class="fs-5  mb-1" for="std-area">مدرسہ کا ای میل <span class="text-danger fs-7">*</span></label>
+                <input type="email" name="email" id="madEmail" class="form-control fw-semibold fs-3" placeholder="مدرسہ کا ای میل" />
+                <span class="text-danger madEmail"></span>
                 <span class="inter error text-danger"><?php if (isset($_SESSION['email'])) {
                                                         echo $_SESSION['email'];
                                                         unset($_SESSION['email']);
                                                       } ?></span>
               </div>
               <div class="col-md-6">
-                <label class="fs-5  mb-1" for="std-area">فون نمبر </label>
-                <input type="number" name="phone" class="form-control fw-semibold fs-3"  placeholder="فون نمبر " />
-                <span class="inter error text-danger"> <?php if (isset($_SESSION['errors']['phone'])) {
-                                                          echo $_SESSION['errors']['phone'];
-                                                          unset($_SESSION['errors']['phone']);
-                                                        } ?></span>
+                <label class="fs-5  mb-1" for="std-area">فون نمبر <span class="text-danger fs-7">*</span> </label>
+                <input type="number" id="madPhone" inputmode="numeric" name="phone" class="form-control fw-semibold fs-3" maxlength="11" placeholder="فون نمبر" oninput="this.value = this.value.slice(0, 11)" />
+                <span class="text-danger madPhone"></span>
                 <span class="inter error text-danger"><?php if (isset($_SESSION['phone'])) {
                                                         echo $_SESSION['phone'];
                                                         unset($_SESSION['phone']);
@@ -112,9 +96,7 @@ include "includes/navbar.php";
               </div>
               <div class="col-md-12">
                 <label class="fs-5  mb-1" for="std-area">ٹیسک ایڈ کریں</label>
-                <textarea name="description" class="form-control fw-semibold fs-3 urduInput" ></textarea>
-
-                <!-- <span class="error" id="std-area-err"></span> -->
+                <textarea name="description" class="form-control fw-semibold fs-3 urduInput"></textarea>
               </div>
 
               <div class="col-md-12 mt-4 jameel-kasheeda">
@@ -124,15 +106,8 @@ include "includes/navbar.php";
         </div>
       </div>
     </div>
-
     <!-- Submit Button -->
-
   </div>
-
-
-
-
-
 </div>
 </div>
 <!-- Student Admission Form (End) -->
@@ -141,8 +116,8 @@ include "includes/navbar.php";
 </div>
 <div class="dark-transparent sidebartoggler"></div>
 </div>
-
 <?php
 include "includes/mobileNavbar.php";
 include "includes/footer.php";
 ?>
+<script src="../assets/js/error/madrasaAddErorr.js"></script>

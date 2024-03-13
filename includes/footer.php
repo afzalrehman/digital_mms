@@ -25,6 +25,7 @@
 <script src="./assets/js/template/apexcharts.min.js"></script>
 <!-- <script src="./assets/js/template/widgets-charts.js"></script> -->
 <script src="./assets/js/template/dashboard.js"></script>
+
 </body>
 
 </html>
