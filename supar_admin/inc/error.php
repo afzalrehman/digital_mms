@@ -1,27 +1,38 @@
-<script>
-  <?php if (isset($_SESSION['message'])) { ?>
+<!-- delete error message  -->
+<?php if (isset($_SESSION['delete'])) { ?>
+  <script>
     document.addEventListener("DOMContentLoaded", function() {
-      displayToast("success", $_SESSION['message']);
+      displayToast("danger", "<?php echo $_SESSION['delete']; ?>");
     });
-    <?php unset($_SESSION['message']); ?>
-  <?php } ?>
-  <?php if (isset($_SESSION['update'])) { ?>
-    document.addEventListener("DOMContentLoaded", function() {
-      displayToast("success", $_SESSION['update']);
-    });
-    <?php unset($_SESSION['update']); ?>
-  <?php } ?>
-  // <?php if (isset($_SESSION['update'])) { ?>
-  //   document.addEventListener("DOMContentLoaded", function() {
-  //     displayToast("warning", "آپ کے کوڈ میں ایررہے");
-  //   });
-  //   <?php unset($_SESSION['update']); ?>
-  // <?php } ?>
+  </script>
+  <?php unset($_SESSION['delete']); ?>
+<?php } ?>
 
-  <?php if (isset($_SESSION['delete'])) { ?>
+<!-- inert error message  -->
+<?php if (isset($_SESSION['message'])) {
+?>
+  <script>
     document.addEventListener("DOMContentLoaded", function() {
-      displayToast("danger", $_SESSION['delete']);
+      displayToast("success", "<?php echo $_SESSION['message']; ?>");
     });
-    <?php unset($_SESSION['delete']); ?>
-  <?php } ?>
-</script>
+  </script>
+  <?php unset($_SESSION['message']); ?>
+<?php } ?>
+
+<?php if (isset($_SESSION['update'])) { ?>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      displayToast("warning", "<?php echo $_SESSION['update']; ?>");
+    });
+  </script>
+  <?php unset($_SESSION['update']); ?>
+<?php } ?>
+
+<!-- <?php if (isset($_SESSION['update'])) { ?>
+  <script>
+    // document.addEventListener("DOMContentLoaded", function() {
+    // displayToast("warning", "آپ کے کوڈ میں ایررہے");
+    // });
+  </script>
+ <?php unset($_SESSION['update']); ?>
+   <?php } ?> -->

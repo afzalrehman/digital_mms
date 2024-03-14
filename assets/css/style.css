@@ -77,12 +77,14 @@ input[type="number"] {
 
 .jameel-kasheeda {
     font-family: "Jameel-Kasheeda";
-    font-weight: 600;
+    font-weight: 800;
+    font-size: 16px;
 }
 
 .jameel-regular {
     font-family: "Jameel-Regular";
     font-weight: 600;
+    font-size: 22px;
 }
 
 .inter {

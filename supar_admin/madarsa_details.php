@@ -1,7 +1,7 @@
 <?php
 session_start();
-// include "./config/config.php"; 
-// include "function.php";
+include "../includes/config.php"; 
+include "../includes/function.php";
 include "inc/header.php";
 include "inc/sidebar.php";
 include "inc/navbar.php";
@@ -54,7 +54,7 @@ include "inc/navbar.php";
             </thead>
             <tbody class="border-top">
               <?php
-              $select = "SELECT * FROM `madrasa` where `status` = 'active'";
+              $select = "SELECT * FROM `madarsa` where `status` = 'active'";
               $result = mysqli_query($conn, $select);
               if (mysqli_num_rows($result) > 0) {
                 $no = 1;
@@ -66,7 +66,7 @@ include "inc/navbar.php";
                       <p class="mb-0 fs-2 inter"><?= $no++ ?></p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-2 inter"><?= $item['register_no'] ?></p>
+                      <p class="mb-0 fs-2 inter"><?= $item['RigitarNumber'] ?></p>
                     </td>
                     <td>
                       <p class="mb-0 fs-4 word-spacing-2px"><?= $item['madarsa_name'] ?></p>
@@ -75,7 +75,7 @@ include "inc/navbar.php";
                       <p class="mb-0 fs-4 word-spacing-2px"><?= $item['establish_date'] ?></p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-2 inter"><?= $item['madarsa_phone'] ?></p>
+                      <p class="mb-0 fs-2 inter"><?= $item['phone'] ?></p>
                     </td>
 
                     <td>
@@ -83,7 +83,7 @@ include "inc/navbar.php";
                         <a href="madarasa_vewimore.php?madarsa_vewimore=<?= $item['madarsa_id']?>" class="text-info ms-1">
                           <i class="ti ti-eye fs-6"></i>
                         </a>
-                        <a href="edit_madarasa.php?edit_madarasa=<?= $item['madarsa_id']?>" class="text-success">
+                        <a href="madarasa_edit.php?edit_madarasa=<?= $item['madarsa_id']?>" class="text-success">
                           <i class="ti ti-edit fs-6"></i>
                         </a>
                         <button type="button" class="border-0  rounded-2 p-0 py-1 " data-bs-toggle="modal" data-bs-target="#deleteModal<?= $item['madarsa_id'] ?>">

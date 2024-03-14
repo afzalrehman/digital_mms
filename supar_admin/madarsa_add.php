@@ -35,7 +35,7 @@ include "inc/navbar.php";
   </div>
   <!-- Main Content Header Card (End) -->
 
-  <!-- Student Admission Form (Start) -->
+  <!-- madarasa add Form (Start) -->
   <div class="row">
     <!-- Madarsa Info -->
     <div class="col-12">

@@ -1,8 +1,10 @@
-<?php include "../includes/config.php"; ?>
-<?php include "../includes/function.php"; ?>
+<?php
+include "../includes/config.php";
+include "../includes/function.php";
+session_start();
+?>
 <!-- ==========================Madarsa add code ========================= -->
 <?php
-session_start();
 $errors = [];
 if (isset($_POST['ins_submit'])) {
     $register  = mysqli_real_escape_string($conn, $_POST['register']);
@@ -13,42 +15,10 @@ if (isset($_POST['ins_submit'])) {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $phone  = mysqli_real_escape_string($conn, $_POST['phone']);
     $description  = mysqli_real_escape_string($conn, $_POST['description']);
-
-    // if (empty($register) || empty($name) ||  empty($city) || empty($address) || empty($date) || empty($email) || empty($phone)) {
-    //     if (empty($register)) {
-    //         $errors['register'] = 'براۓ مہربانئ مدرسہ کا رجسٹریشن نمبر ایڈ کریں';
-    //     }
-    //     if (empty($name)) {
-    //         $errors['name'] = ' مہربانئ مدرسہ کا نام نمبر ایڈ کریں';
-    //     }
-    //     if (empty($city)) {
-    //         $errors['city'] = ' مہربانئ مدرسہ کس شہرمیں ہے ایڈ کریں';
-    //     }
-    //     if (empty($address)) {
-    //         $errors['address'] = ' مہربانئ مدرسہ کا پتہ نمبر ایڈ کریں';
-    //     }
-    //     if (empty($date)) {
-    //         $errors['date'] = ' مہربانئ مدرسہ کا قائم شدہ تاریخ ایڈ کریں';
-    //     }
-    //     if (empty($email)) {
-    //         $errors['email'] = ' مہربانئ مدرسہ کا ای میل  ایڈ کریں';
-    //     }
-    //     if (empty($phone)) {
-    //         $errors['phone'] = ' مہربانئ مدرسہ کا فون نمبر ایڈ کریں';
-    //     }
-    // }
-    // if (!empty($errors)) {
-    //     $_SESSION['errors'] = $errors;
-    //     $_SESSION['input'] = $_POST;
-    //     header("location: madarsa_add.php");
-    //     exit();
-    // } else {
-
     $checkQuery = "SELECT * FROM `madarsa` WHERE `madarsa_emial` = '$email' ";
     $checkResult = mysqli_query($conn, $checkQuery);
 
     if (mysqli_num_rows($checkResult) > 0) {
-        // Class with the same name already exists
         $_SESSION['email'] = 'مدرسہ کا ای میل پہلے سے موجود ہے';
         header("location: madarsa_add.php");
         exit();
@@ -57,36 +27,30 @@ if (isset($_POST['ins_submit'])) {
     $checkResult = mysqli_query($conn, $checkQuery);
 
     if (mysqli_num_rows($checkResult) > 0) {
-        // Class with the same name already exists
         $_SESSION['phone'] = 'مدرسہ کا فون پہلے سے موجود ہے';
         header("location: madarsa_add.php");
         exit();
     } else {
         $insertQuery = "INSERT INTO `madarsa` (`RigitarNumber`, `madarsa_name`, `city`, `address`, `establish_date`, `madarsa_emial`,`phone`,`description`, `created_by`,`created_date`)
         VALUES ('$register','$name','$city','$address','$date', '$email','$phone','$description','قاری عبداللہ صاحب', NOW())";
-        if (mysqli_query($conn, $insertQuery)) {
-            // header("location:All_institue.php");
+        if (mysqli_query($conn, $insertQuery)) {;
             unset($_SESSION['input']);
-            redirect("madarsa_add.php", "Your Data Insert Succses");
+            redirect("madarsa_add.php", " مدرسہ ایڈ ہو چکا ہے");
             exit();
         } else {
-            // Insertion failed
             $_SESSION['error_message'] = 'Error in adding announcement. Please try again.';
-            // header("location: annoucement-form.php");
-            // exit();
             header("location:madarsa_add.php");
             exit();
         }
     }
 }
-// }
 // <!-- =========================institute delete page code =============================== -->
 if (isset($_GET['madarsa_delete'])) {
     $madarsa_id = $_GET['madarsa_delete'];
-    $update_query = "UPDATE `madrasa` SET `status` = 'inactive' WHERE `madarsa_id` = '$madarsa_id'";
+    $update_query = "UPDATE `madarsa` SET `status` = 'inactive' WHERE `madarsa_id` = '$madarsa_id'";
     $sql = mysqli_query($conn, $update_query);
     if ($sql) {
-        redirectdelete("madarsa_details.php", "Your Data Delete Succses");
+        redirectdelete("madarsa_details.php", "مدرسہ دیلیٹ ہوچکا ہے");
         exit();
     } else {
         header("location:madarsa_details.php");
@@ -105,37 +69,7 @@ if (isset($_POST['ins_update'])) {
     $phone  = mysqli_real_escape_string($conn, $_POST['phone']);
     $description  = mysqli_real_escape_string($conn, $_POST['description']);
 
-    if (empty($register) || empty($name) ||  empty($city) || empty($address) || empty($date) || empty($email) || empty($phone)) {
-        if (empty($register)) {
-            $errors['register'] = 'براۓ مہربانئ مدرسہ کا رجسٹریشن نمبر ایڈ کریں';
-        }
-        if (empty($name)) {
-            $errors['name'] = ' مہربانئ مدرسہ کا نام نمبر ایڈ کریں';
-        }
-        if (empty($city)) {
-            $errors['city'] = ' مہربانئ مدرسہ کس شہرمیں ہے ایڈ کریں';
-        }
-        if (empty($address)) {
-            $errors['address'] = ' مہربانئ مدرسہ کا پتہ نمبر ایڈ کریں';
-        }
-        if (empty($date)) {
-            $errors['date'] = ' مہربانئ مدرسہ کا قائم شدہ تاریخ ایڈ کریں';
-        }
-        if (empty($email)) {
-            $errors['email'] = ' مہربانئ مدرسہ کا ای میل  ایڈ کریں';
-        }
-        if (empty($phone)) {
-            $errors['phone'] = ' مہربانئ مدرسہ کا فون نمبر ایڈ کریں';
-        }
-    }
-    if (!empty($errors)) {
-        $_SESSION['errors'] = $errors;
-        $_SESSION['input'] = $_POST;
-        header("location: madarsa_add.php");
-        exit();
-    } else {
-
-        $checkQuery = "SELECT * FROM `madrasa` WHERE `madarsa_email` = '$email' AND `madarsa_id` !='$id_update' ";
+        $checkQuery = "SELECT * FROM `madarsa` WHERE `madarsa_emial` = '$email' AND `madarsa_id` !='$id_update' ";
         $checkResult = mysqli_query($conn, $checkQuery);
 
         if (mysqli_num_rows($checkResult) > 0) {
@@ -144,7 +78,7 @@ if (isset($_POST['ins_update'])) {
             header("location: madarsa_add.php");
             exit();
         }
-        $checkQuery = "SELECT * FROM `madrasa` WHERE `madarsa_phone` = '$phone' AND `madarsa_id` !='$id_update'";
+        $checkQuery = "SELECT * FROM `madarsa` WHERE `phone` = '$phone' AND `madarsa_id` !='$id_update'";
         $checkResult = mysqli_query($conn, $checkQuery);
 
         if (mysqli_num_rows($checkResult) > 0) {
@@ -153,37 +87,32 @@ if (isset($_POST['ins_update'])) {
             header("location: madarsa_add.php");
             exit();
         } else {
-            $updateQuery = "UPDATE `madrasa` 
+            $updateQuery = "UPDATE `madarsa` 
             SET 
-                `register_no` = '$register',
+                `RigitarNumber` = '$register',
                 `madarsa_name` = '$name',
-                `madarsa_city` = '$city',
-                `madarsa_address` = '$address',
+                `city` = '$city',
+                `address` = '$address',
                 `establish_date` = '$date',
-                `madarsa_email` = '$email',
-                `madarsa_phone` = '$phone',
-                `madarsa_description` = '$description',
-                `created_by` = 'قاری عبداللہ صاحب',
-                `created_date` = NOW()
+                `madarsa_emial` = '$email',
+                `phone` = '$phone',
+                `description` = '$description',
+                `updated_by` = 'قاری عبداللہ صاحب',
+                `updated_date` = NOW()
             WHERE
                 `madarsa_id` = '$id_update'";
 
             if (mysqli_query($conn, $updateQuery)) {
-                // header("location:All_institue.php");
                 unset($_SESSION['input']);
-                redirectupdate("madarsa_details.php", "Your Data Insert Succses");
+                redirectupdate("madarsa_details.php", "آپ کا ڈیٹا اپڈیٹ ہوچکا ہے");
                 exit();
             } else {
-                // Insertion failed
                 $_SESSION['error_message'] = 'Error in adding announcement. Please try again.';
-                // header("location: annoucement-form.php");
-                // exit();
                 header("location:madarsa_details.php");
                 exit();
             }
         }
     }
-}
 // ======================section add========================
 
 // if (isset($_POST['section_add'])) {
