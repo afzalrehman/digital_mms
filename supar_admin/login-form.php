@@ -1,5 +1,5 @@
 <?php
-include "includes/header.php";
+include "inc/header.php";
 ?>
   <!-- Login Form Start -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -46,6 +46,6 @@ include "includes/header.php";
   <!-- Login Form End -->
 
   <?php
-include "includes/mobileNavbar.php";
-include "includes/footer.php";
+include "inc/mobileNavbar.php";
+include "inc/footer.php";
 ?>

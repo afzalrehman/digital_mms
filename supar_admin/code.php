@@ -1,5 +1,5 @@
-<?php include "../config/config.php"; ?>
-<?php include "includes/function.php"; ?>
+<?php include "../includes/config.php"; ?>
+<?php include "../includes/function.php"; ?>
 <!-- ==========================Madarsa add code ========================= -->
 <?php
 session_start();
@@ -44,41 +44,41 @@ if (isset($_POST['ins_submit'])) {
     //     exit();
     // } else {
 
-        $checkQuery = "SELECT * FROM `madarsa` WHERE `madarsa_emial` = '$email' ";
-        $checkResult = mysqli_query($conn, $checkQuery);
+    $checkQuery = "SELECT * FROM `madarsa` WHERE `madarsa_emial` = '$email' ";
+    $checkResult = mysqli_query($conn, $checkQuery);
 
-        if (mysqli_num_rows($checkResult) > 0) {
-            // Class with the same name already exists
-            $_SESSION['email'] = 'مدرسہ کا ای میل پہلے سے موجود ہے';
-            header("location: madarsa_add.php");
-            exit();
-        }
-        $checkQuery = "SELECT * FROM `madarsa` WHERE `phone` = '$phone' ";
-        $checkResult = mysqli_query($conn, $checkQuery);
+    if (mysqli_num_rows($checkResult) > 0) {
+        // Class with the same name already exists
+        $_SESSION['email'] = 'مدرسہ کا ای میل پہلے سے موجود ہے';
+        header("location: madarsa_add.php");
+        exit();
+    }
+    $checkQuery = "SELECT * FROM `madarsa` WHERE `phone` = '$phone' ";
+    $checkResult = mysqli_query($conn, $checkQuery);
 
-        if (mysqli_num_rows($checkResult) > 0) {
-            // Class with the same name already exists
-            $_SESSION['phone'] = 'مدرسہ کا فون پہلے سے موجود ہے';
-            header("location: madarsa_add.php");
+    if (mysqli_num_rows($checkResult) > 0) {
+        // Class with the same name already exists
+        $_SESSION['phone'] = 'مدرسہ کا فون پہلے سے موجود ہے';
+        header("location: madarsa_add.php");
+        exit();
+    } else {
+        $insertQuery = "INSERT INTO `madarsa` (`RigitarNumber`, `madarsa_name`, `city`, `address`, `establish_date`, `madarsa_emial`,`phone`,`description`, `created_by`,`created_date`)
+        VALUES ('$register','$name','$city','$address','$date', '$email','$phone','$description','قاری عبداللہ صاحب', NOW())";
+        if (mysqli_query($conn, $insertQuery)) {
+            // header("location:All_institue.php");
+            unset($_SESSION['input']);
+            redirect("madarsa_add.php", "Your Data Insert Succses");
             exit();
         } else {
-            $insertQuery = "INSERT INTO `madarsa` (`RigitarNumber`, `madarsa_name`, `city`, `address`, `establish_date`, `madarsa_emial`,`phone`,`description`, `created_by`,`created_date`)
-        VALUES ('$register','$name','$city','$address','$date', '$email','$phone','$description','قاری عبداللہ صاحب', NOW())";
-            if (mysqli_query($conn, $insertQuery)) {
-                // header("location:All_institue.php");
-                unset($_SESSION['input']);
-                redirect("madarsa_add.php", "Your Data Insert Succses");
-                exit();
-            } else {
-                // Insertion failed
-                $_SESSION['error_message'] = 'Error in adding announcement. Please try again.';
-                // header("location: annoucement-form.php");
-                // exit();
-                header("location:madarsa_add.php");
-                exit();
-            }
+            // Insertion failed
+            $_SESSION['error_message'] = 'Error in adding announcement. Please try again.';
+            // header("location: annoucement-form.php");
+            // exit();
+            header("location:madarsa_add.php");
+            exit();
         }
     }
+}
 // }
 // <!-- =========================institute delete page code =============================== -->
 if (isset($_GET['madarsa_delete'])) {

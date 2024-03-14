@@ -1,5 +1,5 @@
 <?php
-include "includes/header.php";
+include "inc/header.php";
 ?>
     <div class="container width-100">
         <form action="">
@@ -55,6 +55,6 @@ include "includes/header.php";
     </div>
 
     <?php
-include "includes/mobileNavbar.php";
-include "includes/footer.php";
+include "inc/mobileNavbar.php";
+include "inc/footer.php";
 ?>

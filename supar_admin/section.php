@@ -1,7 +1,7 @@
 <?php
-include "includes/header.php";
-include "includes/sidebar.php";
-include "includes/navbar.php";
+include "inc/header.php";
+include "inc/sidebar.php";
+include "inc/navbar.php";
 ?>
       <div class="container-fluid">
         <!-- Main Content Header Card (Start) -->
@@ -120,6 +120,6 @@ include "includes/navbar.php";
   </div>
 
   <?php
-include "includes/mobileNavbar.php";
-include "includes/footer.php";
+include "inc/mobileNavbar.php";
+include "inc/footer.php";
 ?>

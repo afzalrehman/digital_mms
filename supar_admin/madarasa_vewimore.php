@@ -1,9 +1,9 @@
 <?php
 session_start();
 include 'config/config.php';
-include("./includes/header.php");
-include("./includes/sidebar.php");
-include("./includes/navbar.php");
+include("./inc/header.php");
+include("./inc/sidebar.php");
+include("./inc/navbar.php");
 ?>
 <div class="content-wrapper">
     <!-- Content -->
@@ -116,4 +116,4 @@ include("./includes/navbar.php");
         ?>
             </div>
 </div>
-<?php include("./includes/footer.php") ?>
+<?php include("./inc/footer.php") ?>

@@ -1,5 +1,5 @@
-<?php include "../config/config.php";?>
 <?php
+include "config.php";
 function redirect($url, $message)
 {
    $_SESSION['message'] = $message;
@@ -18,5 +18,3 @@ function redirectupdate($url, $message)
    header("Location: " . $url);
    exit();
 };
-
-?>
