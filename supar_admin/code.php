@@ -113,6 +113,42 @@ if (isset($_POST['ins_update'])) {
             }
         }
     }
+
+
+// <!-- ========================= betch Name Add =============================== -->
+if (isset($_POST['BatchBtn'])) {
+
+    $admission_date = mysqli_real_escape_string($conn, $_POST['admission_date']);
+    $madarasa = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $batch_name = mysqli_real_escape_string($conn, $_POST['batch_name']);
+    $start_date = mysqli_real_escape_string($conn, $_POST['start_date']);
+    $last_date = mysqli_real_escape_string($conn, $_POST['last_date']);
+        $checkQuery = "SELECT * FROM `batch` WHERE 
+            `Name` = '$batch_name' AND 
+            `madarsa_id` = '$madarasa'";
+
+        $checkResult = mysqli_query($conn, $checkQuery);
+
+        if (mysqli_num_rows($checkResult) > 0) {
+            $_SESSION['batch_name_exit'] = 'This Batch Name for the Institute Already Exists';
+            header("location: batch.php");
+            exit();
+        } else {
+            $insert_query = "INSERT INTO `batch` (`Name`, `start_date`, 
+            `end_date`, `madarsa_id`, `admission_date`)
+        VALUES ('$batch_name','$start_date','$last_date',
+        '$madarasa','$admission_date')";
+
+            $insert_result = mysqli_query($conn, $insert_query);
+
+            if ($insert_result) {
+                redirect("batch.php", "آپ کا ڈیٹا اپڈیٹ ہوچکا ہے");
+            } else {
+                echo 'Error adding fee details.';
+            }
+        }
+    }
+
 // ======================section add========================
 
 // if (isset($_POST['section_add'])) {
