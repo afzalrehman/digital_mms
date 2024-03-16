@@ -49,12 +49,13 @@ include "inc/navbar.php";
                 <th class="fs-5 word-spacing-2px text-primary">نام</th>
                 <th class="fs-5 word-spacing-2px text-primary">قائم شدہ تاریخ</th>
                 <th class="fs-5 word-spacing-2px text-primary">فون نمبر</th>
+                <th class="fs-5 word-spacing-2px text-primary">حالت</th>
                 <th class="fs-5 word-spacing-2px text-primary">انتخاب کریں</th>
               </tr>
             </thead>
             <tbody class="border-top">
               <?php
-              $select = "SELECT * FROM `madarsa` where `status` = 'active'";
+              $select = "SELECT * FROM `madarsa`  ORDER BY madarsa_id DESC";
               $result = mysqli_query($conn, $select);
               if (mysqli_num_rows($result) > 0) {
                 $no = 1;
@@ -77,6 +78,15 @@ include "inc/navbar.php";
                     <td>
                       <p class="mb-0 fs-2 inter"><?= $item['phone'] ?></p>
                     </td>
+                    <td>
+                    <?php
+                    if ($item['status'] === 'فعال') {
+                      echo '<p class="mb-0 fs-2 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $item['status'] . '</p>';
+                    } else {
+                      echo '<p class="mb-0 fs-2 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $item['status'] . '</p>';
+                    }
+                    ?>
+                  </td>
 
                     <td>
                       <div class="action-btn">

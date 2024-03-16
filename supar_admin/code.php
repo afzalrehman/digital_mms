@@ -47,7 +47,7 @@ if (isset($_POST['ins_submit'])) {
 // <!-- =========================institute delete page code =============================== -->
 if (isset($_GET['madarsa_delete'])) {
     $madarsa_id = $_GET['madarsa_delete'];
-    $update_query = "UPDATE `madarsa` SET `status` = 'inactive' WHERE `madarsa_id` = '$madarsa_id'";
+    $update_query = "UPDATE `madarsa` SET `status` = 'غیر فعال' WHERE `madarsa_id` = '$madarsa_id'";
     $sql = mysqli_query($conn, $update_query);
     if ($sql) {
         redirectdelete("madarsa_details.php", "مدرسہ دیلیٹ ہوچکا ہے");
@@ -69,25 +69,25 @@ if (isset($_POST['ins_update'])) {
     $phone  = mysqli_real_escape_string($conn, $_POST['phone']);
     $description  = mysqli_real_escape_string($conn, $_POST['description']);
 
-        $checkQuery = "SELECT * FROM `madarsa` WHERE `madarsa_emial` = '$email' AND `madarsa_id` !='$id_update' ";
-        $checkResult = mysqli_query($conn, $checkQuery);
+    $checkQuery = "SELECT * FROM `madarsa` WHERE `madarsa_emial` = '$email' AND `madarsa_id` !='$id_update' ";
+    $checkResult = mysqli_query($conn, $checkQuery);
 
-        if (mysqli_num_rows($checkResult) > 0) {
-            // Class with the same name already exists
-            $_SESSION['email'] = 'مدرسہ کا ای میل پہلے سے موجود ہے';
-            header("location: madarsa_add.php");
-            exit();
-        }
-        $checkQuery = "SELECT * FROM `madarsa` WHERE `phone` = '$phone' AND `madarsa_id` !='$id_update'";
-        $checkResult = mysqli_query($conn, $checkQuery);
+    if (mysqli_num_rows($checkResult) > 0) {
+        // Class with the same name already exists
+        $_SESSION['email'] = 'مدرسہ کا ای میل پہلے سے موجود ہے';
+        header("location: madarsa_add.php");
+        exit();
+    }
+    $checkQuery = "SELECT * FROM `madarsa` WHERE `phone` = '$phone' AND `madarsa_id` !='$id_update'";
+    $checkResult = mysqli_query($conn, $checkQuery);
 
-        if (mysqli_num_rows($checkResult) > 0) {
-            // Class with the same name already exists
-            $_SESSION['phone'] = 'مدرسہ کا فون پہلے سے موجود ہے';
-            header("location: madarsa_add.php");
-            exit();
-        } else {
-            $updateQuery = "UPDATE `madarsa` 
+    if (mysqli_num_rows($checkResult) > 0) {
+        // Class with the same name already exists
+        $_SESSION['phone'] = 'مدرسہ کا فون پہلے سے موجود ہے';
+        header("location: madarsa_add.php");
+        exit();
+    } else {
+        $updateQuery = "UPDATE `madarsa` 
             SET 
                 `RigitarNumber` = '$register',
                 `madarsa_name` = '$name',
@@ -102,19 +102,17 @@ if (isset($_POST['ins_update'])) {
             WHERE
                 `madarsa_id` = '$id_update'";
 
-            if (mysqli_query($conn, $updateQuery)) {
-                unset($_SESSION['input']);
-                redirectupdate("madarsa_details.php", "آپ کا ڈیٹا اپڈیٹ ہوچکا ہے");
-                exit();
-            } else {
-                $_SESSION['error_message'] = 'Error in adding announcement. Please try again.';
-                header("location:madarsa_details.php");
-                exit();
-            }
+        if (mysqli_query($conn, $updateQuery)) {
+            unset($_SESSION['input']);
+            redirectupdate("madarsa_details.php", "آپ کا ڈیٹا اپڈیٹ ہوچکا ہے");
+            exit();
+        } else {
+            $_SESSION['error_message'] = 'Error in adding announcement. Please try again.';
+            header("location:madarsa_details.php");
+            exit();
         }
     }
-
-
+}
 // <!-- ========================= betch Name Add =============================== -->
 if (isset($_POST['BatchBtn'])) {
 
@@ -123,32 +121,80 @@ if (isset($_POST['BatchBtn'])) {
     $batch_name = mysqli_real_escape_string($conn, $_POST['batch_name']);
     $start_date = mysqli_real_escape_string($conn, $_POST['start_date']);
     $last_date = mysqli_real_escape_string($conn, $_POST['last_date']);
-        $checkQuery = "SELECT * FROM `batch` WHERE 
+    $checkQuery = "SELECT * FROM `batch` WHERE 
             `Name` = '$batch_name' AND 
             `madarsa_id` = '$madarasa'";
 
-        $checkResult = mysqli_query($conn, $checkQuery);
+    $checkResult = mysqli_query($conn, $checkQuery);
 
-        if (mysqli_num_rows($checkResult) > 0) {
-            $_SESSION['batch_name_exit'] = 'This Batch Name for the Institute Already Exists';
-            header("location: batch.php");
-            exit();
-        } else {
-            $insert_query = "INSERT INTO `batch` (`Name`, `start_date`, 
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['batch_name_exit'] = 'یہ ڈیٹاپہلے سے موجود ہے';
+        header("location: batch.php");
+        exit();
+    } else {
+        $insert_query = "INSERT INTO `batch` (`Name`, `start_date`, 
             `end_date`, `madarsa_id`, `admission_date`)
         VALUES ('$batch_name','$start_date','$last_date',
         '$madarasa','$admission_date')";
 
-            $insert_result = mysqli_query($conn, $insert_query);
+        $insert_result = mysqli_query($conn, $insert_query);
 
-            if ($insert_result) {
-                redirect("batch.php", "آپ کا ڈیٹا اپڈیٹ ہوچکا ہے");
-            } else {
-                echo 'Error adding fee details.';
-            }
+        if ($insert_result) {
+            redirect("batch.php", "آپ کا ڈیٹا اپڈیٹ ہوچکا ہے");
+        } else {
+            echo 'Error adding fee details.';
         }
     }
+}
 
+// <!-- =========================batch delete page code =============================== -->
+if (isset($_GET['batch_delete'])) {
+    $madarsa_id = $_GET['batch_delete'];
+    $update_query = "UPDATE `batch` SET `status` = 'غیر فعال' WHERE `batch_id` = '$madarsa_id'";
+    $sql = mysqli_query($conn, $update_query);
+    if ($sql) {
+        redirectdelete("batch.php", "سال دیلیٹ ہوچکا ہے");
+        exit();
+    } else {
+        header("location:batch.php");
+        exit();
+    }
+}
+
+// <!-- ========================= betch Name Update =============================== -->
+if (isset($_POST['Batchupdate'])) {
+    $batch_id = mysqli_real_escape_string($conn, $_POST['batch_id']);
+    $admission_date = mysqli_real_escape_string($conn, $_POST['admission_date']);
+    $madarasa = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $batch_name = mysqli_real_escape_string($conn, $_POST['batch_name']);
+    $start_date = mysqli_real_escape_string($conn, $_POST['start_date']);
+    $last_date = mysqli_real_escape_string($conn, $_POST['last_date']);
+
+    $checkQuery = "SELECT * FROM `batch` WHERE `Name` = '$batch_name' AND `madarsa_id` = '$madarasa' AND `batch_id` !='$batch_id' ";
+    $checkResult = mysqli_query($conn, $checkQuery);
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['batch_name_exit'] = 'یہ ڈیٹاپہلے سے موجود ہے';
+        header("location: batch-edit.php?batch-edit=$batch_id");
+        exit();
+    } else {
+        $update_query = "UPDATE `batch` SET 
+        `Name` = '$batch_name', 
+        `start_date` = '$start_date', 
+        `end_date` = '$last_date', 
+        `madarsa_id` = '$madarasa', 
+        `admission_date` = '$admission_date' 
+        WHERE `batch_id` = '$batch_id'";
+
+        $update_result = mysqli_query($conn, $update_query);
+
+
+        if ($update_result) {
+            redirect("batch.php", "آپ کا ڈیٹا اپڈیٹ ہوچکا ہے");
+        } else {
+            echo 'Error adding fee details.';
+        }
+    }
+}
 // ======================section add========================
 
 // if (isset($_POST['section_add'])) {

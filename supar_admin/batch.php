@@ -62,6 +62,10 @@ include "inc/navbar.php";
                   ?>
                 </select>
                 <span class="text-danger BatchMadd"></span>
+                <span class="inter error text-danger"><?php if (isset($_SESSION['batch_name_exit'])) {
+                                                        echo $_SESSION['batch_name_exit'];
+                                                        unset($_SESSION['batch_name_exit']);
+                                                      } ?></span>
               </div>
 
               <div class="col-md-6">
@@ -114,52 +118,69 @@ include "inc/navbar.php";
           <thead>
             <tr class="fw-semibold">
               <th class="fs-5 word-spacing-2px text-primary">#</th>
-              <th class="fs-5 word-spacing-2px text-primary">رجسٹریشن نمبر</th>
-              <th class="fs-5 word-spacing-2px text-primary">نام</th>
-              <th class="fs-5 word-spacing-2px text-primary">قائم شدہ تاریخ</th>
-              <th class="fs-5 word-spacing-2px text-primary">فون نمبر</th>
+              <th class="fs-5 word-spacing-2px text-primary">مدرسہ </th>
+              <th class="fs-5 word-spacing-2px text-primary">سال کا نام</th>
+              <th class="fs-5 word-spacing-2px text-primary">شروع تاریخ</th>
+              <th class="fs-5 word-spacing-2px text-primary"> آخری تاریخ</th>
+              <th class="fs-5 word-spacing-2px text-primary">ایڈمیشن کا آخری تاریخ</th>
+              <th class="fs-5 word-spacing-2px text-primary">حالت</th>
               <th class="fs-5 word-spacing-2px text-primary">انتخاب کریں</th>
             </tr>
           </thead>
           <tbody class="border-top">
             <?php
-            $select = "SELECT * FROM `madarsa` where `status` = 'active'";
+            $select = "SELECT * FROM `batch` ORDER BY batch_id DESC ";
             $result = mysqli_query($conn, $select);
             if (mysqli_num_rows($result) > 0) {
               $no = 1;
-              // output data of each row
               while ($item = mysqli_fetch_assoc($result)) {
             ?>
                 <tr>
                   <td>
                     <p class="mb-0 fs-2 inter"><?= $no++ ?></p>
                   </td>
+                  <?php
+                  $madarsa_id = $item['madarsa_id'];
+                  $madarsa_id_query = mysqli_query($conn, "SELECT * FROM `madarsa` WHERE `madarsa_id` ='$madarsa_id'");
+                  $madarsas_id = mysqli_fetch_object($madarsa_id_query);
+                  if ($madarsas_id) {
+                    echo '<td><span class="me-1 jameel-kasheeda">' . $madarsas_id->madarsa_name  . '</span></td>';
+                  }
+                  ?>
                   <td>
-                    <p class="mb-0 fs-2 inter"><?= $item['RigitarNumber'] ?></p>
+                    <p class="mb-0 fs-4 word-spacing-2px"><?= $item['Name'] ?></p>
                   </td>
                   <td>
-                    <p class="mb-0 fs-4 word-spacing-2px"><?= $item['madarsa_name'] ?></p>
+                    <p class="mb-0 fs-4 word-spacing-2px"><?= $item['start_date'] ?></p>
                   </td>
                   <td>
-                    <p class="mb-0 fs-4 word-spacing-2px"><?= $item['establish_date'] ?></p>
+                    <p class="mb-0 fs-2 inter"><?= $item['end_date'] ?></p>
                   </td>
                   <td>
-                    <p class="mb-0 fs-2 inter"><?= $item['phone'] ?></p>
+                    <p class="mb-0 fs-2 inter"><?= $item['admission_date'] ?></p>
                   </td>
 
                   <td>
+                    <?php
+                    if ($item['status'] === 'فعال') {
+                      echo '<p class="mb-0 fs-2 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $item['status'] . '</p>';
+                    } else {
+                      echo '<p class="mb-0 fs-2 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $item['status'] . '</p>';
+                    }
+                    ?>
+                  </td>
+
+
+                  <td class="text-center">
                     <div class="action-btn">
-                      <a href="madarasa_vewimore.php?madarsa_vewimore=<?= $item['madarsa_id'] ?>" class="text-info ms-1">
-                        <i class="ti ti-eye fs-6"></i>
-                      </a>
-                      <a href="madarasa_edit.php?edit_madarasa=<?= $item['madarsa_id'] ?>" class="text-success">
+                      <a href="batch-edit.php?batch-edit=<?= $item['batch_id'] ?>" class="text-success">
                         <i class="ti ti-edit fs-6"></i>
                       </a>
-                      <button type="button" class="border-0  rounded-2 p-0 py-1 " data-bs-toggle="modal" data-bs-target="#deleteModal<?= $item['madarsa_id'] ?>">
+                      <button type="button" class="border-0  rounded-2 p-0 py-1 " data-bs-toggle="modal" data-bs-target="#deleteModal<?= $item['batch_id'] ?>">
                         <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
                       </button>
                       <!-- ===================delete institute page modal================== -->
-                      <div class="modal fade" id="deleteModal<?= $item['madarsa_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal fade " id="deleteModal<?= $item['batch_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -168,7 +189,7 @@ include "inc/navbar.php";
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">کلوز</button>
-                              <a href="code.php?madarsa_delete=<?= $item['madarsa_id'] ?>">
+                              <a href="code.php?batch_delete=<?= $item['batch_id'] ?>">
                                 <button type="button" class="btn btn-danger">ڈیلیٹ</button>
                               </a>
                             </div>
@@ -182,7 +203,7 @@ include "inc/navbar.php";
               }
             } else {
               echo '<tr>
-                      <td class="text-danger">مدرسہ موجود نہں ہے </td>
+                      <td class="text-danger">سال موجود نہں ہے </td>
                       </tr>';
             }
             ?>
