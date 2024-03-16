@@ -195,208 +195,149 @@ if (isset($_POST['Batchupdate'])) {
         }
     }
 }
-// ======================section add========================
-
-// if (isset($_POST['section_add'])) {
-//     // Sanitize and retrieve form data
-//     $madrasa_name = mysqli_real_escape_string($conn, $_POST['madrasa_name']);
-//     $section_name = mysqli_real_escape_string($conn, $_POST['section_name']);
-//     $section_discription = mysqli_real_escape_string($conn, $_POST['section_discription']);
-
-//     if (empty($madrasa_name) || empty($section_name)) {
-//         if (empty($madrasa_name)) {
-//             $errors['madrasa_name'] = 'براۓ مہربانی مدرسہ کانام ایڈ کریں';
-//         }
-//         if (empty($section_name)) {
-//             $errors['section'] = 'براۓ مہربانی سیکشن ایڈ کریں';
-//         }
-//         if (!empty($errors)) {
-//             $_SESSION['errors'] = $errors;
-//             $_SESSION['input'] = $_POST;
-//             header("location: section_add.php");
-//             exit();
-//         }
-//     } else {
-//         $secton_qury = mysqli_query($conn, "SELECT * FROM `section` WHERE `madarsa_id` = '$madrasa_name' AND `section_name` = '$section_name'");
-//         $check_reg_no = mysqli_num_rows($secton_qury);
-//         if ($check_reg_no > 0) {
-//             $_SESSION['section'] = "سیکشن نمبر پہلے سے موجود ہے";
-//             header('location: section_add.php');
-//             exit();
-//         }
-//         $insertQuery = "INSERT INTO `section` (`madarsa_id`, `section_name`, `section_discription`, `created_by`,`created_date`)
-//         VALUES ('$madrasa_name' , '$section_name' ,'$section_discription' ,'قاری عبداللہ صاحب', NOW())";
-
-//         if (mysqli_query($conn, $insertQuery)) {
-//             redirect("section_add.php", "آپ کا دیٹا ایڈ ہوچکا ہے");
-//             exit();
-//         } else {
-//             // Insertion failed
-//             $_SESSION['error_message'] = 'Error in adding section. Please try again.';
-//             // header("location: annoucement-form.php");
-//             // exit();
-
-//         }
-//     }
-// }
-
-// // <!-- =========================section delete page code =============================== -->
-// if (isset($_GET['section_delete'])) {
-//     $section_id = $_GET['section_delete'];
-//     $update_query = "UPDATE `section` SET `status` = 'inactive' WHERE `section_Id` = '$section_id'";
-//     $sql = mysqli_query($conn, $update_query);
-//     if ($sql) {
-//         redirectdelete("section_add.php", "Your Data Delete Succses");
-//         exit();
-//     } else {
-//         header("location:section_add.php");
-//         exit();
-//     }
-// }
-
-// // ========================section update=====================
-// if (isset($_POST['section_update'])) {
-//     // Sanitize and retrieve form data
-//     $section_update_id = mysqli_real_escape_string($conn, $_POST['section_update_id']);
-//     $madrasa_name = mysqli_real_escape_string($conn, $_POST['madrasa_name']);
-//     $section_name = mysqli_real_escape_string($conn, $_POST['section_name']);
-//     $section_discription = mysqli_real_escape_string($conn, $_POST['section_discription']);
-
-//     if (empty($madrasa_name) || empty($section_name)) {
-//         if (empty($madrasa_name)) {
-//             $errors['madrasa_name'] = 'براۓ مہربانی مدرسہ کانام ایڈ کریں';
-//         }
-//         if (empty($section_name)) {
-//             $errors['section'] = 'براۓ مہربانی سیکشن ایڈ کریں';
-//         }
-//         if (!empty($errors)) {
-//             $_SESSION['errors'] = $errors;
-//             $_SESSION['input'] = $_POST;
-//             header("location: edit_section.php?edit_section=$section_update_id");
-//             exit();
-//         }
-//     } else {
-//         $secton_qury = mysqli_query($conn, "SELECT * FROM `section` WHERE `madarsa_id` = '$madrasa_name' AND `section_name` = '$section_name' AND `section_Id` <> '$section_update_id'");
-//         $check_reg_no = mysqli_num_rows($secton_qury);
-//         if ($check_reg_no > 0) {
-//             $_SESSION['section'] = "سیکشن نمبر پہلے سے موجود ہے";
-//             header("location: edit_section.php?edit_section=$section_update_id");
-//             exit();
-//         }
-//         $updateQuery = "UPDATE `section` 
-//         SET 
-//             `madarsa_id` = '$madrasa_name',
-//             `section_name` = '$section_name',
-//             `section_discription` = '$section_discription',
-//             `created_by` = 'قاری عبداللہ صاحب',
-//             `created_date` = NOW()
-//         WHERE
-//             `section_Id` = '$section_update_id'";
-
-//         if (mysqli_query($conn, $updateQuery)) {
-//             redirectupdate("section_add.php", "آپ کا دیٹا ایڈ ہوچکا ہے");
-//             exit();
-//         } else {
-//             // Insertion failed
-//             $_SESSION['error_message'] = 'Error in adding section. Please try again.';
-//             // header("location: annoucement-form.php");
-//             // exit();
-
-//         }
-//     }
-// }
 
 // // =========================department  insert=====================
-// if (isset($_POST['department_submit'])) {
-//     $department = mysqli_real_escape_string($conn, $_POST['department']);
-//     $department_madarsa_id = mysqli_real_escape_string($conn, $_POST['madrasa_name']);
+if (isset($_POST['departmentBtn'])) {
+    $department = trim(mysqli_real_escape_string($conn, $_POST['department']));
+    $department_madarsa_id = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $checkQuery = "SELECT * FROM `department` WHERE TRIM(`department_name`) = '$department' AND `madarsa_id` = '$department_madarsa_id'";
+    $checkResult = mysqli_query($conn, $checkQuery);
 
-//     // Check if $_POST['section_class'] is an array
-//     if (empty($department)) {
-//         if (empty($department)) {
-//             $_SESSION['department_check'] = 'شعبہ منتخب نہیں ہے';
-//         }
-//         header('location:class.php');
-//         exit();
-//     } else {
-//         // Check if the class already exists
-//         $checkQuery = "SELECT * FROM `department` WHERE `department` = '$department' AND `madarsa_id` = '$department_madarsa_id'";
-//         $checkResult = mysqli_query($conn, $checkQuery);
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['department_exit'] = 'یہ شعبہ پہلے سے موجود ہے';
+        header("location:department.php");
+        exit();
+    }
+    // If the class doesn't exist, proceed with insertion
+    $insertQuery = "INSERT INTO `department` ( `madarsa_id`,`department_name`, `created_by`,`created_date`)
+        VALUES ('$department_madarsa_id','$department', 'قاری عبداللہ صاحب', NOW())";
 
-//         if (mysqli_num_rows($checkResult) > 0) {
-//             // Class with the same name already exists
-//             $_SESSION['department_check'] = 'یہ شعبہ پہلے سے موجود ہے';
-//             header("location:class.php");
-//             exit();
-//         }
-//         // If the class doesn't exist, proceed with insertion
-//         $insertQuery = "INSERT INTO `department` ( `madarsa_id`,`department`, `created_by`,`created_date`)
-//         VALUES ('$department_madarsa_id','$department', 'قاری عبداللہ صاحب', NOW())";
-
-//         if (mysqli_query($conn, $insertQuery)) {
-//             redirect("class.php", "آپ کا دیٹا ایڈ ہوچکا ہے");
-//             exit();
-//         } else {
-//             // Insertion failed
-//             $_SESSION['error_message'] = 'Error in adding section. Please try again.';
-//             header("location:class.php");
-//             exit();
-//         }
-//     }
-// }
-
+    if (mysqli_query($conn, $insertQuery)) {
+        redirect("department.php", "آپ کا دیٹا ایڈ ہوچکا ہے");
+        exit();
+    } else {
+        // Insertion failed
+        $_SESSION['error_message'] = 'Error in adding section. Please try again.';
+        header("location:department.php");
+        exit();
+    }
+}
 // // =========================department page delete=====================
-// if (isset($_GET['department_id'])) {
-//     $id = $_GET['department_id'];
-//     $delete_query = "DELETE FROM `department` WHERE `id` = '$id'";
-//     $sql = mysqli_query($conn, $delete_query);
-//     if ($sql) {
-//         redirectdelete("class.php", "ڈیٹا حذف کر دیا گیا ہے ");
-//         exit();
-//     } else {
-//         $_SESSION['not_successfully'] = "ڈیٹا حذف نہیں ھوا ہے ";
-//         header('location:class.php');
-//         exit();
-//     }
-// }
+if (isset($_GET['department_delete'])) {
+    $id = $_GET['department_delete'];
+    $delete_query = "UPDATE `department` SET `status` = 'غیر فعال' WHERE `depart_id` = '$id'";
+
+    $sql = mysqli_query($conn, $delete_query);
+    if ($sql) {
+        redirectdelete("department.php", "ڈیٹا حذف کر دیا گیا ہے ");
+        exit();
+    } else {
+        $_SESSION['not_successfully'] = "ڈیٹا حذف نہیں ھوا ہے ";
+        header('location:department.php');
+        exit();
+    }
+}
 // // ============================department page update=======================
-// if (isset($_POST['department_btn'])) {
-//     $department = mysqli_real_escape_string($conn, $_POST['department']);
-//     $department_madarsa_id = mysqli_real_escape_string($conn, $_POST['madrasa_name']);
-//     $department_edit = mysqli_real_escape_string($conn, $_POST['department_edit']);
+if (isset($_POST['departmentUpdate'])) {
+    $department = mysqli_real_escape_string($conn, $_POST['department']);
+    $department_madarsa_id = mysqli_real_escape_string($conn, $_POST['madrasa_name']);
+    $department_edit = mysqli_real_escape_string($conn, $_POST['department_id']);
 
-//     // Check if $_POST['section_class'] is an array
-//     if (empty($department)) {
-//         if (empty($department)) {
-//             $_SESSION['department_check'] = 'شعبہ منتخب نہیں ہے';
-//         }
-//         header('location:class.php');
-//         exit();
-//     } else {
-//         // Check if the class already exists
-//         $checkQuery = "SELECT * FROM `department` WHERE `department` = '$department' AND `madarsa_id`= '$department_madarsa_id'";
-//         $checkResult = mysqli_query($conn, $checkQuery);
+    $checkQuery = "SELECT * FROM `department` WHERE `department_name` = '$department' AND `madarsa_id`= '$department_madarsa_id' AND `depart_id`!='$department_edit'";
+    $checkResult = mysqli_query($conn, $checkQuery);
 
-//         if (mysqli_num_rows($checkResult) > 0) {
-//             // Class with the same name already exists
-//             $_SESSION['department_check'] = 'یہ شعبہ پہلے سے موجود ہے';
-//             header("location:class.php");
-//             exit();
-//         }
-//         // If the class doesn't exist, proceed with insertion
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['department_exit'] = 'یہ شعبہ پہلے سے موجود ہے';
+        header("location:department_edit.php?department_edit=$department_edit");
+        exit();
+    }
 
-//         $updateQuery = "UPDATE `department` SET `department` = '$department', `madarsa_id` = '$department_madarsa_id',`updated_by`= 'قاری عبداللہ صاحب',  `updated_date` = NOW() WHERE `id` = '$department_edit'";
-//         if (mysqli_query($conn, $updateQuery)) {
-//             redirectupdate("class.php", "آپ کا ڈیٹا اپ ہوچکا ہے");
-//             exit();
-//         } else {
-//             // Insertion failed
-//             $_SESSION['error_message'] = 'Error in adding section. Please try again.';
-//             header("location:class.php");
-//             exit();
-//         }
-//     }
-// }
+    $updateQuery = "UPDATE `department` SET `department_name` = '$department', `madarsa_id` = '$department_madarsa_id',`updated_by`= 'قاری عبداللہ صاحب',  `updated_date` = NOW() WHERE `depart_id` = '$department_edit'";
+    if (mysqli_query($conn, $updateQuery)) {
+        redirectupdate("department.php", "آپ کا ڈیٹا اپ ہوچکا ہے");
+        exit();
+    } else {
+        // Insertion failed
+        $_SESSION['error_message'] = 'Error in adding section. Please try again.';
+        header("location:department.php");
+        exit();
+    }
+}
+
+// ======================section add========================
+
+if (isset($_POST['sectionBtn'])) {
+    $section = trim(mysqli_real_escape_string($conn, $_POST['section']));
+    $section_madarsa_id = mysqli_real_escape_string($conn, $_POST['madarasa']);
+
+    $checkQuery = "SELECT * FROM `section` WHERE TRIM(`section_name`) = '$section' AND `sec_id` = '$section_madarsa_id'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['section_exit'] = 'یہ سیکشن پہلے سے موجود ہے';
+        header("location:section.php");
+        exit();
+    }
+    // If the class doesn't exist, proceed with insertion
+    $insertQuery = "INSERT INTO `section` ( `madarsa_id`,`section_name`, `created_by`,`created_date`)
+        VALUES ('$section_madarsa_id','$section', 'قاری عبداللہ صاحب', NOW())";
+
+    if (mysqli_query($conn, $insertQuery)) {
+        redirect("section.php", "آپ کا دیٹا ایڈ ہوچکا ہے");
+        exit();
+    } else {
+        // Insertion failed
+        $_SESSION['error_message'] = 'Error in adding section. Please try again.';
+        header("location:section.php");
+        exit();
+    }
+}
+
+// // <!-- =========================section delete page code =============================== -->
+if (isset($_GET['section_delete'])) {
+    $id = $_GET['section_delete'];
+    $delete_query = "UPDATE `section` SET `status` = 'غیر فعال' WHERE `sec_id` = '$id'";
+
+    $sql = mysqli_query($conn, $delete_query);
+    if ($sql) {
+        redirectdelete("section.php", "ڈیٹا حذف کر دیا گیا ہے ");
+        exit();
+    } else {
+        $_SESSION['not_successfully'] = "ڈیٹا حذف نہیں ھوا ہے ";
+        header('location:section.php');
+        exit();
+    }
+}
+
+// // ========================section update=====================
+if (isset($_POST['sectionUpdate'])) {
+    $section = trim(mysqli_real_escape_string($conn, $_POST['section']));
+    $section_madarsa_id = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $section_edit = mysqli_real_escape_string($conn, $_POST['section_edit']);
+
+    $checkQuery = "SELECT * FROM `section` WHERE TRIM(`section_name`) = '$section' AND `sec_id` = '$section_madarsa_id' AND `sec_id` != '$section_edit'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['section_exit'] = 'یہ سیکشن پہلے سے موجود ہے';
+        header("location:section.php");
+        exit();
+    }
+    // If the class doesn't exist, proceed with insertion
+    $insertQuery = "UPDATE `section` SET `section_name` = '$section', `madarsa_id` = '$section_madarsa_id',`updated_by`= 'قاری عبداللہ صاحب',  `updated_date` = NOW() WHERE `sec_id` = '$section_edit'";
+
+    if (mysqli_query($conn, $insertQuery)) {
+        redirect("section.php", "آپ کا دیٹا اپڈیٹ ہوچکا ہے");
+        exit();
+    } else {
+        // Insertion failed
+        $_SESSION['error_message'] = 'Error in adding section. Please try again.';
+        header("location:section.php");
+        exit();
+    }
+}
+
+
 
 
 // // =======================class page insert====================

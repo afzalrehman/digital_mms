@@ -34,55 +34,79 @@ include "inc/navbar.php";
     </div>
   </div>
   <!-- Main Content Header Card (End) -->
+  <?php
+  if (isset($_GET['section_edit'])) {
+    $edit_id = mysqli_real_escape_string($conn, $_GET['section_edit']);
 
-  <!-- madarasa add Form (Start) -->
-  <div class="row">
-    <!-- Madarsa Info -->
-    <div class="col-4">
-      <div class="card">
-        <div class="border-bottom title-part-padding mt-3">
-          <h4 class="card-title mb-0 fs-7 text-primary"> 1۔ سیکشن کے معلومات</h4>
+    $select_query = mysqli_query($conn, "SELECT * FROM `section` WHERE `sec_id` = '$edit_id'");
+
+    $check = mysqli_num_rows($select_query);
+
+    if ($check > 0) {
+      $fetch = mysqli_fetch_assoc($select_query);
+
+  ?>
+      <!-- madarasa add Form (Start) -->
+      <div class="row">
+        <!-- Madarsa Info -->
+        <div class="col-4">
+          <div class="card">
+            <div class="border-bottom title-part-padding mt-3">
+              <h4 class="card-title mb-0 fs-7 text-primary"> 1۔ سیکشن کے معلومات</h4>
+            </div>
+            <div class="card-body">
+              <form method="post" id="department" action="code.php">
+                <div class="row g-4">
+                  <div class="col-md-12">
+                    <label class="fs-5 mb-1" for="std-area">مدرسہ کا نام <span class="text-danger fs-7">*</span></label>
+                    <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="madarasa" id="departmentMad">
+                      <option class="jameel-kasheeda" value="<?= $fetch['madarsa_id'] ?>"> <?php
+                                                                                          $madarsa_id = $fetch['madarsa_id'];
+                                                                                          $madarsa_id_query = mysqli_query($conn, "SELECT * FROM `madarsa` WHERE `madarsa_id` ='$madarsa_id'");
+                                                                                          $madarsas_id = mysqli_fetch_object($madarsa_id_query);
+                                                                                          if ($madarsas_id) {
+                                                                                            echo '<td><span class="me-1 jameel-kasheeda">' . $madarsas_id->madarsa_name  . '</span></td>';
+                                                                                          }
+                                                                                          ?></option>
+                      <?php
+                      $sql = "SELECT * FROM madarsa";
+                      $result = $conn->query($sql);
+                      if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) { ?>
+                          <option class="jameel-kasheeda" value="<?= $row["madarsa_id"] ?>"><?= $row["madarsa_name"] ?></option>
+                      <?php
+                        }
+                      }
+                      ?>
+                    </select>
+                    <span class="text-danger departmentMad"></span>
+                    <span class="inter error text-danger"><?php if (isset($_SESSION['section_exit'])) {
+                                                            echo $_SESSION['section_exit'];
+                                                            unset($_SESSION['section_exit']);
+                                                          } ?></span>
+                  </div>
+                  <input type="text" hidden name="section_edit" value="<?= $fetch['sec_id'] ?>">
+                  <div class="col-md-12">
+                    <label class="fs-5 mb-1" for="std-area"> سیکشن<span class="text-danger fs-7">*</span></label>
+                    <input type="text" name="section" id="departmentName" class="form-control fw-semibold fs-3 " value="<?= $fetch['section_name'] ?>" placeholder="سیکشن کا  نام" />
+                    <span class="text-danger departmentName"></span>
+                  </div>
+
+                  <div class="col-md-12 mt-4 jameel-kasheeda">
+                    <button type="submit" id="submit" name="sectionUpdate" class="btn btn-primary fw-semibold fs-5">اپڈیٹ کریں</button>
+                  </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-          <form method="post" id="department" action="code.php">
-            <div class="row g-4">
-              <div class="col-md-12">
-                <label class="fs-5 mb-1" for="std-area">مدرسہ کا نام <span class="text-danger fs-7">*</span></label>
-                <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="madarasa" id="departmentMad">
-                  <option class="jameel-kasheeda" value="">مدرسہ سلیکٹ کریں</option>
-                  <?php
-                  $sql = "SELECT * FROM madarsa";
-                  $result = $conn->query($sql);
-                  if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) { ?>
-                      <option class="jameel-kasheeda" value="<?= $row["madarsa_id"] ?>"><?= $row["madarsa_name"] ?></option>
-                  <?php
-                    }
-                  }
-                  ?>
-                </select>
-                <span class="text-danger departmentMad"></span>
-                <span class="inter error text-danger"><?php if (isset($_SESSION['section_exit'])) {
-                                                        echo $_SESSION['section_exit'];
-                                                        unset($_SESSION['section_exit']);
-                                                      } ?></span>
-              </div>
-
-              <div class="col-md-12">
-                <label class="fs-5 mb-1" for="std-area"> سیکشن<span class="text-danger fs-7">*</span></label>
-                <input type="text" name="section" id="departmentName" class="form-control fw-semibold fs-3 " placeholder="سیکشن کا  نام" />
-                <span class="text-danger departmentName"></span>
-              </div>
-
-              <div class="col-md-12 mt-4 jameel-kasheeda">
-                <button type="submit" id="submit" name="sectionBtn" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
-              </div>
-          </form>
-        </div>
+        <!-- Submit Button -->
       </div>
-    </div>
-    <!-- Submit Button -->
-  </div>
+  <?php
+    } else {
+      echo "No Data Found";
+    }
+  }
+  ?>
   <!-- Main Content Header Card (Start) -->
   <!-- Student Details List (Start) -->
   <div class="col-lg-8 d-flex align-items-strech">
