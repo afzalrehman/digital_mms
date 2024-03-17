@@ -65,7 +65,6 @@ if (isset($_GET['class_edit'])) {
                 <label class="fs-5 mb-1">ٹیکس </label>
                 <input type="text" name="discription" class="form-control fw-semibold fs-4"  placeholder=" کلاس ایڈ کریں" />
               </div> -->
-
                   <!-- Submit Button -->
                   <div class="col-md-12 mt-5 jameel-kasheeda">
                     <button type="submit" id="submit" name="classUpdate" class="btn btn-primary fw-semibold fs-5">

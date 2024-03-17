@@ -340,27 +340,30 @@ if (isset($_POST['sectionUpdate'])) {
 
 if (isset($_POST['classbtn'])) {
     $class = trim(mysqli_real_escape_string($conn, $_POST['class']));
-    // $class_madarsa_id = mysqli_real_escape_string($conn, $_POST['discription']);
+    $madarasa = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $department = mysqli_real_escape_string($conn, $_POST['department']);
+    // $section = mysqli_real_escape_string($conn, $_POST['section']);
+    $section_class = is_array($_POST['section']) ? implode(',', $_POST['section']) : '';
 
     $checkQuery = "SELECT * FROM `class` WHERE TRIM(`class_name`) = '$class' ";
     $checkResult = mysqli_query($conn, $checkQuery);
 
     if (mysqli_num_rows($checkResult) > 0) {
         $_SESSION['class_exit'] = 'یہ کلاس پہلے سے موجود ہے';
-        header("location:class.php");
+        header("location:madaris_class.php");
         exit();
     }
     // If the class doesn't exist, proceed with insertion
-    $insertQuery = "INSERT INTO `class` ( `class_name`, `created_by`,`created_date`)
-        VALUES ('$class','قاری عبداللہ صاحب', NOW())";
+    $insertQuery = "INSERT INTO `madarsa_class` ( `class_name`,`madarsa_id`,`sec_id`,`depart_id`,`created_by`,`created_date`)
+        VALUES ('$class','$madarasa','$section_class','$department','قاری عبداللہ صاحب', NOW())";
 
     if (mysqli_query($conn, $insertQuery)) {
-        redirect("class.php", "آپ کا دیٹا ایڈ ہوچکا ہے");
+        redirect("madaris_class.php", "آپ کا دیٹا ایڈ ہوچکا ہے");
         exit();
     } else {
         // Insertion failed
         $_SESSION['error_message'] = 'Error in adding class. Please try again.';
-        header("location:class.php");
+        header("location:madaris_class.php");
         exit();
     }
 }

@@ -20,13 +20,15 @@ if (isset($_POST['type'])) {
         } else {
             $sutudent = 'ID not provided for batch Data';
         }
-    } elseif ($_POST['type'] == "section_Data") {
+    } 
+    elseif ($_POST['type'] == "section_Data") {
         if (isset($_POST['id'])) {
             $section_Data = $_POST['id'];
             $query = mysqli_query($conn, "SELECT * FROM `section` WHERE `madarsa_id` = '$section_Data'");
             $sutudent = '';
             while ($row = mysqli_fetch_assoc($query)) {
-                $sutudent .= "<label class='px-2'><input type='checkbox'  value='{$row['sec_id']}' class='fw-semibold  fs-4'> {$row['section_name']}</label>";
+                $sutudent .= "<label class='px-2'  ><input   type='checkbox' name='section[]' required  value='{$row['sec_id']}'  class='fw-semibold  fs-4'> {$row['section_name']}</label>";
+                // $sutudent .= "<option value='{$row['sec_id']}'>{$row['section_name']}</option>";
             }
         } else {
             $sutudent = 'ID not provided for batch Data';

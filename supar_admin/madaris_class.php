@@ -41,32 +41,34 @@ include "inc/navbar.php";
           <h4 class="card-title mb-0 fs-7 text-primary"> کلاس لکھیئے</h4>
         </div>
         <div class="card-body">
-          <form action="code.php" method="post">
+          <form action="code.php" method="post" id="class_page">
             <div class="row ">
               <div class="col-lg-4">
                 <label class="fs-5 mb-1">مدرسہ </label>
                 <select class="form-control fw-semibold fs-3 jameel-kasheeda" id="classMad" name="madarasa">
                   <option class="jameel-kasheeda" value="">---</option>
                 </select>
+                <span class="text-danger classMad"></span>
               </div>
 
               <div class="col-lg-4 mb-3">
                 <label class="fs-5 mb-1">شعبہ </label>
-                <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="madarasa" id="classdepartment">
+                <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="department" id="classdepartment">
                   <option class="jameel-kasheeda" value="">---</option>
                 </select>
+                <span class="text-danger classdepartment"></span>
               </div>
               <div class="col-lg-4 mb-3">
                 <label class="fs-5 mb-1">کلاس </label>
-                <input type="text" name="" id="" class="form-control urduInput">
+                <input type="text" name="class" id="class" class="form-control urduInput">
+                <span class="text-danger class"></span>
               </div>
-
 
               <div class="col-lg-6">
                 <label class="fs-5 mb-1">سیکشن </label><br>
 
                 <label for="section" id="section_Data" class="px-3">
-                  <input type="" name="section" hidden  class="fw-semibold fs-4" required placeholder="کلاس ایڈ کریں"  />
+                  <input type="checkbox" hidden name="section[]" value="" class="fw-semibold fs-4" placeholder="کلاس ایڈ کریں" />
                 </label>
 
                 <span class="inter error text-danger"><?php if (isset($_SESSION['class_exit'])) {
@@ -91,7 +93,7 @@ include "inc/navbar.php";
   </div>
 
 
-  <div class="col-lg-6 d-flex align-items-strech">
+  <div class="col-lg-12 d-flex align-items-strech">
     <div class="card w-100">
       <div class="card-body">
         <div class="mb-7 mb-sm-0">
@@ -102,14 +104,17 @@ include "inc/navbar.php";
             <thead>
               <tr class="fw-semibold">
                 <th class="fs-5 word-spacing-2px text-primary">#</th>
+                <th class="fs-5 word-spacing-2px text-primary">مدرسہ </th>
+                <th class="fs-5 word-spacing-2px text-primary">شعبہ </th>
                 <th class="fs-5 word-spacing-2px text-primary">کلاس </th>
+                <th class="fs-5 word-spacing-2px text-primary">سیکشن </th>
                 <th class="fs-5 word-spacing-2px text-primary">حالت</th>
                 <th class="fs-5 word-spacing-2px text-primary">انتخاب کریں</th>
               </tr>
             </thead>
             <tbody class="border-top">
               <?php
-              $select = "SELECT * FROM `class` ORDER BY class_id DESC ";
+              $select = "SELECT * FROM `madarsa_class` ORDER BY id DESC ";
               $result = mysqli_query($conn, $select);
               if (mysqli_num_rows($result) > 0) {
                 $no = 1;
@@ -120,8 +125,39 @@ include "inc/navbar.php";
                       <p class="mb-0 fs-2 inter"><?= $no++ ?></p>
                     </td>
 
+                    <?php
+                    $madarsa_id = $item['madarsa_id'];
+                    $madarsa_id_query = mysqli_query($conn, "SELECT * FROM `madarsa` WHERE `madarsa_id` ='$madarsa_id'");
+                    $madarsas_id = mysqli_fetch_object($madarsa_id_query);
+                    if ($madarsas_id) {
+                      echo '<td><span class="me-1 jameel-kasheeda">' . $madarsas_id->madarsa_name  . '</span></td>';
+                    }
+                    ?>
+                    <?php
+                    $depart_id = $item['depart_id'];
+                    $depart_id_query = mysqli_query($conn, "SELECT * FROM `department` WHERE `depart_id` ='$depart_id'");
+                    $depart_id = mysqli_fetch_object($depart_id_query);
+                    if ($depart_id) {
+                      echo '<td><span class="me-1 jameel-kasheeda">' . $depart_id->department_name  . '</span></td>';
+                    }
+                    ?>
                     <td>
                       <p class="mb-0 fs-4 word-spacing-2px"><?= $item['class_name'] ?></p>
+                    </td>
+                    <td class="jameel-kasheeda">
+                      <?php
+
+                      $sec_id = explode(',', $item['sec_id']);
+                      foreach ($sec_id as $section_name) {
+                        $seql_ins = mysqli_query($conn, "SELECT * FROM `section` WHERE `sec_id` ='$section_name'");
+                        $seql_sec_id = mysqli_fetch_object($seql_ins);
+                        if ($seql_sec_id) {
+                      ?>
+                          <span class=" me-1"><?php echo $seql_sec_id->section_name ?><br></span>
+                      <?php
+                        }
+                      }
+                      ?>
                     </td>
                     <td>
                       <?php
@@ -135,14 +171,14 @@ include "inc/navbar.php";
 
                     <td class="text-center">
                       <div class="action-btn">
-                        <a href="class_edit.php?class_edit=<?= $item['class_id'] ?>" class="text-success">
+                        <a href="class_edit.php?class_edit=<?= $item['id'] ?>" class="text-success">
                           <i class="ti ti-edit fs-6"></i>
                         </a>
-                        <button type="button" class="border-0  rounded-2 p-0 py-1 " data-bs-toggle="modal" data-bs-target="#deleteModal<?= $item['class_id'] ?>">
+                        <button type="button" class="border-0  rounded-2 p-0 py-1 " data-bs-toggle="modal" data-bs-target="#deleteModal<?= $item['id'] ?>">
                           <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
                         </button>
                         <!-- ===================delete institute page modal================== -->
-                        <div class="modal fade " id="deleteModal<?= $item['class_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade " id="deleteModal<?= $item['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -151,7 +187,7 @@ include "inc/navbar.php";
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">کلوز</button>
-                                <a href="code.php?class_delete=<?= $item['class_id'] ?>">
+                                <a href="code.php?class_delete=<?= $item['id'] ?>">
                                   <button type="button" class="btn btn-danger">ڈیلیٹ</button>
                                 </a>
                               </div>
@@ -193,6 +229,7 @@ include "inc/mobileNavbar.php";
 <?php
 include "inc/footer.php";
 ?>
+<script src="../assets/js/error/class.js"></script>
 <script>
   $(document).ready(function() {
     function loadData(type, id) {
@@ -236,6 +273,6 @@ include "inc/footer.php";
         $("#section_Data").html("");
       }
     });
-   
+
   });
 </script>
