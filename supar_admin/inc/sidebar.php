@@ -469,7 +469,23 @@
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
-                    <span class="hide-menu jameel-kasheeda fs-4">ایڈکریں</span>
+                    <span class="hide-menu jameel-kasheeda fs-4">سپر ایڈمن یا ایڈمن ایڈکریں</span>
+                  </a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="./user-details.php" class="sidebar-link">
+                    <div class="round-16 d-flex align-items-center justify-content-center">
+                      <i class="ti ti-circle"></i>
+                    </div>
+                    <span class="hide-menu jameel-kasheeda fs-4">تفصیلات</span>
+                  </a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="./masarsa-access.php" class="sidebar-link">
+                    <div class="round-16 d-flex align-items-center justify-content-center">
+                      <i class="ti ti-circle"></i>
+                    </div>
+                    <span class="hide-menu jameel-kasheeda fs-4">مدرسہ ایڈکریں</span>
                   </a>
                 </li>
                 <li class="sidebar-item">
