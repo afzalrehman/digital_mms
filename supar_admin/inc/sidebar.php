@@ -72,7 +72,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="class.php" class="sidebar-link">
+                  <a href="madaris_class.php" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -551,7 +551,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="blog-detail.php" class="sidebar-link">
+                  <a href="department.php" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -559,7 +559,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="blog-detail.php" class="sidebar-link">
+                  <a href="section.php" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
