@@ -336,10 +336,78 @@ if (isset($_POST['sectionUpdate'])) {
         exit();
     }
 }
+// ======================class add========================
 
+if (isset($_POST['classbtn'])) {
+    $class = trim(mysqli_real_escape_string($conn, $_POST['class']));
+    // $class_madarsa_id = mysqli_real_escape_string($conn, $_POST['discription']);
 
+    $checkQuery = "SELECT * FROM `class` WHERE TRIM(`class_name`) = '$class' ";
+    $checkResult = mysqli_query($conn, $checkQuery);
 
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['class_exit'] = 'یہ کلاس پہلے سے موجود ہے';
+        header("location:class.php");
+        exit();
+    }
+    // If the class doesn't exist, proceed with insertion
+    $insertQuery = "INSERT INTO `class` ( `class_name`, `created_by`,`created_date`)
+        VALUES ('$class','قاری عبداللہ صاحب', NOW())";
 
+    if (mysqli_query($conn, $insertQuery)) {
+        redirect("class.php", "آپ کا دیٹا ایڈ ہوچکا ہے");
+        exit();
+    } else {
+        // Insertion failed
+        $_SESSION['error_message'] = 'Error in adding class. Please try again.';
+        header("location:class.php");
+        exit();
+    }
+}
+
+// =================class delete=================
+if (isset($_GET['class_delete'])) {
+    $id = $_GET['class_delete'];
+    $delete_query = "UPDATE `class` SET `status` = 'غیر فعال' WHERE `class_id` = '$id'";
+
+    $sql = mysqli_query($conn, $delete_query);
+    if ($sql) {
+        redirectdelete("class.php", "ڈیٹا حذف کر دیا گیا ہے ");
+        exit();
+    } else {
+        $_SESSION['not_successfully'] = "ڈیٹا حذف نہیں ھوا ہے ";
+        header('location:class.php');
+        exit();
+    }
+}
+
+// ===========class update==========
+if (isset($_POST['classUpdate'])) {
+    $class_id = mysqli_real_escape_string($conn, $_POST['class_id']);
+    $class = trim(mysqli_real_escape_string($conn, $_POST['class']));
+    // $class_madarsa_id = mysqli_real_escape_string($conn, $_POST['discription']);
+
+    $checkQuery = "SELECT * FROM `class` WHERE TRIM(`class_name`) = '$class' AND `class_id` = '$class_madarsa_id'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['class_exit'] = 'یہ کلاس پہلے سے موجود ہے';
+        header("location:class_edit.php?class_edit=$class_id");
+        exit();
+    }
+    // If the class doesn't exist, proceed with insertion
+    $updateQuery = "UPDATE `class` SET `class_name` = '$class',`updated_by`= 'قاری عبداللہ صاحب',  `updated_date` = NOW() WHERE `class_id` = '$class_id'";
+
+    if (mysqli_query($conn, $updateQuery)) {
+        redirect("class.php", "آپ کا دیٹا ایڈ ہوچکا ہے");
+        exit();
+    } else {
+        // Insertion failed
+        $_SESSION['error_message'] = 'Error in adding class. Please try again.';
+        header("location:class.php");
+        exit();
+    }
+}
 // // =======================class page insert====================
 // if (isset($_POST['class_submit'])) {
 //     $ins_name = mysqli_real_escape_string($conn, $_POST['ins_name']);
