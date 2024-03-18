@@ -345,7 +345,7 @@ if (isset($_POST['classbtn'])) {
     // $section = mysqli_real_escape_string($conn, $_POST['section']);
     $section_class = is_array($_POST['section']) ? implode(',', $_POST['section']) : '';
 
-    $checkQuery = "SELECT * FROM `class` WHERE TRIM(`class_name`) = '$class' ";
+    $checkQuery = "SELECT * FROM `madarsa_class` WHERE TRIM(`class_name`) = '$class' AND `madarsa_id`='$madarasa'AND `depart_id`='$department' AND `id`!='$class_id'";
     $checkResult = mysqli_query($conn, $checkQuery);
 
     if (mysqli_num_rows($checkResult) > 0) {
@@ -371,15 +371,15 @@ if (isset($_POST['classbtn'])) {
 // =================class delete=================
 if (isset($_GET['class_delete'])) {
     $id = $_GET['class_delete'];
-    $delete_query = "UPDATE `class` SET `status` = 'غیر فعال' WHERE `class_id` = '$id'";
+    $delete_query = "UPDATE `madarsa_class` SET `status` = 'غیر فعال' WHERE `id` = '$id'";
 
     $sql = mysqli_query($conn, $delete_query);
     if ($sql) {
-        redirectdelete("class.php", "ڈیٹا حذف کر دیا گیا ہے ");
+        redirectdelete("madaris_class.php", "ڈیٹا حذف کر دیا گیا ہے ");
         exit();
     } else {
         $_SESSION['not_successfully'] = "ڈیٹا حذف نہیں ھوا ہے ";
-        header('location:class.php');
+        header('location:madaris_class.php');
         exit();
     }
 }
@@ -388,26 +388,28 @@ if (isset($_GET['class_delete'])) {
 if (isset($_POST['classUpdate'])) {
     $class_id = mysqli_real_escape_string($conn, $_POST['class_id']);
     $class = trim(mysqli_real_escape_string($conn, $_POST['class']));
-    // $class_madarsa_id = mysqli_real_escape_string($conn, $_POST['discription']);
+    $madarasa = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $department = mysqli_real_escape_string($conn, $_POST['department']);
+    // $section = mysqli_real_escape_string($conn, $_POST['section']);
+    $section_class = is_array($_POST['section']) ? implode(',', $_POST['section']) : '';
 
-    $checkQuery = "SELECT * FROM `class` WHERE TRIM(`class_name`) = '$class' AND `class_id` = '$class_madarsa_id'";
+    $checkQuery = "SELECT * FROM `madarsa_class` WHERE TRIM(`class_name`) = '$class' AND `madarsa_id`='$madarasa'AND `depart_id`='$department' AND `id`!='$class_id'";
     $checkResult = mysqli_query($conn, $checkQuery);
 
     if (mysqli_num_rows($checkResult) > 0) {
         $_SESSION['class_exit'] = 'یہ کلاس پہلے سے موجود ہے';
-        header("location:class_edit.php?class_edit=$class_id");
+        header("location:madarsa_classEdit.php?class_edit=$class_id");
         exit();
     }
-    // If the class doesn't exist, proceed with insertion
-    $updateQuery = "UPDATE `class` SET `class_name` = '$class',`updated_by`= 'قاری عبداللہ صاحب',  `updated_date` = NOW() WHERE `class_id` = '$class_id'";
+    $updateQuery = "UPDATE `madarsa_class` SET `class_name` = '$class', `madarsa_id`='$madarasa', `depart_id`='$department',`sec_id`='$section_class', `updated_by`= 'قاری عبداللہ صاحب',  `updated_date` = NOW() WHERE `id` = '$class_id'";
 
     if (mysqli_query($conn, $updateQuery)) {
-        redirect("class.php", "آپ کا دیٹا ایڈ ہوچکا ہے");
+        redirect("madaris_class.php", "آپ کا دیٹا اپڈیٹ ہوچکا ہے");
         exit();
     } else {
         // Insertion failed
         $_SESSION['error_message'] = 'Error in adding class. Please try again.';
-        header("location:class.php");
+        header("location:madarsa_classEdit.php");
         exit();
     }
 }

@@ -31,79 +31,120 @@ include "inc/navbar.php";
       </div>
     </div>
   </div>
-  <!-- Main Content Header Card (End) -->
-  <!-- Annoucement Form (Start) -->
-  <div class="row">
-    <!-- Annoucement Form -->
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="border-bottom title-part-padding mt-3">
-          <h4 class="card-title mb-0 fs-7 text-primary"> کلاس لکھیئے</h4>
-        </div>
-        <div class="card-body">
-          <form action="code.php" method="post" id="class_page">
-            <div class="row ">
-              <div class="col-lg-4">
-                <label class="fs-5 mb-1">مدرسہ </label>
-                <select class="form-control fw-semibold fs-3 jameel-kasheeda" id="classMad" name="madarasa">
-                  <option class="jameel-kasheeda" value="">---</option>
-                </select>
-                <span class="text-danger classMad"></span>
-              </div>
-
-              <div class="col-lg-4 mb-3">
-                <label class="fs-5 mb-1">شعبہ </label>
-                <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="department" id="classdepartment">
-                  <option class="jameel-kasheeda" value="">---</option>
-                </select>
-                <span class="text-danger classdepartment"></span>
-              </div>
-              <div class="col-lg-4 mb-3">
-                <label class="fs-5 mb-1">کلاس </label>
-                <input type="text" name="class" id="class" class="form-control urduInput">
-                <span class="text-danger class"></span>
-              <span class="inter error text-danger"><?php if (isset($_SESSION['class_exit'])) {
-                                                      echo $_SESSION['class_exit'];
-                                                      unset($_SESSION['class_exit']);
-                                                    } ?></span>
-              </div>
-
-              <div class="col-lg-6">
-                <label class="fs-5 mb-1">سیکشن </label><br>
-                <?php
-                $query = "SELECT * FROM section";
-                $result = mysqli_query($conn, $query);
-                if ($result) {
-                  while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                    <label class="px-3">
-                      <?= $row['section_name']; ?>
-                      <input type="checkbox" name="section[]" value=" <?= $row['sec_id']; ?>" class="fw-semibold fs-4" placeholder="کلاس ایڈ کریں" />
-                    </label>
-                <?php
-                  }
-                } else {
-                  echo "Error: ";
-                }
-                ?>
-
-              </div>
-
-
+  <?php
+  if (isset($_GET['class_edit'])) {
+    $edit_id = mysqli_real_escape_string($conn, $_GET['class_edit']);
+    $select_query = mysqli_query($conn, "SELECT * FROM `madarsa_class` WHERE `id` = '$edit_id'");
+    $check = mysqli_num_rows($select_query);
+    if ($check > 0) {
+      $fetch = mysqli_fetch_assoc($select_query);
+  ?>
+      <!-- Main Content Header Card (End) -->
+      <!-- Annoucement Form (Start) -->
+      <div class="row">
+        <!-- Annoucement Form -->
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="border-bottom title-part-padding mt-3">
+              <h4 class="card-title mb-0 fs-7 text-primary"> کلاس لکھیئے</h4>
             </div>
+            <div class="card-body">
+              <form action="code.php" method="post" id="class_page">
+                <div class="row ">
+                  <div class="col-lg-4">
+                    <label class="fs-5 mb-1">مدرسہ </label>
+                    <select class="form-control fw-semibold fs-3 jameel-kasheeda" id="classMad" name="madarasa">
+                      <option class="jameel-kasheeda" value="<?= $fetch['madarsa_id'] ?>"> <?php
+
+                                                                                            $madarsa_id = explode(',', $fetch['madarsa_id']);
+                                                                                            foreach ($madarsa_id as $madarsa_id) {
+                                                                                              $seql_ins = mysqli_query($conn, "SELECT * FROM `madarsa` WHERE `madarsa_id` ='$madarsa_id'");
+                                                                                              $seql_madarsa_id = mysqli_fetch_object($seql_ins);
+                                                                                              if ($seql_madarsa_id) {
+                                                                                            ?>
+                            <span class=" me-1"><?php echo $seql_madarsa_id->madarsa_name ?><br></span>
+                        <?php
+                                                                                              }
+                                                                                            }
+                        ?>
+                      </option>
+                    </select>
+                    <span class="text-danger classMad"></span>
+                  </div>
+
+                  <div class="col-lg-4 mb-3">
+                    <label class="fs-5 mb-1">شعبہ </label>
+                    <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="department" id="classdepartment">
+                      <option class="jameel-kasheeda" value="<?= $fetch['depart_id'] ?>"> <?php
+
+                                                                                          $depart_id = explode(',', $fetch['depart_id']);
+                                                                                          foreach ($depart_id as $section_name) {
+                                                                                            $seql_ins = mysqli_query($conn, "SELECT * FROM `department` WHERE `depart_id` ='$section_name'");
+                                                                                            $seql_depart_id = mysqli_fetch_object($seql_ins);
+                                                                                            if ($seql_depart_id) {
+                                                                                          ?>
+                            <span class=" me-1"><?php echo $seql_depart_id->department_name ?><br></span>
+                        <?php
+                                                                                            }
+                                                                                          }
+                        ?>
+                      </option>
+                    </select>
+                    <span class="text-danger classdepartment"></span>
+                  </div>
+                  <input type="text" hidden name="class_id" value="<?= $fetch['id'] ?>" class="form-control urduInput">
+                  <div class="col-lg-4 mb-3">
+                    <label class="fs-5 mb-1">کلاس </label>
+                    <input type="text" name="class" id="class" value="<?= $fetch['class_name'] ?>" class="form-control urduInput">
+                    <span class="text-danger class"></span>
+                    <span class="inter error text-danger"><?php if (isset($_SESSION['class_exit'])) {
+                                                            echo $_SESSION['class_exit'];
+                                                            unset($_SESSION['class_exit']);
+                                                          } ?></span>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <label class="fs-5 mb-1">سیکشن </label><br>
+                    <?php
+                    $query = "SELECT * FROM section";
+                    $result = mysqli_query($conn, $query);
+                    if ($result) {
+                      while ($row = mysqli_fetch_assoc($result)) {
+                        $isChecked = in_array($row['sec_id'], explode(',', $fetch['sec_id']));
+                    ?>
+                        <label class="px-3">
+                          <?= $row['section_name']; ?>
+                          <input type="checkbox" name="section[]" <?= $isChecked ? 'checked' : ''; ?> value=" <?= $row['sec_id']; ?>" class="fw-semibold fs-4" placeholder="کلاس ایڈ کریں" />
+                        </label>
+                    <?php
+                      }
+                    } else {
+                      echo "Error: ";
+                    }
+                    ?>
+
+                  </div>
 
 
-            <!-- Submit Button -->
-            <div class="col-md-12 mt-5 jameel-kasheeda">
-              <button type="submit" id="submit" name="classbtn" class="btn btn-primary fw-semibold fs-5">
-                ایڈکریں </button>
+                </div>
+
+
+                <!-- Submit Button -->
+                <div class="col-md-12 mt-5 jameel-kasheeda">
+                  <button type="submit" id="submit" name="classUpdate" class="btn btn-primary fw-semibold fs-5">
+                    اپڈیٹ کریں </button>
+                </div>
             </div>
+            </form>
+          </div>
         </div>
-        </form>
       </div>
-    </div>
-  </div>
-
+  <?php
+    } else {
+      echo "No Data Found";
+    }
+  }
+  ?>
 
   <div class="col-lg-12 d-flex align-items-strech">
     <div class="card w-100">
