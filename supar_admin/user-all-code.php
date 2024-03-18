@@ -1,9 +1,10 @@
 <?php
 session_start();
-include_once "../includes/config.php";
-include_once "../includes/function.php";
+include "../includes/config.php";
+include "../includes/function.php";
+?>
 
-
+<?php
 // ================================ Add User Code Start page (user-form.php) ================================
 if (isset($_POST['user_insert'])) {
     $user_name = mysqli_real_escape_string($conn, $_POST['user_name']);
@@ -54,7 +55,7 @@ if (isset($_POST['user_insert'])) {
             } else {
 
                 $image = rand(111111111, 999999999) . '_' . $_FILES['image']['name'];
-                move_uploaded_file($_FILES['image']['tmp_name'], '../media/images/' . $image);
+                move_uploaded_file($_FILES['image']['tmp_name'], '../media/std-tc/' . $image);
 
                 // insert add user data into database
                 $insert_user_query = "INSERT INTO `users`(
@@ -125,7 +126,6 @@ if (isset($_POST['user_insert'])) {
 
 
 
-
 // ================================ Updated User Code Start page (user-edit.php) ================================
 if (isset($_POST['user_update'])) {
     $user_id = mysqli_real_escape_string($conn, $_POST['user_id']);
@@ -176,7 +176,7 @@ if (isset($_POST['user_update'])) {
     $image = '';
     if (isset($_FILES['image']['name'])) {
         $image = rand(111111111, 999999999) . '_' . $_FILES['image']['name'];
-        move_uploaded_file($_FILES['image']['tmp_name'], '../media/images/' . $image);
+        move_uploaded_file($_FILES['image']['tmp_name'], '../media/std-tc/' . $image);
     }
 
     // insert add user data into database
@@ -223,6 +223,122 @@ if (isset($_POST['user_update'])) {
     } else {
         // Insertion failed
         redirectdelete("user-details.php", "یوزَر ایڈ نہیں ھوا، دوبارہ کوشش کریں");
+        exit();
+    }
+}
+
+
+
+// ================================ Add Madarsa Access Code Start page (madarsa-access.php) ================================
+if (isset($_POST['masarsa_insert'])) {
+    // Establish database connection (assuming $conn is defined elsewhere)
+
+    // Escape user inputs for security
+    $madarsa_name = mysqli_real_escape_string($conn, $_POST['madarsa_name']);
+    $user_name = mysqli_real_escape_string($conn, $_POST['user_name']);
+    $user_phone = mysqli_real_escape_string($conn, $_POST['user_phone']);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $user_email = mysqli_real_escape_string($conn, $_POST['user_email']);
+    $user_password = mysqli_real_escape_string($conn, $_POST['user_password']);
+
+    // Check if email is unique
+    $check_email_query = "SELECT * FROM `users` WHERE `email` = '$user_email'";
+    $check_email_result = mysqli_query($conn, $check_email_query);
+
+    if (mysqli_num_rows($check_email_result) > 0) {
+        // Email already exists, redirect with message
+        redirect("masarsa-access.php", "Email already exists.");
+        exit();
+    }
+
+    // Check if phone number is unique
+    $check_phone_query = "SELECT * FROM `user_details` WHERE `phone` = '$user_phone'";
+    $check_phone_result = mysqli_query($conn, $check_phone_query);
+
+    if (mysqli_num_rows($check_phone_result) > 0) {
+        // Phone number already exists, redirect with message
+        redirect("masarsa-access.php", "Phone number already exists.");
+        exit();
+    }
+
+    // Check if username is unique
+    $check_username_query = "SELECT * FROM `users` WHERE `username` = '$username'";
+    $check_username_result = mysqli_query($conn, $check_username_query);
+
+    if (mysqli_num_rows($check_username_result) > 0) {
+        // Username already exists, redirect with message
+        redirect("masarsa-access.php", "Username already exists.");
+        exit();
+    }
+
+    // Hash the password
+    $user_pass = password_hash($user_password, PASSWORD_DEFAULT);
+
+    // Generate token
+    $user_token = bin2hex(random_bytes(15));
+
+    // Current date and time
+    $created_date = date('Y-m-d');
+
+    // Handle file upload
+    $image = $_FILES['image']['name'];
+    $image_temp = $_FILES['image']['tmp_name'];
+    move_uploaded_file($image_temp, '../media/madarsa-access/' . $image);
+
+    // Insert user data into 'users' table
+    $insert_user_query = "INSERT INTO `users` (
+        `username`, 
+        `email`, 
+        `password`, 
+        `token`, 
+        `status`, 
+        `role_id`, 
+        `created_date`
+        )
+    VALUES (
+        '$username', 
+        '$user_email', 
+        '$user_pass', 
+        '$user_token', 
+        'Inactive', 
+        'انسٹی ٹیوٹ', 
+        '$created_date')";
+
+    $insert_user_res = mysqli_query($conn, $insert_user_query);
+
+    if ($insert_user_res) {
+        // Get the ID of the inserted user record
+        $user_id = mysqli_insert_id($conn);
+
+        // Insert user details into 'user_details' table
+        $insert_user_details_query = "INSERT INTO `user_details` (
+            `user_id`, 
+            `full_name`, 
+            `register_no`, 
+            `phone`,
+            `image`
+            )
+        VALUES (
+            '$user_id', 
+            '$user_name', 
+            '$madarsa_name', 
+            '$user_phone',
+            '$image'
+            )";
+        $insert_user_details_res = mysqli_query($conn, $insert_user_details_query);
+
+        if ($insert_user_details_res) {
+            // Data inserted successfully, redirect with success message
+            redirect("masarsa-access.php", "Data inserted successfully.");
+            exit();
+        } else {
+            // User details insertion failed, redirect with error message
+            redirect("masarsa-access.php", "User details insertion failed.");
+            exit();
+        }
+    } else {
+        // User insertion failed, redirect with error message
+        redirect("masarsa-access.php", "User insertion failed.");
         exit();
     }
 }

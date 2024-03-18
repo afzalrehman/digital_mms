@@ -1,11 +1,11 @@
 <?php
 session_start();
-include_once("../includes/config.php");
-include_once "../includes/function.php";
+include "../includes/config.php";
+include "../includes/function.php";
 // Include other necessary files
-include_once "inc/header.php";
-include_once "inc/sidebar.php";
-include_once "inc/navbar.php";
+include "inc/header.php";
+include "inc/sidebar.php";
+include "inc/navbar.php";
 ?>
 
 <!-- Main Content (Start) -->
@@ -48,7 +48,7 @@ include_once "inc/navbar.php";
             <div class="row g-4">
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="user_name">نام</label>
-                <input type="text" name="user_name" id="user_name" class="form-control fw-semibold fs-4"  placeholder="محمد" />
+                <input type="text" name="user_name" id="user_name" class="form-control fw-semibold fs-4" placeholder="محمد" />
                 <span class="error text-danger" id="user_name_err"></span>
               </div>
               <div class="col-md-6">
@@ -62,7 +62,7 @@ include_once "inc/navbar.php";
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="user_age">تاریخ پیدائش</label>
-                <input type="date" name="user_age" id="user_age" class="form-control fw-semibold fs-4"  placeholder="عمر" />
+                <input type="date" name="user_age" id="user_age" class="form-control fw-semibold fs-4" placeholder="عمر" />
                 <span class="error text-danger" id="user_age_err"></span>
               </div>
               <div class="col-md-6">
@@ -72,7 +72,7 @@ include_once "inc/navbar.php";
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="user_address">پتہ</label>
-                <input type="text" name="user_address" id="user_address" class="form-control fw-semibold fs-4"  placeholder="پتہ" />
+                <input type="text" name="user_address" id="user_address" class="form-control fw-semibold fs-4" placeholder="پتہ" />
                 <span class="error text-danger" id="user_address_err"></span>
               </div>
               <div class="col-md-6">
@@ -92,18 +92,18 @@ include_once "inc/navbar.php";
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="username">یوزَر نام</label>
-                <input type="text" name="username" id="username" class="form-control fs-3 user-email"  placeholder="یوزَر نام" />
+                <input type="text" name="username" id="username" class="form-control fs-3 user-email" placeholder="یوزَر نام" />
                 <span class="error text-danger" id="username_err"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="user_email">ای میل</label>
-                <input type="email" name="user_email" id="user_email" class="form-control fs-3 user-email"  placeholder="user@gmail.com" />
+                <input type="email" name="user_email" id="user_email" class="form-control fs-3 user-email" placeholder="user@gmail.com" />
                 <span class="error text-danger" id="user_email_err"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="user_password">پاس ورڈ</label>
                 <div class="input-group">
-                  <input type="password" name="user_password" id="user_password" class="form-control fs-3"  minlength="8" maxlength="16" placeholder="st@123" aria-describedby="toggle_password"/>
+                  <input type="password" name="user_password" id="user_password" class="form-control fs-3" minlength="8" maxlength="16" placeholder="st@123" aria-describedby="toggle_password" />
                   <span class="input-group-text" id="toggle_password"><i id="eye_icon" class="ti ti-eye-off"></i></span>
                 </div>
                 <span class="error text-danger" id="user_password_err"></span>
@@ -132,8 +132,6 @@ include_once "inc/navbar.php";
 </div>
 <?php
 include "inc/mobileNavbar.php";
-?>
-<script src="../assets/js/error/userAddError.js"></script>
-<?php
 include "inc/footer.php";
 ?>
+<script src="../assets/js/error/userAddError.js"></script>

@@ -93,56 +93,113 @@ if (isset($_GET['user_view_profile'])) {
         <!-- Teacher Profile Tab Content -->
         <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-12">
               <div class="card">
-                <div class="card-header border-bottom">
-                  <h4 class="mb-3 mt-2 text-center fs-7">ذاتی معلومات</h4>
-                </div>
                 <div class="card-body">
-                  <div class="box  mb-3 border-bottom pb-2">
-                    <span class="me-3  fs-6 jameel-kasheeda"> یوزَر نام :</span>
-                    <span class="fs-4 text-muted  inter"><?= $fatch_user['username'] ?></span>
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <input type="text" hidden name="user_id" class="form-control fw-semibold fs-4" placeholder="محمد" value="<?= $fatch_user['user_id']; ?>" />
+                      <label class="fs-5 mb-1" for="user_name">نام</label>
+                      <input type="text" name="user_name" class="form-control fw-semibold fs-4" placeholder="محمد" value="<?= $fatch_user['full_name']; ?>" />
+                      <!-- <span class="error" id="std-area-err"></span> -->
+                    </div>
+                    <div class="col-md-6">
+                      <label class="fs-5 mb-1" for="user_gander">صنف</label>
+                      <select id="user-select" name="user_gander" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                        <option value="<?= $fatch_user['gender']; ?>" class="jameel-kasheeda"><?= $fatch_user['gender']; ?></option>
+                        <option value="admin" class="jameel-kasheeda">مرد</option>
+                        <option value="admin" class="jameel-kasheeda">عورت</option>
+                      </select>
+                      <!-- <span class="error" id="std-area-err"></span> -->
+                    </div>
+                    <div class="col-md-6">
+                      <label class="fs-5 mb-1" for="user_age">تاریخ پیدائش</label>
+                      <input type="date" name="user_age" class="form-control fw-semibold fs-4" placeholder="عمر" value="<?= $fatch_user['age']; ?>" />
+                      <!-- <span class="error" id="std-area-err"></span> -->
+                    </div>
+                    <div class="col-md-6">
+                      <label class="fs-5 mb-1" for="user_phone">فون نمبر</label>
+                      <input type="text" name="user_phone" class="form-control fw-semibold fs-4" placeholder="03000000000" value="<?= $fatch_user['phone']; ?>" />
+                      <!-- <span class="error" id="std-area-err"></span> -->
+                    </div>
+                    <div class="col-md-6">
+                      <label class="fs-5 mb-1" for="user_address">پتہ</label>
+                      <input type="text" name="user_address" class="form-control fw-semibold fs-4" placeholder="پتہ" value="<?= $fatch_user['address']; ?>" />
+                      <!-- <span class="error" id="std-area-err"></span> -->
+                    </div>
+                    <div class="col-md-6">
+                      <label class="fs-5 mb-1" for="user_role">یوزَر منتخب کریں</label>
+                      <select id="user-select" name="user_role" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                        <option value="<?= $fatch_user['role_id'] ?>" class="jameel-kasheeda"><?php if ($fatch_user['user_id'] == 1) {
+                                                                                                echo "سپر ایڈمن";
+                                                                                              } elseif ($fatch_user['user_id'] == 2) {
+                                                                                                echo "ایڈمن";
+                                                                                              }  ?></option>
+                        <option value="<?= $fatch_user['role_id'] ?>" class="jameel-kasheeda"><?php if ($fatch_user['user_id'] == 1) {
+                                                                                                echo "سپر ایڈمن";
+                                                                                              } elseif ($fatch_user['user_id'] == 2) {
+                                                                                                echo "ایڈمن";
+                                                                                              }
+                                                                                              ?></option>
+                        <!-- fatch role -->
+                        <?php
+                        $role_query = "SELECT `role_id`, `role_name`  FROM `role`";
+                        $role_result = mysqli_query($conn, $role_query);
+                        while ($role = mysqli_fetch_assoc($role_result)) {
+                          echo "<option value='" . $role['role_id'] . "' class='jameel-kasheeda'>" . $role['role_name'] . "</option>";
+                        }
+                        ?>
+                      </select>
+                      <!-- <span class="error" id="std-area-err"></span> -->
+                    </div>
+                    <div class="col-md-6">
+                      <label class="fs-5 mb-1" for="username">یوزَر نام</label>
+                      <input type="text" name="username" class="form-control fs-3 user-email" placeholder="یوزَر نام" value="<?= $fatch_user['username']; ?>" />
+                      <!-- <span class="error" id="std-area-err"></span> -->
+                    </div>
+                    <div class="col-md-6">
+                      <label class="fs-5 mb-1" for="user_email">ای میل</label>
+                      <input type="email" name="user_email" class="form-control fs-3 user-email" placeholder="user@gmail.com" value="<?= $fatch_user['email']; ?>" />
+                      <!-- <span class="error" id="std-area-err"></span> -->
+                    </div>
+                    <div class="col-md-6">
+                      <label class="fs-5 mb-1" for="user_image">تصویر</label>
+                      <input type="file" name="user_image" class="form-control fs-3" />
+                      <!-- <span class="error" id="std-area-err"></span> -->
+                    </div>
                   </div>
-                  <div class="box  mb-3 border-bottom pb-2">
-                    <span class="me-3  fs-6 jameel-kasheeda"> ای میل :</span>
-                    <span class="fs-4 text-muted  inter"><?= $fatch_user['email'] ?></span>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="col-md-12 mt-4 jameel-kasheeda">
+                <div class="btn-group">
+                  <div class="row">
+                    <div class="col-12">
+                      <a href="user-details.php" class="btn btn-danger fw-semibold fs-5">کلوز</a>
+                      <button type="submit" id="user_update" name="user_update" class="btn btn-primary fw-semibold fs-5">اپ ڈیٹ</button>
+                    </div>
                   </div>
-                  <div class="box  mb-3 border-bottom pb-2">
-                    <span class="me-3  fs-6 jameel-kasheeda"> موبائل فون کانمبر :</span>
-                    <span class="fs-4 text-muted  inter"><?= $fatch_user['phone'] ?></span>
-                  </div>
-                  <div class="box  mb-3 border-bottom pb-2">
-                    <span class="me-3  fs-6 jameel-kasheeda"> تاریخ پیدائش :</span>
-                    <span class="fs-4 text-muted  inter"><?= $fatch_user['age'] ?></span>
-                  </div>
-                  <div class="box  mb-3 border-bottom pb-2">
-                    <span class="me-3  fs-6 jameel-kasheeda"> جنس :</span>
-                    <span class="fs-4 text-muted  inter"><?= $fatch_user['gender'] ?></span>
-                  </div>
-                  <div class="box  mb-3 border-bottom pb-2">
-                    <span class="me-3  fs-6 jameel-kasheeda"> پتہ :</span>
-                    <span class="fs-4 text-muted  inter"><?= $fatch_user['address'] ?></span>
-                  </div>
+                  <!-- <button type="submit" id="user_update" name="user_update" class="btn btn-primary fw-semibold fs-5">اپ ڈیٹ</button> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-<?php
+  <?php
   }
 }
 
-?>
-</div>
-<!-- Main Content (End) -->
-</div>
-<div class="dark-transparent sidebartoggler"></div>
-</div>
+  ?>
+    </div>
+    <!-- Main Content (End) -->
+    </div>
+    <div class="dark-transparent sidebartoggler"></div>
+    </div>
 
 
-<?php
-include "inc/mobileNavbar.php";
-include "inc/footer.php";
-?>
+    <?php
+    include "inc/mobileNavbar.php";
+    include "inc/footer.php";
+    ?>

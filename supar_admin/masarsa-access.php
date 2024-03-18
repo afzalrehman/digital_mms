@@ -2,6 +2,127 @@
 session_start();
 include_once("../includes/config.php");
 include_once "../includes/function.php";
+
+
+// ================================ Add Madarsa Access Code Start page (madarsa-access.php) ================================
+if (isset($_POST['masarsa_insert'])) {
+  // Establish database connection (assuming $conn is defined elsewhere)
+
+  // Escape user inputs for security
+  $madarsa_name = mysqli_real_escape_string($conn, $_POST['madarsa_name']);
+  $user_name = mysqli_real_escape_string($conn, $_POST['user_name']);
+  $user_phone = mysqli_real_escape_string($conn, $_POST['user_phone']);
+  $username = mysqli_real_escape_string($conn, $_POST['username']);
+  $user_email = mysqli_real_escape_string($conn, $_POST['user_email']);
+  $user_password = mysqli_real_escape_string($conn, $_POST['user_password']);
+
+  // Check if email is unique
+  $check_email_query = "SELECT * FROM `users` WHERE `email` = '$user_email'";
+  $check_email_result = mysqli_query($conn, $check_email_query);
+
+  if (mysqli_num_rows($check_email_result) > 0) {
+    // Email already exists, redirect with message
+    redirect("masarsa-access.php", "Email already exists.");
+    exit();
+  }
+
+  // Check if phone number is unique
+  $check_phone_query = "SELECT * FROM `user_details` WHERE `phone` = '$user_phone'";
+  $check_phone_result = mysqli_query($conn, $check_phone_query);
+
+  if (mysqli_num_rows($check_phone_result) > 0) {
+    // Phone number already exists, redirect with message
+    redirect("masarsa-access.php", "Phone number already exists.");
+    exit();
+  }
+
+  // Check if username is unique
+  $check_username_query = "SELECT * FROM `users` WHERE `username` = '$username'";
+  $check_username_result = mysqli_query($conn, $check_username_query);
+
+  if (mysqli_num_rows($check_username_result) > 0) {
+    // Username already exists, redirect with message
+    redirect("masarsa-access.php", "Username already exists.");
+    exit();
+  } else {
+
+
+    // Hash the password
+    $user_pass = password_hash($user_password, PASSWORD_DEFAULT);
+    // Generate token
+    $user_token = bin2hex(random_bytes(15));
+    // Current date and time
+    $created_date = date('Y-m-d');
+
+    // Handle file upload
+    $image = $_FILES['image']['name'];
+    $image_temp = $_FILES['image']['tmp_name'];
+    move_uploaded_file($image_temp, '../media/madarsa-access/' . $image);
+
+    // Insert user data into 'users' table
+    $insert_user_query = "INSERT INTO `users` (
+      `username`, 
+      `email`, 
+      `password`, 
+      `token`, 
+      `status`, 
+      `role_id`, 
+      `created_date`
+      )
+  VALUES (
+      '$username', 
+      '$user_email', 
+      '$user_pass', 
+      '$user_token', 
+      'Inactive', 
+      5, 
+      '$created_date')";
+
+    $insert_user_res = mysqli_query($conn, $insert_user_query);
+
+    if ($insert_user_res) {
+      // Get the ID of the inserted user record
+      $user_id = mysqli_insert_id($conn);
+
+      // Insert user details into 'user_details' table
+      $insert_user_details_query = "INSERT INTO `user_details` (
+          `user_id`, 
+          `full_name`, 
+          `register_no`, 
+          `phone`,
+          `image`
+          )
+      VALUES (
+          '$user_id', 
+          '$user_name', 
+          '$madarsa_name', 
+          '$user_phone',
+          '$image'
+          )";
+      $insert_user_details_res = mysqli_query($conn, $insert_user_details_query);
+
+      if ($insert_user_details_res) {
+        // Data inserted successfully, redirect with success message
+        redirect("masarsa-access.php", "Data inserted successfully.");
+        exit();
+      } else {
+        // User details insertion failed, redirect with error message
+        redirect("masarsa-access.php", "User details insertion failed.");
+        exit();
+      }
+    } else {
+      // User insertion failed, redirect with error message
+      redirect("masarsa-access.php", "User insertion failed.");
+      exit();
+    }
+  }
+}
+
+
+
+
+
+
 // Include other necessary files
 include_once "inc/header.php";
 include_once "inc/sidebar.php";
@@ -22,7 +143,7 @@ include_once "inc/navbar.php";
                 <a class="text-muted text-decoration-none fs-4" href="index.html">ڈیش بورڈ</a>
               </li>
               <li class="breadcrumb-item fs-4" aria-current="page">
-              مدرسہ فارم
+                مدرسہ فارم
               </li>
             </ol>
           </nav>
@@ -38,7 +159,7 @@ include_once "inc/navbar.php";
   <!-- Main Content Header Card (End) -->
 
   <!-- User Admission Form (Start) -->
-  <form action="user-all-code.php" id="user_form" method="POST" enctype="multipart/form-data">
+  <form action="" id="masarsa_access_form" method="POST" enctype="multipart/form-data">
     <div class="row">
 
       <!-- User Info -->
@@ -47,23 +168,24 @@ include_once "inc/navbar.php";
           <div class="card-body">
             <div class="row g-4">
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="user_name">نام</label>
-                <input type="text" name="user_name" id="user_name" class="form-control fw-semibold fs-4"  placeholder="محمد" />
-                <span class="error text-danger" id="user_name_err"></span>
-              </div>
-              <div class="col-md-6">
-                <label class="fs-5 mb-1" for="user_gander">صنف</label>
-                <select id="user_gander" name="user_gander" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                <label class="fs-5 mb-1" for="madarsa_name">مدرسہ</label>
+                <select id="madarsa_name" name="madarsa_name" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                   <option value="" class="jameel-kasheeda">- - -</option>
-                  <option value="مرد" class="jameel-kasheeda">مرد</option>
-                  <option value="عورت" class="jameel-kasheeda">عورت</option>
+                  <!-- fatch role -->
+                  <?php
+                  $madarsa_query = "SELECT `RigitarNumber`, `madarsa_name`  FROM `madarsa` where `status` = 'فعال' ORDER BY `RigitarNumber` ASC";
+                  $madarsa_result = mysqli_query($conn, $madarsa_query);
+                  while ($madarsa = mysqli_fetch_assoc($madarsa_result)) {
+                    echo "<option value='" . $madarsa['RigitarNumber'] . "' class='jameel-kasheeda'>" . $madarsa['madarsa_name'] . "</option>";
+                  }
+                  ?>
                 </select>
-                <span class="error text-danger" id="user_gander_err"></span>
+                <span class="error text-danger" id="madarsa_name_err"></span>
               </div>
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="user_age">تاریخ پیدائش</label>
-                <input type="date" name="user_age" id="user_age" class="form-control fw-semibold fs-4"  placeholder="عمر" />
-                <span class="error text-danger" id="user_age_err"></span>
+                <label class="fs-5 mb-1" for="user_name">نام</label>
+                <input type="text" name="user_name" id="user_name" class="form-control fw-semibold fs-4" placeholder="محمد" />
+                <span class="error text-danger" id="user_name_err"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="user_phone">فون نمبر</label>
@@ -71,39 +193,19 @@ include_once "inc/navbar.php";
                 <span class="error text-danger" id="user_phone_err"></span>
               </div>
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="user_address">پتہ</label>
-                <input type="text" name="user_address" id="user_address" class="form-control fw-semibold fs-4"  placeholder="پتہ" />
-                <span class="error text-danger" id="user_address_err"></span>
-              </div>
-              <div class="col-md-6">
-                <label class="fs-5 mb-1" for="user_role">یوزَر منتخب کریں</label>
-                <select id="user_role" name="user_role" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
-                  <option value="" class="jameel-kasheeda">- - -</option>
-                  <!-- fatch role -->
-                  <?php
-                  $role_query = "SELECT `role_id`, `role_name`  FROM `role` where role_id = 1 OR role_id = 2";
-                  $role_result = mysqli_query($conn, $role_query);
-                  while ($role = mysqli_fetch_assoc($role_result)) {
-                    echo "<option value='" . $role['role_id'] . "' class='jameel-kasheeda'>" . $role['role_name'] . "</option>";
-                  }
-                  ?>
-                </select>
-                <span class="error text-danger" id="user_role_err"></span>
-              </div>
-              <div class="col-md-6">
                 <label class="fs-5 mb-1" for="username">یوزَر نام</label>
-                <input type="text" name="username" id="username" class="form-control fs-3 user-email"  placeholder="یوزَر نام" />
+                <input type="text" name="username" id="username" class="form-control fs-3 user-email" placeholder="یوزَر نام" />
                 <span class="error text-danger" id="username_err"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="user_email">ای میل</label>
-                <input type="email" name="user_email" id="user_email" class="form-control fs-3 user-email"  placeholder="user@gmail.com" />
+                <input type="email" name="user_email" id="user_email" class="form-control fs-3 user-email" placeholder="user@gmail.com" />
                 <span class="error text-danger" id="user_email_err"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="user_password">پاس ورڈ</label>
                 <div class="input-group">
-                  <input type="password" name="user_password" id="user_password" class="form-control fs-3"  minlength="8" maxlength="16" placeholder="st@123" aria-describedby="toggle_password"/>
+                  <input type="password" name="user_password" id="user_password" class="form-control fs-3" minlength="8" maxlength="16" placeholder="st@123" aria-describedby="toggle_password" />
                   <span class="input-group-text" id="toggle_password"><i id="eye_icon" class="ti ti-eye-off"></i></span>
                 </div>
                 <span class="error text-danger" id="user_password_err"></span>
@@ -118,7 +220,7 @@ include_once "inc/navbar.php";
 
         <!-- Submit Button -->
         <div class="col-md-12 mt-4 jameel-kasheeda">
-          <button type="submit" id="user_insert" name="user_insert" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
+          <button type="submit" id="masarsa_insert" name="masarsa_insert" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
         </div>
       </div>
   </form>
@@ -132,8 +234,6 @@ include_once "inc/navbar.php";
 </div>
 <?php
 include "inc/mobileNavbar.php";
-?>
-<script src="../assets/js/error/userAddError.js"></script>
-<?php
 include "inc/footer.php";
 ?>
+<script src="../assets/js/error/accessMadarsaError.js"></script>

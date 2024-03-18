@@ -12,14 +12,14 @@ include "inc/navbar.php";
     <div class="card-body px-4 py-3">
       <div class="row align-items-center">
         <div class="col-9">
-          <h4 class="my-3 fs-8 text-primary">یوزَر کی تفصیلات</h4>
+          <h4 class="my-3 fs-8 text-primary">مدرسہ کی تفصیلات</h4>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item">
                 <a class="text-muted text-decoration-none fs-4" href="index.html">ڈیش بورڈ</a>
               </li>
               <li class="breadcrumb-item fs-4" aria-current="page">
-                یوزَر کی تفصیلات
+              مدرسہ کی تفصیلات
               </li>
             </ol>
           </nav>
