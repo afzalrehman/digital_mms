@@ -496,6 +496,22 @@
                     <span class="hide-menu jameel-kasheeda fs-4">تفصیلات</span>
                   </a>
                 </li>
+                <li class="sidebar-item">
+                  <a href="./teacher-access.php" class="sidebar-link">
+                    <div class="round-16 d-flex align-items-center justify-content-center">
+                      <i class="ti ti-circle"></i>
+                    </div>
+                    <span class="hide-menu jameel-kasheeda fs-4">استاد ایڈکریں</span>
+                  </a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="./teacher-access-details.php" class="sidebar-link">
+                    <div class="round-16 d-flex align-items-center justify-content-center">
+                      <i class="ti ti-circle"></i>
+                    </div>
+                    <span class="hide-menu jameel-kasheeda fs-4">تفصیلات</span>
+                  </a>
+                </li>
 
               </ul>
             </li>
