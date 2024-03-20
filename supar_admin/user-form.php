@@ -38,7 +38,7 @@ include "inc/navbar.php";
   <!-- Main Content Header Card (End) -->
 
   <!-- User Admission Form (Start) -->
-  <form action="user-all-code.php" id="user_form" method="POST" enctype="multipart/form-data">
+  <form action="code2.php" id="user_form" method="POST" enctype="multipart/form-data">
     <div class="row">
 
       <!-- User Info -->
@@ -118,7 +118,7 @@ include "inc/navbar.php";
 
         <!-- Submit Button -->
         <div class="col-md-12 mt-4 jameel-kasheeda">
-          <button type="submit" id="user_insert" name="user_insert" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
+          <button type="submit" name="user_insert" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
         </div>
       </div>
   </form>
@@ -130,8 +130,8 @@ include "inc/navbar.php";
 </div>
 <div class="dark-transparent sidebartoggler"></div>
 </div>
+<script src="../assets/js/error/userAddError.js"></script>
 <?php
 include "inc/mobileNavbar.php";
 include "inc/footer.php";
 ?>
-<script src="../assets/js/error/userAddError.js"></script>

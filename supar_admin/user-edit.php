@@ -141,7 +141,8 @@ if (isset($_GET['user_edit'])) {
 
             <!-- Submit Button -->
             <div class="col-md-12 mt-4 jameel-kasheeda">
-              <button type="submit" id="user_update" name="user_update" class="btn btn-primary fw-semibold fs-5">اپ ڈیٹ</button>
+            <a href="user-details.php" class="btn btn-danger fw-semibold fs-5">کلوز</a>
+              <button type="submit" name="user_update" class="btn btn-primary fw-semibold fs-5">اپ ڈیٹ</button>
             </div>
           </div>
       </form>

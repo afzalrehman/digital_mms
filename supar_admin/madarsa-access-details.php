@@ -10,16 +10,16 @@ include "inc/navbar.php";
   <!-- Main Content Header Card (Start) -->
   <div class="card bg-light-primary position-relative overflow-hidden breadcurmb-card-shadow">
     <div class="card-body px-4 py-3">
-      <div class="row align-items-center">
+      <div class="row align-fatch_users-center">
         <div class="col-9">
-          <h4 class="my-3 fs-8 text-primary">مدرسہ کی تفصیلات</h4>
+          <h4 class="my-3 fs-8 text-primary">یوزَر کی تفصیلات</h4>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">
+              <li class="breadcrumb-fatch_user">
                 <a class="text-muted text-decoration-none fs-4" href="index.html">ڈیش بورڈ</a>
               </li>
-              <li class="breadcrumb-item fs-4" aria-current="page">
-              مدرسہ کی تفصیلات
+              <li class="breadcrumb-fatch_user fs-4" aria-current="page">
+                یوزَر کی تفصیلات
               </li>
             </ol>
           </nav>
@@ -53,7 +53,7 @@ include "inc/navbar.php";
   <!-- User Search Form (End) -->
 
   <!-- User Details List (Start) -->
-  <div class="col-lg-12 d-flex align-items-strech">
+  <div class="col-lg-12 d-flex align-fatch_users-strech">
     <div class="card w-100">
       <div class="card-body">
         <div class="mb-7 mb-sm-0">
@@ -62,20 +62,22 @@ include "inc/navbar.php";
         <div class="table-responsive text-center py-9">
           <table class="table align-middle text-nowrap mb-0">
             <thead>
-              <tr class="fw-semibold">
+              <tr class="fw-semibold text-center">
                 <th class="fs-5 word-spacing-2px text-primary">#</th>
                 <!-- <th class="fs-5 word-spacing-2px text-primary">رجسٹریشن نمبر</th> -->
+                <th class="fs-5 word-spacing-2px text-primary">مدرسہ نام</th>
                 <th class="fs-5 word-spacing-2px text-primary">نام</th>
                 <th class="fs-5 word-spacing-2px text-primary">ای میل</th>
-                <th class="fs-5 word-spacing-2px text-primary">یوزَر نام</th>
+                <!-- <th class="fs-5 word-spacing-2px text-primary">یوزَر نام</th> -->
                 <th class="fs-5 word-spacing-2px text-primary">فون نمبر</th>
-                <th class="fs-5 word-spacing-2px text-primary">یوزَر قسم</th>
+                <!-- <th class="fs-5 word-spacing-2px text-primary">یوزَر قسم</th> -->
+                <th class="fs-5 word-spacing-2px text-primary">حالت</th>
                 <th class="fs-5 word-spacing-2px text-primary">انتخاب کریں</th>
               </tr>
             </thead>
             <?php
             // fatch users & user_details from database and display them in table format to use inner join
-            $select_user_query = "SELECT * FROM `users` INNER JOIN `user_details` ON users.user_id = user_details.user_id WHERE users.user_id = 1 OR users.user_id = 2";
+            $select_user_query = "SELECT * FROM `users` INNER JOIN `user_details` ON users.user_id = user_details.user_id WHERE users.role_id = '5'";
             $select_user_result = mysqli_query($conn, $select_user_query);
 
             $no = 1;
@@ -83,7 +85,7 @@ include "inc/navbar.php";
               while ($fatch_user = mysqli_fetch_assoc($select_user_result)) {
             ?>
                 <tbody class="border-top">
-                  <tr>
+                  <tr class="text-center">
                     <td>
                       <p class="mb-0 fs-2 inter"><?= $no++ ?></p>
                     </td>
@@ -91,36 +93,69 @@ include "inc/navbar.php";
                       <p class="mb-0 fs-2 inter">#00281</p>
                     </td> -->
                     <td>
+                      <p class="mb-0 fs-4 word-spacing-2px"><?= $fatch_user['madarsa_name'] ?></p>
+                    </td>
+                    <td>
                       <p class="mb-0 fs-4 word-spacing-2px"><?= $fatch_user['full_name'] ?></p>
                     </td>
                     <td>
                       <p class="mb-0 fs-2 inter"><?= $fatch_user['email'] ?></p>
                     </td>
-                    <td>
+                    <!-- <td>
                       <p class="mb-0 fs-2 inter"><?= $fatch_user['username'] ?></p>
-                    </td>
+                    </td> -->
                     <td>
                       <p class="mb-0 fs-2 inter"><?= $fatch_user['phone'] ?></p>
                     </td>
+                    <!-- <td>
+                      <?php
+                      // if ($fatch_user['role_id'] === '5') {
+                      //   echo '<p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2"> انسٹی ٹیوٹ </p>';
+                      // }
+                      ?>
+                    </td> -->
                     <td>
-                      <p class="mb-0 fs-4 word-spacing-2px"><?php if ($fatch_user['user_id'] == 1) {
-                                                              echo "سپر ایڈمن";
-                                                            } elseif ($fatch_user['user_id'] == 2) {
-                                                              echo "ایڈمن";
-                                                            } 
-                                                            ?></p>
+                      <?php
+                      if ($fatch_user['dlt_status'] === 'فعال') {
+                        echo '<p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $fatch_user['dlt_status'] . '</p>';
+                      } else {
+                        echo '<p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $fatch_user['dlt_status'] . '</p>';
+                      }
+                      ?>
                     </td>
                     <td>
                       <div class="action-btn">
-                        <a href="javascript:void(0)" class="text-dark ms-1">
-                          <i class="ti ti-trash fs-6 text-danger"></i>
-                        </a>
-                        <a href="user-edit.php?user_edit=<?= $fatch_user['user_id'] ?>" class="text-success">
-                          <i class="ti ti-edit fs-6"></i>
-                        </a>
-                        <a href="user-view-profile.php?user_view_profile=<?= $fatch_user['user_id'] ?>" class="text-primary">
-                          <i class="ti ti-eye fs-6"></i>
-                        </a>
+                        <?php
+                        if ($fatch_user['dlt_status'] !== 'غیر فعال') {
+                          echo '<a href="madarsa-edit.php?madarsa_edit=' . $fatch_user['user_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
+                        }
+                        ?>
+                        <?php
+                        if ($fatch_user['dlt_status'] !== 'غیر فعال') {
+                          echo '<a href="madarsa-view.php?madarsa_view=' . $fatch_user['user_id'] . '" class="text-primary"><i class="ti ti-eye fs-6"></i></a>';
+                        }
+                        ?>
+                        <button type="button" class="border-0  rounded-2 p-0 py-1 bg-white" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $fatch_user['user_id'] ?>">
+                          <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
+                        </button>
+                        <!-- ===================delete institute page modal================== -->
+                        <div class="modal fade" id="deleteModal<?= $fatch_user['user_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">یقینی طور پر حذف کر رہے ہیں </h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">کلوز</button>
+                                <a href="user-all-code.php?madarsa_delete=<?= $fatch_user['user_id'] ?>">
+                                  <button type="button" class="btn btn-danger">ڈیلیٹ</button>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                       </div>
                     </td>
                   </tr>
