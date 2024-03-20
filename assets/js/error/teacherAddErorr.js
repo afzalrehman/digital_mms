@@ -1,13 +1,11 @@
 const form = document.getElementById("Teaher");
 
 const myConstants = {
-
   rigisterNumber: {
     element: document.getElementById("RegNumber"),
     error: document.querySelector(".RegNumber"),
     minLength: 3,
-    errorMessage:
-      "براۓ مہربانی رجسٹر نمبر ایڈ کریں",
+    errorMessage: "براۓ مہربانی رجسٹر نمبر ایڈ کریں",
   },
   Name: {
     element: document.getElementById("Name"),
@@ -24,57 +22,52 @@ const myConstants = {
     error: document.querySelector(".mad_Name"),
     errorMessage: "براۓ مہربانی مدرسہ درج کریں",
   },
-DateOfB: {
+  DateOfB: {
     element: document.getElementById("DateOfB"),
     error: document.querySelector(".DateOfB"),
     errorMessage: "براۓ مہربانی تاریخ پیدائش درج کریں",
-},
-gender: {
-  element: document.getElementById("gender"),
-  error: document.querySelector(".gender"),
-  errorMessage: "براۓ مہربانی صنف درج کریں",
-},
+  },
+  gender: {
+    element: document.getElementById("gender"),
+    error: document.querySelector(".gender"),
+    errorMessage: "براۓ مہربانی صنف درج کریں",
+  },
 
-Address: {
+  Address: {
     element: document.getElementById("Address"),
     error: document.querySelector(".Address"),
     minLength: 5,
-    errorMessage:
-      "براۓ مہربانی  پتہ درج کریں اور 5 حروف سے زیادہ ہونا چاہئے",
-},
+    errorMessage: "براۓ مہربانی  پتہ درج کریں اور 5 حروف سے زیادہ ہونا چاہئے",
+  },
 
-Degree: {
-  element: document.getElementById("Degree"),
-  error: document.querySelector(".Degree"),
-  minLength: 5,
-  errorMessage:
-    "براۓ مہربانی  تعلیم درج کریں اور 5 حروف سے زیادہ ہونا چاہئے",
-},
+  Degree: {
+    element: document.getElementById("Degree"),
+    error: document.querySelector(".Degree"),
+    minLength: 5,
+    errorMessage: "براۓ مہربانی  تعلیم درج کریں اور 5 حروف سے زیادہ ہونا چاہئے",
+  },
 
-phone: {
+  phone: {
     element: document.getElementById("phone"),
     error: document.querySelector(".phone"),
     maxLength: 11,
     errorMessage:
-        "فون نمبر 11 ہنریں لمبا ہونا چاہئے اور صفر یا تین سے شروع ہونا چاہئے",
-    pattern: /^03[0-4]\d{8}$/,  // Pakistani phone number format ke liye regular expression
-},
+      "فون نمبر 11 ہنریں لمبا ہونا چاہئے اور صفر یا تین سے شروع ہونا چاہئے",
+    pattern: /^03[0-4]\d{8}$/, // Pakistani phone number format ke liye regular expression
+  },
 
-
-Experence: {
+  Experence: {
     element: document.getElementById("Experence"),
     error: document.querySelector(".Experence"),
     minLength: 3,
-    errorMessage:
-      " براۓ مہربانی تعلیم درج کریں اور 3 حروف سے زیادہ ہونا چاہئے",
+    errorMessage: " براۓ مہربانی تعلیم درج کریں اور 3 حروف سے زیادہ ہونا چاہئے",
   },
 
   Subject: {
     element: document.getElementById("Subject"),
     error: document.querySelector(".Subject"),
     minLength: 3,
-    errorMessage:
-      " براۓ مہربانی کتاب درج کریں اور 3 حروف سے زیادہ ہونا چاہئے",
+    errorMessage: " براۓ مہربانی کتاب درج کریں اور 3 حروف سے زیادہ ہونا چاہئے",
   },
   Class: {
     element: document.getElementById("Class"),
@@ -105,14 +98,13 @@ Experence: {
     errorMessage: "براۓ مہربانی فون نمبر درج کریں ",
   },
 
-Email: {
+  Email: {
     element: document.getElementById("Email"),
     error: document.querySelector(".Email"),
     minLength: 3,
-    errorMessage:
-      "براۓ مہربانی ای میل درج کریں اور 3 حروف سے زیادہ ہونا چاہئے",
+    errorMessage: "براۓ مہربانی ای میل درج کریں اور 3 حروف سے زیادہ ہونا چاہئے",
     pattern: /^[\w-]+(\.[\w-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/, // ای میل پیٹرن
-},
+  },
 };
 
 function validateInput(input) {
@@ -169,4 +161,3 @@ for (const key in myConstants) {
     validateForm();
   });
 }
-
