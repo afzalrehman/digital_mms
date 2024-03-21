@@ -263,9 +263,7 @@ if (isset($_POST['departmentUpdate'])) {
         exit();
     }
 }
-
 // ======================section add========================
-
 if (isset($_POST['sectionBtn'])) {
     $section = trim(mysqli_real_escape_string($conn, $_POST['section']));
     $section_madarsa_id = mysqli_real_escape_string($conn, $_POST['madarasa']);
@@ -414,5 +412,123 @@ if (isset($_POST['classUpdate'])) {
     }
 }
 // // =======================teacher page insert====================
+if (isset($_POST['teacherBtn'])) {
+    $teacherReg  = mysqli_real_escape_string($conn, $_POST['teacherReg']);
+    $madarasa = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $teacherName  = mysqli_real_escape_string($conn, $_POST['teacherName']);
+    $teacherfathername  = mysqli_real_escape_string($conn, $_POST['teacherfathername']);
+    $teachergender = mysqli_real_escape_string($conn, $_POST['teachergender']);
+    $DateBirth = mysqli_real_escape_string($conn, $_POST['DateBirth']);
+    $teachernumber  = mysqli_real_escape_string($conn, $_POST['teachernumber']);
+    $teacheremail  = mysqli_real_escape_string($conn, $_POST['teacheremail']);
+    $teacheraddress  = mysqli_real_escape_string($conn, $_POST['teacheraddress']);
+    $teacherQualification  = mysqli_real_escape_string($conn, $_POST['teacherQualification']);
+    $teacherExp  = mysqli_real_escape_string($conn, $_POST['teacherExp']);
+    $teacherToughtSubject  = mysqli_real_escape_string($conn, $_POST['teacherToughtSubject']);
+    $teacherToughtClasses  = mysqli_real_escape_string($conn, $_POST['teacherToughtClasses']);
+    $teacherEmployStatus  = mysqli_real_escape_string($conn, $_POST['teacherEmployStatus']);
+    $teacherJoinDate  = mysqli_real_escape_string($conn, $_POST['teacherJoinDate']);
+    $teacherSalary  = mysqli_real_escape_string($conn, $_POST['teacherSalary']);
+    $teacherEmergNumber  = mysqli_real_escape_string($conn, $_POST['teacherEmergNumber']);
+    $note  = mysqli_real_escape_string($conn, $_POST['note']);
+    $checkQuery = "SELECT * FROM `teacher` WHERE `register_num` = '$teacherReg'  AND  `madarsa_id` = '$madarasa' AND  `phone` = '$teachernumber'  AND  `email` = '$teacheremail' AND  `cnic` = '$cnic' AND  `otherNumber` = '$teacherEmergNumber'";
+    $checkResult = mysqli_query($conn, $checkQuery);
 
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['email'] = 'مدرسہ کا ای میل پہلے سے موجود ہے';
+        header("location: madarsa_add.php");
+        exit();
+    }
+    $checkQuery = "SELECT * FROM `madarsa` WHERE `phone` = '$phone' ";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['phone'] = 'استاد کا فون پہلے سے موجود ہے';
+        header("location: tc-admission-form.php");
+        exit();
+    } else {
+        $insertQuery = "INSERT INTO `teacher` (`register_num`, `madarsa_id`, `tea_name`, `father_name`, `gander`, `dateOfBir`, `phone`, `email`, `adddress`, `degree`, `exprence`, `previousBook`, `previousClass`, `userType`, `joningDate`, `salary`, `otherNumber`, `note`) 
+        VALUES ('$teacherReg', '$madarasa', '$teacherName', '$teacherfathername', '$teachergender', '$DateBirth', '$teachernumber', '$teacheremail', '$teacheraddress', '$teacherQualification', '$teacherExp', '$teacherToughtSubject', '$teacherToughtClasses', '$teacherEmployStatus', '$teacherJoinDate', '$teacherSalary', '$teacherEmergNumber', '$note')";
+
+        if (mysqli_query($conn, $insertQuery)) {;
+            unset($_SESSION['input']);
+            redirect("tc-admission-form.php", " استاد ایڈ ہو چکا ہے");
+            exit();
+        } else {
+            $_SESSION['error_message'] = 'Error in adding announcement. Please try again.';
+            header("location:tc-admission-form.php");
+            exit();
+        }
+    }
+}
+// ==================teacher Delete==================
+if (isset($_GET['teacher_delete'])) {
+    $id = $_GET['teacher_delete'];
+    $delete_query = "UPDATE `teacher` SET `status` = 'غیر فعال' WHERE `id` = '$id'";
+
+    $sql = mysqli_query($conn, $delete_query);
+    if ($sql) {
+        redirectdelete("tc-details.php", "ڈیٹا حذف کر دیا گیا ہے ");
+        exit();
+    } else {
+        $_SESSION['not_successfully'] = "ڈیٹا حذف نہیں ھوا ہے ";
+        header('location:tc-details.php');
+        exit();
+    }
+}
+
+// ======================teacher Update========================
+if (isset($_POST['teacherUpdate'])) {
+    $teacherID  = mysqli_real_escape_string($conn, $_POST['teacher_id']);
+    $teacherReg  = mysqli_real_escape_string($conn, $_POST['teacherReg']);
+    $madarasa = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $teacherName  = mysqli_real_escape_string($conn, $_POST['teacherName']);
+    $teacherfathername  = mysqli_real_escape_string($conn, $_POST['teacherfathername']);
+    $teachergender = mysqli_real_escape_string($conn, $_POST['teachergender']);
+    $DateBirth = mysqli_real_escape_string($conn, $_POST['DateBirth']);
+    $teachernumber  = mysqli_real_escape_string($conn, $_POST['teachernumber']);
+    $teacheremail  = mysqli_real_escape_string($conn, $_POST['teacheremail']);
+    $teacheraddress  = mysqli_real_escape_string($conn, $_POST['teacheraddress']);
+    $teacherQualification  = mysqli_real_escape_string($conn, $_POST['teacherQualification']);
+    $teacherExp  = mysqli_real_escape_string($conn, $_POST['teacherExp']);
+    $teacherToughtSubject  = mysqli_real_escape_string($conn, $_POST['teacherToughtSubject']);
+    $teacherToughtClasses  = mysqli_real_escape_string($conn, $_POST['teacherToughtClasses']);
+    $teacherEmployStatus  = mysqli_real_escape_string($conn, $_POST['teacherEmployStatus']);
+    $teacherJoinDate  = mysqli_real_escape_string($conn, $_POST['teacherJoinDate']);
+    $teacherSalary  = mysqli_real_escape_string($conn, $_POST['teacherSalary']);
+    $teacherEmergNumber  = mysqli_real_escape_string($conn, $_POST['teacherEmergNumber']);
+    $note  = mysqli_real_escape_string($conn, $_POST['note']);
+    $checkQuery = "SELECT * FROM `teacher` WHERE `register_num` = '$teacherReg'  AND  `madarsa_id` = '$madarasa' AND  `phone` = '$teachernumber'  AND  `email` = '$teacheremail' AND  `cnic` = '$cnic' AND  `otherNumber` = '$teacherEmergNumber' AND `id`!='$teacherID'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['email'] = 'مدرسہ کا ای میل پہلے سے موجود ہے';
+        header("location: madarsa_add.php");
+        exit();
+    }
+    $checkQuery = "SELECT * FROM `madarsa` WHERE `phone` = '$phone' ";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['phone'] = 'استاد کا فون پہلے سے موجود ہے';
+        header("location: tc-admission-form.php");
+        exit();
+    } else {
+        $updateQuery = "UPDATE `teacher` SET `register_num` = '$teacherReg', `madarsa_id` = '$madarasa', `tea_name` = '$teacherName', `father_name` = '$teacherfathername',`gander` = '$teachergender',
+        `dateOfBir` = '$DateBirth',`phone` = '$teachernumber',`email` = '$teacheremail',`adddress` = '$teacheraddress', `degree` = '$teacherQualification', `exprence` = '$teacherExp',`previousBook` = '$teacherToughtSubject',
+        `previousClass` = '$teacherToughtClasses',`userType` = '$teacherEmployStatus',`joningDate` = '$teacherJoinDate',`salary` = '$teacherSalary',
+        `otherNumber` = '$teacherEmergNumber',`note` = '$note' WHERE `id` = $teacherID"; // Assuming teacher_id is the unique identifier for each teacher
+    
+
+        if (mysqli_query($conn, $updateQuery)) {;
+            unset($_SESSION['input']);
+            redirect("tc-admission-form.php", " استاد اپڈیٹ ہو چکا ہے");
+            exit();
+        } else {
+            $_SESSION['error_message'] = 'Error in adding announcement. Please try again.';
+            header("location:tc-admission-form.php");
+            exit();
+        }
+    }
+}
 ?>

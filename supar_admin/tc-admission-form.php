@@ -47,7 +47,7 @@ include "inc/navbar.php";
             <div class="row g-4">
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="teacher-reg-number">رجسٹریشن نمبر</label>
-                <input type="number" id="RegNumber" name="teacher-reg-number" class="form-control fw-semibold fs-3"  placeholder="#04321" />
+                <input type="number" id="RegNumber" name="teacherReg" class="form-control fw-semibold fs-3"  placeholder="#04321" />
                 <span class="text-danger RegNumber"></span>
               </div>
 
@@ -70,17 +70,17 @@ include "inc/navbar.php";
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="teacher-fullname">پورا نام</label>
-                <input type="text" name="teacher-fullname" id="Name" class="form-control fw-semibold fs-4"  placeholder="احمد شفیع" />
+                <input type="text" name="teacherName" id="Name" class="form-control fw-semibold fs-4"  placeholder="احمد شفیع" />
                 <span class="text-danger Name"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="teacher-fullname">والد کا نام</label>
-                <input type="text" name="teacher-fullname" id="Fname" class="form-control fw-semibold fs-4"  placeholder="احمد شفیع" />
+                <input type="text" name="teacherfathername" id="Fname" class="form-control fw-semibold fs-4"  placeholder="احمد شفیع" />
                 <span class="text-danger Fname"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="teacher-gender">صنف انتخاب کریں</label>
-                <select name="teacher-gender" id="gender" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                <select name="teachergender"  id="gender" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                   <option value="" class="jameel-kasheeda">- - -</option>
                   <option value="معلم" class="jameel-kasheeda">معلم</option>
                   <option value="معلمہ" class="jameel-kasheeda">معلمہ</option>
@@ -89,22 +89,29 @@ include "inc/navbar.php";
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="std-dbo">تاریخ پیدائش</label>
-                <input type="date" name="std-dbo" id="DateOfB" class="form-control fw-semibold fs-3"  placeholder="DD/MM/YYYY" />
+                <input type="date" name="DateBirth" id="DateOfB" class="form-control fw-semibold fs-3"  placeholder="DD/MM/YYYY" />
                 <span class="text-danger DateOfB"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="teacher-number">فون نمبر</label>
-                <input type="number" name="teacher-number" id="phone" class="form-control fw-semibold fs-3"  placeholder="03186432506" />
+                <input type="number" name="teachernumber" id="phone" class="form-control fw-semibold fs-3"  placeholder="03186432506" />
                 <span class="text-danger phone"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="teacher-email">ای میل</label>
-                <input type="email" name="teacher-email" id="Email" class="form-control fw-semibold fs-3"  placeholder="teacher@gmail.com" />
+                <input type="email" name="teacheremail" id="Email" class="form-control fw-semibold fs-3"  placeholder="teacher@gmail.com" />
                 <span class="text-danger Email"></span>
               </div>
-              <div class="col-md-12">
+
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="teacherCnic1">شناختی کارڈ کا نمبر</label>
+                <input type="text" name="teacherCnic" id="teacherCnic1" class="form-control fw-semibold fs-3"  placeholder="42501-34324234-3" />
+                <span class="text-danger teacherCnic1"></span>
+              </div>
+
+              <div class="col-md-6">
                 <label class="fs-5 mb-1" for="teacher-address">پتہ</label>
-                <input type="text" name="teacher-address" id="Address" class="form-control fw-semibold fs-4"  placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
+                <input type="text" name="teacheraddress" id="Address" class="form-control fw-semibold fs-4"  placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
                 <span class="text-danger Address"></span>
               </div>
 
@@ -123,47 +130,47 @@ include "inc/navbar.php";
               <div class="row g-4">
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="teacher-qualification">قابلیت</label>
-                  <input type="text" name="teacher-qualification" id="Degree" class="form-control fw-semibold fs-4"  placeholder="ایم اے" />
+                  <input type="text" name="teacherQualification" id="Degree" class="form-control fw-semibold fs-4"  placeholder="ایم اے" />
                   <span class="text-danger Degree"></span>
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="teacher-exp">تجربہ</label>
-                  <input type="text" name="teacher-exp" id="Experence" class="form-control fw-semibold fs-4"  placeholder="ایک سال" />
+                  <input type="text" name="teacherExp" id="Experence" class="form-control fw-semibold fs-4"  placeholder="ایک سال" />
                   <span class="text-danger Experence"></span>
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="teacher-tought-subject">پڑھائے گئے مضامین</label>
-                  <input type="text" name="teacher-tought-subject" id="Subject" class="form-control fw-semibold fs-4"  placeholder="اسلامیات" />
+                  <input type="text" name="teacherToughtSubject" id="Subject" class="form-control fw-semibold fs-4"  placeholder="اسلامیات" />
                   <span class="text-danger Subject"></span>
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="teacher-tought-classes">پڑھائے گئے کلاس</label>
-                  <input type="text" name="teacher-tought-classes" id="Class" class="form-control fw-semibold fs-4"  placeholder="اوٰلی" />
+                  <input type="text" name="teacherToughtClasses" id="Class" class="form-control fw-semibold fs-4"  placeholder="اوٰلی" />
                   <span class="text-danger Class"></span>
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="teacher-employ-status ">ملازمت کی حیثیت</label>
-                  <input type="text" name="teacher-employ-status" id="TeaType" class="form-control fw-semibold fs-4"  placeholder="ناظم" />
+                  <input type="text" name="teacherEmployStatus" id="TeaType" class="form-control fw-semibold fs-4"  placeholder="ناظم" />
                   <span class="text-danger TeaType"></span>
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="teacher-join-date">شامل ہونے کی تاریخ</label>
-                  <input type="date" name="teacher-join-date" id="joinDate" class="form-control fw-semibold fs-3"  placeholder="DD/MM/YYYY" />
+                  <input type="date" name="teacherJoinDate" id="joinDate" class="form-control fw-semibold fs-3"  placeholder="DD/MM/YYYY" />
                   <span class="text-danger joinDate"></span>
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="teacher-salary">تنخواہ</label>
-                  <input type="number" name="teacher-salary" id="Salary1" class="form-control fw-semibold fs-3"  placeholder="25,000" />
+                  <input type="number" name="teacherSalary" id="Salary1" class="form-control fw-semibold fs-3"  placeholder="25,000" />
                   <span class="text-danger Salary1"></span>
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="teacher-emerg-number">ایمر جنسی رابطہ نمبر</label>
-                  <input type="number" name="teacher-emerg-number" id="OtherNum" class="form-control fw-semibold fs-3"  placeholder="03298759745" />
+                  <input type="number" name="teacherEmergNumber" id="OtherNum" class="form-control fw-semibold fs-3"  placeholder="03298759745" />
                   <span class="text-danger OtherNum"></span>
                 </div>
                 <div class="col-md-12">
                   <label class="fs-5 mb-1" for="teacher-note">نوٹ </label>
-                  <textarea class="form-control jameel-kasheeda fw-semibold fs-4" rows="5" placeholder="یہاں پیغام لکھیں ۔۔"></textarea>
+                  <textarea class="form-control jameel-kasheeda fw-semibold fs-4" name="note" rows="5" placeholder="یہاں پیغام لکھیں ۔۔"></textarea>
                 </div>
 
               </div>

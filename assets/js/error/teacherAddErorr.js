@@ -17,6 +17,7 @@ const myConstants = {
     error: document.querySelector(".Fname"),
     errorMessage: "براۓ مہربانی  والد کا نام ایڈ کریں",
   },
+
   mad_Name: {
     element: document.getElementById("mad_Name"),
     error: document.querySelector(".mad_Name"),
@@ -31,6 +32,13 @@ const myConstants = {
     element: document.getElementById("gender"),
     error: document.querySelector(".gender"),
     errorMessage: "براۓ مہربانی صنف درج کریں",
+  },
+
+  TeacherCnic: {
+    element: document.getElementById("teacherCnic1"),
+    error: document.querySelector(".teacherCnic1"),
+    errorMessage: "شناختی کارڈ نمبر خالی نہیں ہو سکتا اور اس کا فارمیٹ یہ ہونا چاہئے: XXXXX-XXXXXXX-X۔",
+    pattern: /^\d{5}-\d{7}-\d{1}$/, // Regular expression for Pakistani CNIC format
   },
 
   Address: {

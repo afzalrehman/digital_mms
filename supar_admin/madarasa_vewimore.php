@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../includes/config.php"; 
+include "../includes/config.php";
 include("./inc/header.php");
 include("./inc/sidebar.php");
 include("./inc/navbar.php");
@@ -89,7 +89,7 @@ include("./inc/navbar.php");
                             <div class="col-lg-12">
                                 <ul class="list-unstyled">
                                     <li class="mb-4">
-                                        <span class="fs-6"> <?= $fetch['description']?></span>
+                                        <span class="fs-6"> <?= $fetch['description'] ?></span>
                                     </li>
 
                                 </ul>
