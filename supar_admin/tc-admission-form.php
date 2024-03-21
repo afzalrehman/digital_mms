@@ -35,7 +35,7 @@ include "inc/navbar.php";
   <!-- Main Content Header Card (End) -->
 
   <!-- Teacher Admission Form (Start) -->
-  <form id="Teaher" method="post">
+  <form id="Teaher" method="post" action="code.php">
     <div class="row">
       <!-- Teacher Info -->
       <div class="col-12">
@@ -172,7 +172,7 @@ include "inc/navbar.php";
           </div>
           <!-- Submit Button -->
           <div class="col-md-12 mt-4 jameel-kasheeda">
-            <button type="submit" id="submit" name="submit" class="btn btn-primary fw-semibold fs-5">ایڈ
+            <button type="submit" id="submit" name="teacherBtn" class="btn btn-primary fw-semibold fs-5">ایڈ
               کریں</button>
           </div>
         </div>
