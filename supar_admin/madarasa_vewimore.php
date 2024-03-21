@@ -17,13 +17,13 @@ include("./inc/navbar.php");
     ?>
             <div class="container-xxl flex-grow-1 pt-3">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="card ">
+                    <div class="col-12 mt-5">
+                        <div class="card mt-2">
                             <div class="user-profile-header-banner position-relative">
                                 <div class="overlay"></div>
-                                <img src="https:i.ytimg.com/vi/O0MegyCc2Rg/maxresdefault.jpg" alt="Banner image" class="image rounded-top img-fluid">
+                                <img src="../assets/images/banner.png" alt="Banner image" class="image rounded-top rounded-1 img-fluid">
                                 <div class="position-absolute top-50 start-50 translate-middle text-center">
-                                    <h3 class="text-white"><?= $fetch['madarsa_name'] ?></h3>
+                                    <h3 class="text-white fw-bolder" style="font-size: 45px; "><?= $fetch['madarsa_name'] ?></h3>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@ include("./inc/navbar.php");
             </div>
 
             <div class="container">
-                <div class="card">
+                <div class="card " style="box-shadow: 1px 1px 5px #8C7EFD  !important;">
                     <div class="container ">
                         <h5 class="pb-2 border-bottom my-4 fs-7">تفصیلات</h5>
                         <div class="row">
@@ -82,7 +82,7 @@ include("./inc/navbar.php");
                     </div>
                 </div>
 
-                <div class="card mt-3">
+                <div class="card mt-3" style="box-shadow: 1px 1px 5px #8C7EFD  !important;" >
                     <div class="container">
                         <h5 class="pb-2 border-bottom my-4 ">دسکرپشن :</h5>
                         <div class="row">
