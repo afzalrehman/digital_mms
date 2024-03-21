@@ -15,6 +15,12 @@ include("./inc/navbar.php");
         if ($result->num_rows > 0) {
             $fetch = mysqli_fetch_assoc($result);
     ?>
+            <style>
+                .box_mad_vewi:hover {
+                    box-shadow: 1px 1px 5px #8C7EFD !important;
+                    transition: all 1s;
+                }
+            </style>
             <div class="container-xxl flex-grow-1 pt-3">
                 <div class="row">
                     <div class="col-12 mt-5">
@@ -32,7 +38,7 @@ include("./inc/navbar.php");
             </div>
 
             <div class="container">
-                <div class="card " style="box-shadow: 1px 1px 5px #8C7EFD  !important;">
+                <div class="card box_mad_vewi" >
                     <div class="container ">
                         <h5 class="pb-2 border-bottom my-4 fs-7">تفصیلات</h5>
                         <div class="row">
@@ -82,7 +88,7 @@ include("./inc/navbar.php");
                     </div>
                 </div>
 
-                <div class="card mt-3" style="box-shadow: 1px 1px 5px #8C7EFD  !important;" >
+                <div class="card mt-3 box_mad_vewi">
                     <div class="container">
                         <h5 class="pb-2 border-bottom my-4 ">دسکرپشن :</h5>
                         <div class="row">
