@@ -518,7 +518,7 @@ if (isset($_POST['teacherUpdate'])) {
         `dateOfBir` = '$DateBirth',`phone` = '$teachernumber',`email` = '$teacheremail',`adddress` = '$teacheraddress', `degree` = '$teacherQualification', `exprence` = '$teacherExp',`previousBook` = '$teacherToughtSubject',
         `previousClass` = '$teacherToughtClasses',`userType` = '$teacherEmployStatus',`joningDate` = '$teacherJoinDate',`salary` = '$teacherSalary',
         `otherNumber` = '$teacherEmergNumber',`note` = '$note' WHERE `id` = $teacherID"; // Assuming teacher_id is the unique identifier for each teacher
-    
+
 
         if (mysqli_query($conn, $updateQuery)) {;
             unset($_SESSION['input']);
@@ -527,6 +527,53 @@ if (isset($_POST['teacherUpdate'])) {
         } else {
             $_SESSION['error_message'] = 'Error in adding announcement. Please try again.';
             header("location:tc-admission-form.php");
+            exit();
+        }
+    }
+}
+
+// // =======================salary page insert====================
+if (isset($_POST['salaryBtn'])) {
+    $teacher_name  = mysqli_real_escape_string($conn, $_POST['teacher_name']);
+    $madarasa = mysqli_real_escape_string($conn, $_POST['madarasa']); // Assuming 'madarasa' is the name of the input field
+    $basic_salary  = mysqli_real_escape_string($conn, $_POST['basic_salary']);
+    $allowances  = mysqli_real_escape_string($conn, $_POST['allowances']);
+    $deductions = mysqli_real_escape_string($conn, $_POST['deductions']);
+    $salary_given = mysqli_real_escape_string($conn, $_POST['salary_given']);
+    $salary_date  = mysqli_real_escape_string($conn, $_POST['salary_date']);
+    $payment_method  = mysqli_real_escape_string($conn, $_POST['payment_method']);
+    $description  = mysqli_real_escape_string($conn, $_POST['description']);
+    $total_salary = $salary_given + $allowances ;
+    $salary1_salary = $basic_salary - $deductions ;  // Calculation of salary before deductions
+    $remaining_salary = $salary1_salary - $salary_given; // Calculation of remaining salary
+    
+    $checkQuery = "SELECT * FROM `salary` WHERE `register_num` = '$teacher_name'  AND  `madarsa_id` = '$madarasa' AND  `salary_date` = '$salary_date' ";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['email'] = 'مدرسہ کا ای میل پہلے سے موجود ہے';
+        header("location: salary-form.php");
+        exit();
+    }
+    // $checkQuery = "SELECT * FROM `salary` WHERE `phone` = '$phone' ";
+    // $checkResult = mysqli_query($conn, $checkQuery);
+
+    // if (mysqli_num_rows($checkResult) > 0) {
+    //     $_SESSION['phone'] = 'استاد کا فون پہلے سے موجود ہے';
+    //     header("location: tc-admission-form.php");
+    //     exit();
+    // }
+    else {
+        $insertQuery = "INSERT INTO `salary` (`register_num`, `madarsa_id`, `basic_salary`, `allowances`, `deductions`, `salary_given`, `salary_date`, `payment_method`, `description`, `total_salary_given`, `remaining_salary`) 
+        VALUES ('$teacher_name', '$madarasa', '$basic_salary', '$allowances', '$deductions', '$salary_given', '$salary_date', '$payment_method', '$description', '$total_salary', '$remaining_salary')";
+
+        if (mysqli_query($conn, $insertQuery)) {;
+            unset($_SESSION['input']);
+            redirect("salary-form.php", " استاد ایڈ ہو چکا ہے");
+            exit();
+        } else {
+            $_SESSION['error_message'] = 'Error in adding announcement. Please try again.';
+            header("location:salary-form.php");
             exit();
         }
     }
