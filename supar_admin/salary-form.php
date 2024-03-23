@@ -42,7 +42,7 @@ include "inc/navbar.php";
             <div class="row g-4 align-items-end justify-content-between">
               <div class="col-md-4">
                 <label class="fs-5 mb-1" for="st-reg-no">رجسٹریشن نمبر</label>
-                <input type="number" name="searchID" class="form-control fs-3 inter"  placeholder="#421232" />
+                <input type="number" name="searchID" class="form-control fs-3 inter" placeholder="#421232" />
                 <!-- <span class="error" id="std-area-err"></span> -->
               </div>
               <div class="col-md-2 ">
@@ -74,11 +74,11 @@ include "inc/navbar.php";
               <div class="card-body">
                 <form action="code.php" id="salary1" method="POST">
                   <div class="row">
-                    <input type="text" id="teacher_name" hidden class="form-control " name="teacher_name"  value="<?php echo $sec->register_num ?>" >
-                    <input type="text" id="madarasa" hidden class="form-control " readonly name="madarasa" value="<?php echo $sec->madarsa_id ?>" >
+                    <input type="text" id="teacher_name" hidden class="form-control " name="teacher_name" value="<?php echo $sec->register_num ?>">
+                    <input type="text" id="madarasa" hidden class="form-control " readonly name="madarasa" value="<?php echo $sec->madarsa_id ?>">
                     <div class="col-lg-6 mt-3">
                       <label for="teacher_name" class='fs-5'>نام:</label>
-                      <input type="text"  class="form-control " readonly value="<?php echo $sec->tea_name ?>" >
+                      <input type="text" class="form-control " readonly value="<?php echo $sec->tea_name ?>">
                       <span class="text-danger teacher_name"></span>
                     </div>
                     <div class="col-lg-6 mt-3">
@@ -91,7 +91,7 @@ include "inc/navbar.php";
 
                       ?>
                           <label for="teacher_name" class='fs-5'>مدرسہ:</label>
-                          <input type="text" class="form-control " readonly value="<?php echo $institute_name->madarsa_name ?>" >
+                          <input type="text" class="form-control " readonly value="<?php echo $institute_name->madarsa_name ?>">
                           <span class="text-danger madarasa"></span>
                     </div>
                 <?php
@@ -101,13 +101,14 @@ include "inc/navbar.php";
 
                 <div class="col-lg-6 mt-3">
                   <label for="basic_salary" class='fs-5'>بنیادی تنخواہ:</label>
-                  <input type="number" id="basic_salary" class="form-control " name="basic_salary" readonly value="<?php echo $sec->salary ?>" >
+                  <input type="number" id="basic_salary" class="form-control " name="basic_salary" readonly value="<?php echo $sec->salary ?>">
                   <span class="text-danger basic_salary"></span>
                 </div>
+
                 <div class="col-lg-6 mt-3">
                   <label for="allowances" class='fs-5'>امدادی:</label>
                   <input type="number" id="allowances" class="form-control " name="allowances">
-                 
+                  <span class="text-danger allowances"></span>
                 </div>
 
                 <div class="col-lg-6 mt-3">
@@ -117,25 +118,25 @@ include "inc/navbar.php";
                 </div>
                 <div class="col-lg-6 mt-3">
                   <label for="salary_given" class='fs-5'>دی گئی تنخواہ:</label>
-                  <input type="number" id="salary_given" class="form-control" name="salary_given" >
+                  <input type="number" id="salary_given" class="form-control" name="salary_given">
                   <span class="text-danger salary_given"></span>
                 </div>
                 <div class="col-lg-6 mt-3">
                   <label for="salary_date" class='fs-5'>تنخواہ کی تاریخ:</label>
-                  <input type="date" id="salary_date" class="form-control " name="salary_date" >
+                  <input type="month" id="salary_date" class="form-control " name="salary_date">
                   <span class="text-danger salary_date"></span>
                 </div>
 
-
                 <div class="col-lg-6 mt-3">
                   <label for="payment_method" class='fs-5 '>ادائیگی کا طریقہ:</label>
-                  <select id="payment_method" class="form-control jameel-kasheeda fw-bolder" name="payment_method" >
+                  <select id="payment_method" class="form-control jameel-kasheeda fw-bolder" name="payment_method">
                     <option value="bank_transfer" class='fw-bolder'>بینک ٹرانسفر</option>
                     <option value="نقد" class='fw-bolder'>نقد</option>
                     <option value="چیک" class='fw-bolder'>چیک</option>
                   </select>
                   <span class="text-danger payment_method"></span>
                 </div>
+
                 <div class="col-lg-12 mt-3">
                   <label for="description" class='fs-5'>تفصیل:</label>
                   <textarea id="description" class="form-control " name="description"></textarea>
@@ -149,10 +150,13 @@ include "inc/navbar.php";
             </div>
           </div>
         </div>
-  <?php
+      <?php
       }
+    } else { ?>
+      <span class='text-danger fs-5 jameel-kasheeda'><?php ?>ائی ڈی موجود نہیں ہے</span>
+  <?php
+
     }
-  } else {
   }
   ?>
   <!-- Submit Button -->

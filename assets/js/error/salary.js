@@ -18,6 +18,11 @@ const myConstants = {
     error: document.querySelector(".basic_salary"),
     errorMessage: "براۓ مہربانی درج کریں",
   },
+  allowances: {
+    element: document.getElementById("allowances"),
+    error: document.querySelector(".allowances"),
+    errorMessage: "براۓ مہربانی درج کریں",
+  },
 
   deductions: {
     element: document.getElementById("deductions"),

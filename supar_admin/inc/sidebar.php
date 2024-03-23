@@ -108,7 +108,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="st-admission.php" class="sidebar-link">
+                  <a href="st-admission-form.php" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -214,7 +214,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="third.php" class="sidebar-link">
+                  <a href="salary-details.php" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
