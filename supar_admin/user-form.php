@@ -53,15 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
   }
 
-  // check the username is unique or not
-  $check_username_query = "SELECT * FROM `users` WHERE `username` = '$username'";
-  $check_username_result = mysqli_query($conn, $check_username_query);
-
-  if (mysqli_num_rows($check_username_result) > 0) {
-    redirectdelete("user-form.php", "یوزَر نام پہلے سے موجود ہے");
-    exit();
-  }
-
   // image upload
   $image = rand(111111111, 999999999) . '_' . $_FILES['image']['name'];
   move_uploaded_file($_FILES['image']['tmp_name'], '../media/std-tc/' . $image);
@@ -115,11 +106,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       redirect("user-form.php", "آپ کا ڈیٹا ایڈ ہوچکا ہے");
       exit();
     } else {
-      echo "Failed to add user details: " . mysqli_error($conn);
+      redirectdelete("user-form.php", "آپ کا ڈیٹا ایڈ ہوچکا نہیں ہے");
       exit();
     }
   } else {
-    echo "Failed to add user: " . mysqli_error($conn);
+    redirectdelete("user-form.php", "آپ کا ڈیٹا ایڈ ہوچکا نہیں ہے");
     exit();
   }
 } else {
@@ -189,7 +180,7 @@ include "inc/navbar.php";
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="user_age">تاریخ پیدائش</label>
-                <input type="date" name="user_age" id="user_age" class="form-control fw-semibold fs-4" placeholder="عمر" />
+                <input type="text" name="user_age" id="user_age" class="form-control fw-semibold fs-4" placeholder="عمر" />
                 <span class="error text-danger" id="user_age_err"></span>
               </div>
               <div class="col-md-6">

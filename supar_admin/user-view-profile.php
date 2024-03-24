@@ -129,7 +129,12 @@ if (isset($_GET['user_view_profile'])) {
                     </div>
                     <div class="col-md-6">
                       <label class="fs-5 mb-1" for="user_role">یوزَر منتخب کریں</label>
-                      <select id="user-select" name="user_role" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                      <input type="text" readonly name="user_role" class="form-control fw-semibold fs-4" placeholder="" value="<?php if ($fatch_user['role_id'] == 1) {
+                                                                                                                        echo "سپر ایڈمن";
+                                                                                                                      } elseif ($fatch_user['role_id'] == 2) {
+                                                                                                                        echo "ایڈمن";
+                                                                                                                      } ?>" />
+                      <!-- <select id="user-select" name="user_role" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                         <option value="<?= $fatch_user['role_id'] ?>" class="jameel-kasheeda"><?php if ($fatch_user['user_id'] == 1) {
                                                                                                 echo "سپر ایڈمن";
                                                                                               } elseif ($fatch_user['user_id'] == 2) {
@@ -140,33 +145,32 @@ if (isset($_GET['user_view_profile'])) {
                                                                                               } elseif ($fatch_user['user_id'] == 2) {
                                                                                                 echo "ایڈمن";
                                                                                               }
-                                                                                              ?></option>
-                        <!-- fatch role -->
-                        <?php
-                        $role_query = "SELECT `role_id`, `role_name`  FROM `role`";
-                        $role_result = mysqli_query($conn, $role_query);
-                        while ($role = mysqli_fetch_assoc($role_result)) {
-                          echo "<option value='" . $role['role_id'] . "' class='jameel-kasheeda'>" . $role['role_name'] . "</option>";
-                        }
-                        ?>
-                      </select>
+                                                                                              ?></option> -->
+                      <!-- fatch role -->
+                      <?php
+                      // $role_query = "SELECT `role_id`, `role_name`  FROM `role`";
+                      // $role_result = mysqli_query($conn, $role_query);
+                      // while ($role = mysqli_fetch_assoc($role_result)) {
+                      //   echo "<option value='" . $role['role_id'] . "' class='jameel-kasheeda'>" . $role['role_name'] . "</option>";
+                      // }
+                      ?>
+                      <!-- </select> -->
                       <!-- <span class="error" id="std-area-err"></span> -->
                     </div>
                     <div class="col-md-6">
                       <label class="fs-5 mb-1" for="username">یوزَر نام</label>
-                      <input type="text" name="username" class="form-control fs-3 user-email" placeholder="یوزَر نام" value="<?= $fatch_user['username']; ?>" />
+                      <input type="text" readonly name="username" class="form-control fs-3 user-email" placeholder="یوزَر نام" value="<?= $fatch_user['username']; ?>" />
                       <!-- <span class="error" id="std-area-err"></span> -->
                     </div>
                     <div class="col-md-6">
                       <label class="fs-5 mb-1" for="user_email">ای میل</label>
-                      <input type="email" name="user_email" class="form-control fs-3 user-email" placeholder="user@gmail.com" value="<?= $fatch_user['email']; ?>" />
+                      <input type="email" readonly name="user_email" class="form-control fs-3 user-email" placeholder="user@gmail.com" value="<?= $fatch_user['email']; ?>" />
                       <!-- <span class="error" id="std-area-err"></span> -->
                     </div>
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                       <label class="fs-5 mb-1" for="user_image">تصویر</label>
                       <input type="file" name="user_image" class="form-control fs-3" />
-                      <!-- <span class="error" id="std-area-err"></span> -->
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -177,7 +181,7 @@ if (isset($_GET['user_view_profile'])) {
                   <div class="row">
                     <div class="col-12">
                       <a href="user-details.php" class="btn btn-danger fw-semibold fs-5">کلوز</a>
-                      <button type="submit" id="user_update" name="user_update" class="btn btn-primary fw-semibold fs-5">اپ ڈیٹ</button>
+                      <button type="submit" disabled id="user_update" name="user_update" class="btn btn-primary fw-semibold fs-5">اپ ڈیٹ</button>
                     </div>
                   </div>
                   <!-- <button type="submit" id="user_update" name="user_update" class="btn btn-primary fw-semibold fs-5">اپ ڈیٹ</button> -->

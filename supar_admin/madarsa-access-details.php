@@ -77,7 +77,8 @@ include "inc/navbar.php";
             </thead>
             <?php
             // fatch users & user_details from database and display them in table format to use inner join
-            $select_user_query = "SELECT * FROM `users` INNER JOIN `user_details` ON users.user_id = user_details.user_id WHERE users.role_id = '5'";
+            $select_user_query = "SELECT `users`.username, `users`.email, `users`.role_id, `users`.user_id, `users`.dlt_status, `user_details`.phone, `user_details`.full_name, `user_details`.madarsa_name FROM `users` 
+            LEFT JOIN `user_details` ON `users`.`user_id` = `user_details`.`user_id` WHERE users.role_id = '5'";
             $select_user_result = mysqli_query($conn, $select_user_query);
 
             $no = 1;

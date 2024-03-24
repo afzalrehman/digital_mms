@@ -6,118 +6,118 @@ include_once "../includes/function.php";
 
 
 // // ================================ Add Madarsa Access Code Start page (madarsa-access.php) ================================
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//   // Establish database connection (assuming $conn is defined elsewhere)
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Establish database connection (assuming $conn is defined elsewhere)
 
-//   // Escape user inputs for security
-//   $madarsa_name = mysqli_real_escape_string($conn, $_POST['madarsa_name']);
-//   $user_name = mysqli_real_escape_string($conn, $_POST['user_name']);
-//   $user_phone = mysqli_real_escape_string($conn, $_POST['user_phone']);
-//   $username = mysqli_real_escape_string($conn, $_POST['username']);
-//   $user_email = mysqli_real_escape_string($conn, $_POST['user_email']);
-//   $user_password = mysqli_real_escape_string($conn, $_POST['user_password']);
+  // Escape user inputs for security
+  $madarsa_name = mysqli_real_escape_string($conn, $_POST['madarsa_name']);
+  $user_name = mysqli_real_escape_string($conn, $_POST['user_name']);
+  $user_phone = mysqli_real_escape_string($conn, $_POST['user_phone']);
+  $username = mysqli_real_escape_string($conn, $_POST['username']);
+  $user_email = mysqli_real_escape_string($conn, $_POST['user_email']);
+  $user_password = mysqli_real_escape_string($conn, $_POST['user_password']);
 
-//   // Check if email is unique
-//   $check_email_query = "SELECT * FROM `users` WHERE `email` = '$user_email'";
-//   $check_email_result = mysqli_query($conn, $check_email_query);
+  // Check if email is unique
+  $check_email_query = "SELECT * FROM `users` WHERE `email` = '$user_email'";
+  $check_email_result = mysqli_query($conn, $check_email_query);
 
-//   if (mysqli_num_rows($check_email_result) > 0) {
-//     // Email already exists, redirect with message
-//     redirect("masarsa-access.php", "Email already exists.");
-//     exit();
-//   }
+  if (mysqli_num_rows($check_email_result) > 0) {
+    // Email already exists, redirect with message
+    redirect("madarsa-access.php", "ای میل پہلے سے موجود ہے");
+    exit();
+  }
 
-//   // Check if phone number is unique
-//   $check_phone_query = "SELECT * FROM `user_details` WHERE `phone` = '$user_phone'";
-//   $check_phone_result = mysqli_query($conn, $check_phone_query);
+  // Check if phone number is unique
+  $check_phone_query = "SELECT * FROM `user_details` WHERE `phone` = '$user_phone'";
+  $check_phone_result = mysqli_query($conn, $check_phone_query);
 
-//   if (mysqli_num_rows($check_phone_result) > 0) {
-//     // Phone number already exists, redirect with message
-//     redirect("masarsa-access.php", "Phone number already exists.");
-//     exit();
-//   }
+  if (mysqli_num_rows($check_phone_result) > 0) {
+    // Phone number already exists, redirect with message
+    redirect("madarsa-access.php", "فون نمبر پہلے سے موجود ہے");
+    exit();
+  }
 
-//   // Check if username is unique
-//   $check_username_query = "SELECT * FROM `users` WHERE `username` = '$username'";
-//   $check_username_result = mysqli_query($conn, $check_username_query);
+  // Check if username is unique
+  $check_username_query = "SELECT * FROM `users` WHERE `username` = '$username'";
+  $check_username_result = mysqli_query($conn, $check_username_query);
 
-//   if (mysqli_num_rows($check_username_result) > 0) {
-//     // Username already exists, redirect with message
-//     redirect("masarsa-access.php", "Username already exists.");
-//     exit();
-//   } else {
+  if (mysqli_num_rows($check_username_result) > 0) {
+    // Username already exists, redirect with message
+    redirect("madarsa-access.php", "یوزَر نام پہلے سے موجود ہے");
+    exit();
+  } else {
 
 
-//     // Hash the password
-//     $user_pass = password_hash($user_password, PASSWORD_DEFAULT);
-//     // Generate token
-//     $user_token = bin2hex(random_bytes(15));
-//     // Current date and time
-//     $created_date = date('Y-m-d');
+    // Hash the password
+    $user_pass = password_hash($user_password, PASSWORD_DEFAULT);
+    // Generate token
+    $user_token = bin2hex(random_bytes(15));
+    // Current date and time
+    $created_date = date('Y-m-d');
 
-//     // Handle file upload
-//     $image = $_FILES['image']['name'];
-//     $image_temp = $_FILES['image']['tmp_name'];
-//     move_uploaded_file($image_temp, '../media/madarsa-access/' . $image);
+    // Handle file upload
+    $image = $_FILES['image']['name'];
+    $image_temp = $_FILES['image']['tmp_name'];
+    move_uploaded_file($image_temp, '../media/madarsa-access/' . $image);
 
-//     // Insert user data into 'users' table
-//     $insert_user_query = "INSERT INTO `users` (
-//       `username`, 
-//       `email`, 
-//       `password`, 
-//       `token`, 
-//       `status`, 
-//       `role_id`, 
-//       `created_date`
-//       )
-//   VALUES (
-//       '$username', 
-//       '$user_email', 
-//       '$user_pass', 
-//       '$user_token', 
-//       'Inactive', 
-//       '5', 
-//       '$created_date')";
+    // Insert user data into 'users' table
+    $insert_user_query = "INSERT INTO `users` (
+      `username`, 
+      `email`, 
+      `password`, 
+      `token`, 
+      `status`, 
+      `role_id`, 
+      `created_date`
+      )
+  VALUES (
+      '$username', 
+      '$user_email', 
+      '$user_pass', 
+      '$user_token', 
+      'Inactive', 
+      '5', 
+      '$created_date')";
 
-//     $insert_user_res = mysqli_query($conn, $insert_user_query);
+    $insert_user_res = mysqli_query($conn, $insert_user_query);
 
-//     if ($insert_user_res) {
-//       // Get the ID of the inserted user record
-//       $user_id = mysqli_insert_id($conn);
+    if ($insert_user_res) {
+      // Get the ID of the inserted user record
+      $user_id = mysqli_insert_id($conn);
 
-//       // Insert user details into 'user_details' table
-//       $insert_user_details_query = "INSERT INTO `user_details` (
-//           `user_id`, 
-//           `full_name`, 
-//           `register_no`, 
-//           `phone`,
-//           `image`
-//           )
-//       VALUES (
-//           '$user_id', 
-//           '$user_name', 
-//           '$madarsa_name', 
-//           '$user_phone',
-//           '$image'
-//           )";
-//       $insert_user_details_res = mysqli_query($conn, $insert_user_details_query);
+      // Insert user details into 'user_details' table
+      $insert_user_details_query = "INSERT INTO `user_details` (
+          `user_id`, 
+          `full_name`, 
+          `madarsa_name`, 
+          `phone`,
+          `image`
+          )
+      VALUES (
+          '$user_id', 
+          '$user_name', 
+          '$madarsa_name', 
+          '$user_phone',
+          '$image'
+          )";
+      $insert_user_details_res = mysqli_query($conn, $insert_user_details_query);
 
-//       if ($insert_user_details_res) {
-//         // Data inserted successfully, redirect with success message
-//         redirect("masarsa-access.php", "Data inserted successfully.");
-//         exit();
-//       } else {
-//         // User details insertion failed, redirect with error message
-//         redirect("masarsa-access.php", "User details insertion failed.");
-//         exit();
-//       }
-//     } else {
-//       // User insertion failed, redirect with error message
-//       redirect("masarsa-access.php", "User insertion failed.");
-//       exit();
-//     }
-//   }
-// }
+      if ($insert_user_details_res) {
+        // Data inserted successfully, redirect with success message
+        redirect("madarsa-access.php", "آپ کا ڈیٹا اپڈیٹ ہوچکا ہے");
+        exit();
+      } else {
+        // User details insertion failed, redirect with error message
+        redirect("madarsa-access.php", "آپ کا ڈیٹا ایڈ ہوچکا نہیں ہے");
+        exit();
+      }
+    } else {
+      // User insertion failed, redirect with error message
+      redirect("madarsa-access.php", "آپ کا ڈیٹا ایڈ ہوچکا نہیں ہے");
+      exit();
+    }
+  }
+}
 
 
 
@@ -161,7 +161,7 @@ include_once "inc/navbar.php";
   <!-- Main Content Header Card (End) -->
 
   <!-- User Admission Form (Start) -->
-  <form action="user-all-code.php" id="masarsa_access_form" method="POST" enctype="multipart/form-data">
+  <form action="" id="masarsa_access_form" method="POST" enctype="multipart/form-data">
     <div class="row">
 
       <!-- User Info -->

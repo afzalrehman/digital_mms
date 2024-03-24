@@ -64,7 +64,6 @@ include "inc/navbar.php";
             <thead>
               <tr class="fw-semibold">
                 <th class="fs-5 word-spacing-2px text-primary">#</th>
-                <!-- <th class="fs-5 word-spacing-2px text-primary">رجسٹریشن نمبر</th> -->
                 <th class="fs-5 word-spacing-2px text-primary">نام</th>
                 <th class="fs-5 word-spacing-2px text-primary">ای میل</th>
                 <th class="fs-5 word-spacing-2px text-primary">یوزَر نام</th>
@@ -88,9 +87,6 @@ include "inc/navbar.php";
                     <td>
                       <p class="mb-0 fs-2 inter"><?= $no++ ?></p>
                     </td>
-                    <!-- <td>
-                      <p class="mb-0 fs-2 inter">#00281</p>
-                    </td> -->
                     <td>
                       <p class="mb-0 fs-4 word-spacing-2px"><?= $fatch_user['full_name'] ?></p>
                     </td>
@@ -116,7 +112,7 @@ include "inc/navbar.php";
                       <?php
                       if ($fatch_user['dlt_status'] === 'فعال') {
                         echo '<p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $fatch_user['dlt_status'] . '</p>';
-                      } else {
+                      } elseif ($fatch_user['dlt_status'] === 'غیر فعال') {
                         echo '<p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $fatch_user['dlt_status'] . '</p>';
                       }
                       ?>

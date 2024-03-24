@@ -102,37 +102,38 @@ if (isset($_GET['madarsa_view'])) {
                   <div class="col-md-6">
                     <label class="fs-5 mb-1" for="madarsa_name">مدرسہ</label>
                     <input type="text" name="user_id" hidden class="form-control fw-semibold fs-4" value="<?php echo $fatch_user['user_id']; ?>" />
-                    <select id="madarsa_name" disabled name="madarsa_name" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
-                      <option value="<?= $fatch_user['madarsa_name'] ?>" class="jameel-kasheeda"><?= $fatch_user['madarsa_name'] ?></option>
+                    <input type="text" name="madarsa_name" readonly class="form-control fw-semibold fs-4" value="<?php echo $fatch_user['madarsa_name']; ?>" />
+                    <!-- <select id="madarsa_name" readonly name="madarsa_name" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                      <option value="<?= $fatch_user['madarsa_name'] ?>" class="jameel-kasheeda"><?= $fatch_user['madarsa_name'] ?></option> -->
                       <!-- fatch role -->
                       <?php
-                      $madarsa_query = "SELECT `RigitarNumber`, `madarsa_name`  FROM `madarsa` where `status` = 'فعال' ORDER BY `RigitarNumber` ASC";
-                      $madarsa_result = mysqli_query($conn, $madarsa_query);
-                      while ($madarsa = mysqli_fetch_assoc($madarsa_result)) {
-                        echo "<option value='" . $madarsa['madarsa_name'] . "' class='jameel-kasheeda'>" . $madarsa['madarsa_name'] . "</option>";
-                      }
-                      ?>
-                    </select>
+                      // $madarsa_query = "SELECT `RigitarNumber`, `madarsa_name`  FROM `madarsa` where `status` = 'فعال' ORDER BY `RigitarNumber` ASC";
+                      // $madarsa_result = mysqli_query($conn, $madarsa_query);
+                      // while ($madarsa = mysqli_fetch_assoc($madarsa_result)) {
+                      //   echo "<option value='" . $madarsa['madarsa_name'] . "' class='jameel-kasheeda'>" . $madarsa['madarsa_name'] . "</option>";
+                      // }
+                      // ?>
+                    <!-- </select> -->
                     <span class="error text-danger" id="madarsa_name_err"></span>
                   </div>
                   <div class="col-md-6">
                     <label class="fs-5 mb-1" for="user_name">نام</label>
-                    <input type="text" disabled name="user_name" id="user_name" class="form-control fw-semibold fs-4" placeholder="محمد" value="<?php echo $fatch_user['full_name']; ?>" />
+                    <input type="text" readonly name="user_name" id="user_name" class="form-control fw-semibold fs-4" placeholder="محمد" value="<?php echo $fatch_user['full_name']; ?>" />
                     <span class="error text-danger" id="user_name_err"></span>
                   </div>
                   <div class="col-md-6">
                     <label class="fs-5 mb-1" for="user_phone">فون نمبر</label>
-                    <input type="text" disabled name="user_phone" id="user_phone" class="form-control fw-semibold fs-4" placeholder="03000000000" value="<?php echo $fatch_user['phone']; ?>" />
+                    <input type="text" readonly name="user_phone" id="user_phone" class="form-control fw-semibold fs-4" placeholder="03000000000" value="<?php echo $fatch_user['phone']; ?>" />
                     <span class="error text-danger" id="user_phone_err"></span>
                   </div>
                   <div class="col-md-6">
                     <label class="fs-5 mb-1" for="username">یوزَر نام</label>
-                    <input type="text" disabled name="username" id="username" class="form-control fs-3 user-email" placeholder="یوزَر نام" value="<?php echo $fatch_user['username']; ?>" />
+                    <input type="text" readonly name="username" id="username" class="form-control fs-3 user-email" placeholder="یوزَر نام" value="<?php echo $fatch_user['username']; ?>" />
                     <span class="error text-danger" id="username_err"></span>
                   </div>
                   <div class="col-md-6">
                     <label class="fs-5 mb-1" for="user_email">ای میل</label>
-                    <input type="email" disabled name="user_email" id="user_email" class="form-control fs-3 user-email" placeholder="user@gmail.com" value="<?php echo $fatch_user['email']; ?>" />
+                    <input type="email" readonly name="user_email" id="user_email" class="form-control fs-3 user-email" placeholder="user@gmail.com" value="<?php echo $fatch_user['email']; ?>" />
                     <span class="error text-danger" id="user_email_err"></span>
                   </div>
                   <!-- <div class="col-md-6">

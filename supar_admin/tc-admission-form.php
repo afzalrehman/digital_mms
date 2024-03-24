@@ -34,6 +34,8 @@ include "inc/navbar.php";
   </div>
   <!-- Main Content Header Card (End) -->
 
+  
+
   <!-- Teacher Admission Form (Start) -->
   <form id="Teaher" method="post" action="code.php">
     <div class="row">

@@ -90,7 +90,7 @@ if (isset($_POST['user_update'])) {
         $update_user_details_res = mysqli_query($conn, $update_user_details_query);
 
         if ($update_user_details_res) {
-            redirect("user-details.php", "آپ کا ڈیٹا اپڈیٹ ہوچکا ہے");
+            redirect("user-details.php", "آپ کا ڈیٹا اپڈیٹ ہوچکا ہے . $user_name");
             exit();
         } else {
             // Insertion failed
