@@ -32,9 +32,57 @@ include "inc/navbar.php";
     </div>
   </div>
   <!-- Main Content Header Card (End) -->
+
+  <?php
+  // Query to fetch the madarsa information
+  $selec_madarsa = "SELECT * FROM madarsa WHERE madarsa_id = 30";
+  $result_madarsa = $conn->query($selec_madarsa);
+
+  // Checking for errors
+  if (!$result_madarsa) {
+    die("Error in SQL query: " . $conn->error);
+  }
+
+  // Fetching madarsa information
+  if ($result_madarsa->num_rows > 0) {
+    $row_madarsa = $result_madarsa->fetch_assoc();
+    if ($row_madarsa['madarsa_name'] == 'مدرسہ دارالعلوم حسینیہ') {
+      $madarsa_name = 'HUS';
+    }
+    // Query to fetch the last registration number
+    $gene_query = "SELECT `st_roll_no` FROM `students`  WHERE `madarsa_id` = 30";
+
+    // Executing the query
+    $gene_result = mysqli_query($conn, $gene_query);
+
+    // Checking for errors
+    if (!$gene_result) {
+      die("Error in SQL query: " . mysqli_error($conn));
+    }
+
+    // Fetching the last registration number
+    $gene_row = mysqli_fetch_array($gene_result);
+    $last_reg_no = isset($gene_row['st_roll_no']) ? $gene_row['st_roll_no'] : null;
+
+    // Generating a new registration number
+    if (empty($last_reg_no)) {
+      // If no previous registration number exists, start with "HUS_ST_00001"
+      $auto_reg_no = $madarsa_name . "_ST_00001";
+    } else {
+      // Extracting the numeric part of the last registration number and incrementing it
+      $idd = intval(substr($last_reg_no, 7)); // Assuming the numeric part starts from index 7
+      $id = str_pad(strval($idd + 1), 5, '0', STR_PAD_LEFT);
+
+      // Constructing the new registration number
+      $auto_reg_no = $madarsa_name . "_ST_" . $id;
+    }
+  }
+  ?>
+
+
+
+
   <!-- Annoucement Form (Start) -->
-
-
   <div class="row">
     <form action="code.php" method="post" id="class_page">
       <!-- Student Info -->
@@ -47,18 +95,23 @@ include "inc/navbar.php";
 
             <div class="row g-4">
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="reg-number">جی آر نمبر</label>
-                <input type="number" name="reg-number" class="form-control fw-semibold fs-3" required placeholder="#04321" />
+                <label class="fs-5 mb-1" for="roll-number">رول نمبر</label>
+                <input type="text" id="rollNumber" readonly name="roll_number" class="form-control fw-semibold fs-3" value="<?= $auto_reg_no ?>" />
                 <!-- <span class="error" id="std-area-err"></span> -->
               </div>
               <div class="col-md-6">
+                <label class="fs-5 mb-1" for="reg-number">جی آر نمبر</label>
+                <input type="number" name="reg_number" class="form-control fw-semibold fs-3" placeholder="#04321" />
+                <span class="error" id="std-area-err"></span>
+              </div>
+              <div class="col-md-6">
                 <label class="fs-5 mb-1" for="std-name">نام</label>
-                <input type="text" name="std-name" class="form-control fw-semibold fs-4" required placeholder="احمد" />
+                <input type="text" name="std-name" class="form-control fw-semibold fs-4" placeholder="احمد" />
                 <!-- <span class="error" id="std-area-err"></span> -->
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="std-dbo">تاریخ پیدائش</label>
-                <input type="date" name="std-dbo" class="form-control fw-semibold fs-4" required placeholder="DD/MM/YYYY" />
+                <input type="date" name="std-dbo" class="form-control fw-semibold fs-4" placeholder="DD/MM/YYYY" />
                 <!-- <span class="error" id="std-area-err"></span> -->
               </div>
 
@@ -73,12 +126,12 @@ include "inc/navbar.php";
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="std-birth-place">مقام پیدائش</label>
-                <input type="text" name="std-birth-place" class="form-control fw-semibold fs-3" required placeholder="کراچی" />
+                <input type="text" name="std-birth-place" class="form-control fw-semibold fs-3" placeholder="کراچی" />
                 <!-- <span class="error" id="std-area-err"></span> -->
               </div>
               <div class="col-md-12">
                 <label class="fs-5 mb-1" for="std-address">پتہ</label>
-                <input type="text" name="std-address" class="form-control fw-semibold fs-4" required placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
+                <input type="text" name="std-address" class="form-control fw-semibold fs-4" placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
                 <!-- <span class="error" id="std-area-err"></span> -->
               </div>
 
@@ -97,22 +150,22 @@ include "inc/navbar.php";
             <div class="row g-4">
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="guar-name">سرپرست کا نام</label>
-                <input type="text" name="guar-name" class="form-control fw-semibold fs-4" required placeholder="شفیع عالم" />
+                <input type="text" name="guar-name" class="form-control fw-semibold fs-4" placeholder="شفیع عالم" />
                 <!-- <span class="error" id="std-area-err"></span> -->
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="guar-relation">سرپرست سے رشتہ</label>
-                <input type="text" name="guar-relation" class="form-control fw-semibold fs-4" required placeholder="والدِ محترم" />
+                <input type="text" name="guar-relation" class="form-control fw-semibold fs-4" placeholder="والدِ محترم" />
                 <!-- <span class="error" id="std-area-err"></span> -->
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="guar-number">فون نمبر</label>
-                <input type="number" name="guar-number" class="form-control fw-semibold fs-3" required placeholder="03186432506" />
+                <input type="number" name="guar-number" class="form-control fw-semibold fs-3" placeholder="03186432506" />
                 <!-- <span class="error" id="std-area-err"></span> -->
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="guar-address">پتہ</label>
-                <input type="text" name="guar-address" class="form-control fw-semibold fs-4" required placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
+                <input type="text" name="guar-address" class="form-control fw-semibold fs-4" placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
                 <!-- <span class="error" id="std-area-err"></span> -->
               </div>
 
@@ -132,22 +185,22 @@ include "inc/navbar.php";
               <div class="row g-4">
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="pre-school">سابقہ مدرسہ</label>
-                  <input type="text" name="pre-school" class="form-control fw-semibold fs-4" required placeholder="دارالعلوم کراچی" />
+                  <input type="text" name="pre-school" class="form-control fw-semibold fs-4" placeholder="دارالعلوم کراچی" />
                   <!-- <span class="error" id="std-area-err"></span> -->
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="pre-class">سابقہ درجہ</label>
-                  <input type="text" name="pre-class" class="form-control fw-semibold fs-4" required placeholder="اوٰلی" />
+                  <input type="text" name="pre-class" class="form-control fw-semibold fs-4" placeholder="اوٰلی" />
                   <!-- <span class="error" id="std-area-err"></span> -->
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="next-class">مطلوبہ درجہ</label>
-                  <input type="text" name="next-class" class="form-control fw-semibold fs-4" required placeholder="ثانیہ" />
+                  <input type="text" name="next-class" class="form-control fw-semibold fs-4" placeholder="ثانیہ" />
                   <!-- <span class="error" id="std-area-err"></span> -->
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="adm-date">تاریخ داخلہ</label>
-                  <input type="date" name="adm-date" class="form-control fw-semibold fs-3" required placeholder="DD/MM/YYYY" />
+                  <input type="date" name="adm-date" class="form-control fw-semibold fs-3" placeholder="DD/MM/YYYY" />
                   <!-- <span class="error" id="std-area-err"></span> -->
                 </div>
 
@@ -262,14 +315,11 @@ include "inc/footer.php";
             $('#studentMadarasa').append(data);
           } else if (type === "mad_new_year") {
             $('#MadYear').html(data);
-          } 
-          else if (type === "Student_department") {
+          } else if (type === "Student_department") {
             $('#department').html(data);
-          }
-          else if (type === "student_class") {
+          } else if (type === "student_class") {
             $('#studentclass').html(data);
-          }
-          else if (type === "student_section") {
+          } else if (type === "student_section") {
             $('#section').html(data);
           }
         }
@@ -313,7 +363,7 @@ include "inc/footer.php";
       }
     });
 
-   
+
 
   });
 </script>
