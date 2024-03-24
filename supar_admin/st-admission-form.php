@@ -293,9 +293,6 @@ include "inc/navbar.php";
 
 <?php
 include "inc/mobileNavbar.php";
-?>
-
-<?php
 include "inc/footer.php";
 ?>
 <script src="../assets/js/error/class.js"></script>
