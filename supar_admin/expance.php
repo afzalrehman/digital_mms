@@ -37,14 +37,14 @@ include "inc/navbar.php";
   <div class="row">
 
     <!-- User Info -->
-    <form method="post" id="expance">
+    <form method="post" action="code.php" id="expance">
       <div class="col-12">
         <div class="card">
           <div class="card-body">
             <div class="row g-4">
 
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="std-area">مدرسہ کا نام <span class="text-danger fs-7">*</span></label>
+                <label class="fs-5 mb-1" for="mad_Name">مدرسہ کا نام <span class="text-danger fs-7">*</span></label>
                 <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="madarasa" id="mad_Name">
                   <option class="jameel-kasheeda" value="">مدرسہ سلیکٹ کریں</option>
                   <?php
@@ -78,8 +78,8 @@ include "inc/navbar.php";
 
 
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="expance-amount">رقم</label>
-                <input type="number" id="expanceAmount" name="expance-amount" class="form-control fs-3 inter fw-semibold"  placeholder="300" />
+                <label class="fs-5 mb-1" for="expanceAmount">رقم</label>
+                <input type="number" id="expanceAmount" name="expance_amount" class="form-control fs-3 inter fw-semibold"  placeholder="300" />
                 <span class="text-danger expanceAmount"></span>
               </div>
 
@@ -108,7 +108,7 @@ include "inc/navbar.php";
 
               <div class="col-md-12">
                 <label class="fs-5 mb-1" for="short_discription">مختصر وضاحت</label>
-                <textarea class="form-control" name="" id="short_discription" cols="30" rows="5"></textarea>
+                <textarea class="form-control" name="short_discription" id="short_discription" cols="30" rows="5"></textarea>
                 <span class="short_discription text-danger"></span>
               </div>
 
@@ -119,7 +119,7 @@ include "inc/navbar.php";
 
         <!-- Submit Button -->
         <div class="col-md-12 mt-4 jameel-kasheeda">
-          <button type="submit" id="submit" name="submit" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
+          <button type="submit" id="submit" name="ExpanceBtn" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
         </div>
 
     </form>

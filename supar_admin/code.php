@@ -653,4 +653,40 @@ if (isset($_POST['salaryUpdate'])) {
         }
     }
 }
+
+//=====================Expance================
+if (isset($_POST['ExpanceBtn'])) {
+    $madarasa  = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $RegNumber = mysqli_real_escape_string($conn, $_POST['RegNumber']); // Assuming 'madarasa' is the name of the input field
+    $expance_name  = mysqli_real_escape_string($conn, $_POST['expance_name']);
+    $resiveName  = mysqli_real_escape_string($conn, $_POST['resiveName']);
+    $expance_amount = mysqli_real_escape_string($conn, $_POST['expance_amount']);
+    $pay_now = mysqli_real_escape_string($conn, $_POST['pay_now']);
+    $expanceـdate  = mysqli_real_escape_string($conn, $_POST['expanceـdate']);
+    $expance_month  = mysqli_real_escape_string($conn, $_POST['expance_month']);
+    $short_discription  = mysqli_real_escape_string($conn, $_POST['short_discription']);
+    $checkQuery = "SELECT * FROM `expance` WHERE `RegNumber` = '$RegNumber'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['email'] = '   رسید نمبر پہلے سے موجود ہے';
+        header("location: expance.php");
+        exit();
+    }
+    else {
+        $insertQuery = "INSERT INTO `expance` (`RegNumber`, `madarsa_id`, `expance_name`, `resiveName`, `expanceAmount`, `pay_now`, `expanceـdate`, `expance_month`, `description`) 
+        VALUES ('$RegNumber', '$madarasa', '$expance_name', '$resiveName', '$expance_amount', '$pay_now', '$expanceـdate', '$expance_month', '$short_discription')";
+
+        if (mysqli_query($conn, $insertQuery)) {;
+            unset($_SESSION['input']);
+            redirect("expance.php", " خرچہ ایڈ ہو چکا ہے");
+            exit();
+        } else {
+            $_SESSION['error_message'] = 'Error in adding Expance. Please try again.';
+            header("location:expance.php");
+            exit();
+        }
+    }
+}
+
 ?>
