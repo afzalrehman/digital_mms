@@ -76,20 +76,11 @@ include "inc/navbar.php";
                 <span class="text-danger resiveName"></span>
               </div>
 
+
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="expance-amount">رقم</label>
                 <input type="number" id="expanceAmount" name="expance-amount" class="form-control fs-3 inter fw-semibold"  placeholder="300" />
                 <span class="text-danger expanceAmount"></span>
-              </div>
-              <div class="col-md-6">
-                <label class="fs-5 mb-1" for="expanceـdate">رقم</label>
-                <input type="date" id="expanceـdate" name="expanceـdate" class="form-control fs-3 inter fw-semibold"  placeholder="300" />
-                <span class="text-danger expanceـdate"></span>
-              </div>
-              <div class="col-md-6">
-                <label class="fs-5 mb-1" for="expance_month">رقم</label>
-                <input type="month" id="expance_month" name="expance_month" class="form-control fs-3 inter fw-semibold"  placeholder="300" />
-                <span class="text-danger expance_month"></span>
               </div>
 
               <div class="col-md-6">
@@ -101,6 +92,19 @@ include "inc/navbar.php";
                 </select>
                 <span class="pay_now text-danger"></span>
               </div>
+              
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="expanceـdate">تاریخ</label>
+                <input type="date" id="expanceـdate" name="expanceـdate" class="form-control fs-3 inter fw-semibold"  placeholder="300" />
+                <span class="text-danger expanceـdate"></span>
+              </div>
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="expance_month">مہینہ</label>
+                <input type="month" id="expance_month" name="expance_month" class="form-control fs-3 inter fw-semibold"  placeholder="300" />
+                <span class="text-danger expance_month"></span>
+              </div>
+
+              
 
               <div class="col-md-12">
                 <label class="fs-5 mb-1" for="short_discription">مختصر وضاحت</label>
