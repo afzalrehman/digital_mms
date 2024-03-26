@@ -57,8 +57,25 @@ include "inc/navbar.php";
                 <label class="fs-5 mb-1" for="annoucment-teacher">استاد یا استانی کا نام</label>
                 <select id="annoucment-teacher" name="annoucment-teacher" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                   <option value="" class="jameel-kasheeda">- - -</option>
-                  <option value="عائیشہ" class="jameel-kasheeda">عائیشہ</option>
-                  <option value="مولانا صدیق" class="jameel-kasheeda">مولانا صدیق</option>
+                  <optgroup label="سپر ایڈمن" class="jameel-kasheeda text-primary">
+                    <option value="عائیشہ" class="jameel-kasheeda fs-3 text-dark">عائیشہ</option>
+                  </optgroup>
+                  <optgroup label="ایڈمن" class="jameel-kasheeda text-primary">
+                    <option value="عائیشہ" class="jameel-kasheeda fs-3 text-dark">عائیشہ</option>
+                  </optgroup>
+                  <optgroup label="انسٹی ٹیوٹ" class="jameel-kasheeda text-primary">
+                    <option value="عائیشہ" class="jameel-kasheeda fs-3 text-dark">عائیشہ</option>
+                  </optgroup>
+                  <optgroup label="استاد" class="jameel-kasheeda text-primary">
+                    <option value="عائیشہ" class="jameel-kasheeda fs-3 text-dark">عائیشہ</option>
+                  </optgroup>
+                  <optgroup label="استانی" class="jameel-kasheeda text-primary">
+                    <option value="مولانا صدیق" class="jameel-kasheeda fs-3 text-dark">مولانا صدیق</option>
+                    <option value="مولانا صدیق" class="jameel-kasheeda fs-3 text-dark">مولانا صدیق</option>
+                  </optgroup>
+                  <optgroup label="طالب علم" class="jameel-kasheeda text-primary">
+                    <option value="عائیشہ" class="jameel-kasheeda fs-3 text-dark">عائیشہ</option>
+                  </optgroup>
                 </select>
                 <!-- <span class="error" id="std-area-err"></span> -->
               </div>
