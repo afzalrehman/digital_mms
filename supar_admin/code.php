@@ -544,9 +544,9 @@ if (isset($_POST['salaryBtn'])) {
     $payment_method  = mysqli_real_escape_string($conn, $_POST['payment_method']);
     $description  = mysqli_real_escape_string($conn, $_POST['description']);
     // $total_salary = $salary_given + $allowances ;
-    $salary1_salary = $basic_salary - $deductions ;  // Calculation of salary before deductions
+    $salary1_salary = $basic_salary - $deductions;  // Calculation of salary before deductions
     $remaining_salary = $salary1_salary - $salary_given; // Calculation of remaining salary
-    
+
     $checkQuery = "SELECT * FROM `salary` WHERE `register_num` = '$teacher_name'  AND  `madarsa_id` = '$madarasa' AND  `salary_date` = '$salary_date' ";
     $checkResult = mysqli_query($conn, $checkQuery);
 
@@ -607,9 +607,9 @@ if (isset($_POST['salaryUpdate'])) {
     $payment_method  = mysqli_real_escape_string($conn, $_POST['payment_method']);
     $description  = mysqli_real_escape_string($conn, $_POST['description']);
     // $total_salary = $salary_given + $allowances ;
-    $salary1_salary = $basic_salary - $deductions ;  // Calculation of salary before deductions
+    $salary1_salary = $basic_salary - $deductions;  // Calculation of salary before deductions
     $remaining_salary = $salary1_salary - $salary_given; // Calculation of remaining salary
-    
+
     $checkQuery = "SELECT * FROM `salary` WHERE `register_num` = '$teacher_name'  AND  `madarsa_id` = '$madarasa' AND  `salary_date` = '$salary_date' AND `id` != '$edit_id'  ";
     $checkResult = mysqli_query($conn, $checkQuery);
 
@@ -672,8 +672,7 @@ if (isset($_POST['ExpanceBtn'])) {
         $_SESSION['email'] = '   رسید نمبر پہلے سے موجود ہے';
         header("location: expance.php");
         exit();
-    }
-    else {
+    } else {
         $insertQuery = "INSERT INTO `expance` (`RegNumber`, `madarsa_id`, `expance_name`, `resiveName`, `expanceAmount`, `pay_now`, `expanceـdate`, `expance_month`, `description`) 
         VALUES ('$RegNumber', '$madarasa', '$expance_name', '$resiveName', '$expance_amount', '$pay_now', '$expanceـdate', '$expance_month', '$short_discription')";
 
@@ -688,5 +687,64 @@ if (isset($_POST['ExpanceBtn'])) {
         }
     }
 }
+// ===================Expance Delete================
+if (isset($_GET['expance_delete'])) {
+    $id = $_GET['expance_delete'];
+    $delete_query = "UPDATE `expance` SET `status` = 'غیر فعال' WHERE `expance_id` = '$id'";
 
+    $sql = mysqli_query($conn, $delete_query);
+    if ($sql) {
+        redirectdelete("expance_details.php", "ڈیٹا حذف کر دیا گیا ہے ");
+        exit();
+    } else {
+        $_SESSION['not_successfully'] = "ڈیٹا حذف نہیں ھوا ہے ";
+        header('location:expance_details.php');
+        exit();
+    }
+}
+// ====================Expance Update==================
+if (isset($_POST['ExpanceUpdate'])) {
+    $madarasa  = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $expance_edit  = mysqli_real_escape_string($conn, $_POST['expance_edit']);
+    $RegNumber = mysqli_real_escape_string($conn, $_POST['RegNumber']); // Assuming 'madarasa' is the name of the input field
+    $expance_name  = mysqli_real_escape_string($conn, $_POST['expance_name']);
+    $resiveName  = mysqli_real_escape_string($conn, $_POST['resiveName']);
+    $expance_amount = mysqli_real_escape_string($conn, $_POST['expance_amount']);
+    $pay_now = mysqli_real_escape_string($conn, $_POST['pay_now']);
+    $expanceـdate  = mysqli_real_escape_string($conn, $_POST['expanceـdate']);
+    $expance_month  = mysqli_real_escape_string($conn, $_POST['expance_month']);
+    $short_discription  = mysqli_real_escape_string($conn, $_POST['short_discription']);
+
+    $checkQuery = "SELECT * FROM `expance` WHERE `RegNumber` = '$RegNumber' AND $expance_edit !=`expance_id`";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['email'] = '   رسید نمبر پہلے سے موجود ہے';
+        header("location: expance_edit.php?expance_edit=$expance_edit");
+        exit();
+    } else {
+        $updateQuery = "UPDATE `expance` 
+        SET 
+        `RegNumber` = '$RegNumber',
+        `madarsa_id` = '$madarasa',
+        `expance_name` = '$expance_name',
+        `resiveName` = '$resiveName',
+        `expanceAmount` = '$expance_amount',
+        `pay_now` = '$pay_now',
+        `expanceـdate` = '$expanceـdate',
+        `expance_month` = '$expance_month',
+        `description` = '$short_discription'
+        WHERE  `expance_id` = '$expance_edit'";
+
+        if (mysqli_query($conn, $updateQuery)) {;
+            unset($_SESSION['input']);
+            redirect("expance_details.php", " خرچہ اپڈیٹ ہو چکا ہے");
+            exit();
+        } else {
+            $_SESSION['error_message'] = 'Error in adding Expance. Please try again.';
+            header("location:expance_details.php");
+            exit();
+        }
+    }
+}
 ?>

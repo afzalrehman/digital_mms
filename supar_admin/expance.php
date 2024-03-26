@@ -67,12 +67,12 @@ include "inc/navbar.php";
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="expance_name">خرچہ کا نام</label>
-                <input type="text" id="expance_name" name="expance_name" class="form-control fw-semibold fs-4"  placeholder="موٹر کےلیے" />
+                <input type="text" id="expance_name" name="expance_name" class="form-control urduInput fw-semibold fs-4"  placeholder="موٹر کےلیے" />
                 <span class="text-danger expance_name"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="resiveName">دینے والے کا نام</label>
-                <input type="text" id="resiveName" name="resiveName" class="form-control fw-semibold fs-4"  placeholder="احمد" />
+                <input type="text" id="resiveName" name="resiveName" class="form-control urduInput fw-semibold fs-4"  placeholder="احمد" />
                 <span class="text-danger resiveName"></span>
               </div>
 
@@ -108,7 +108,7 @@ include "inc/navbar.php";
 
               <div class="col-md-12">
                 <label class="fs-5 mb-1" for="short_discription">مختصر وضاحت</label>
-                <textarea class="form-control" name="short_discription" id="short_discription" cols="30" rows="5"></textarea>
+                <textarea class="form-control urduInput" name="short_discription" id="short_discription" cols="30" rows="5"></textarea>
                 <span class="short_discription text-danger"></span>
               </div>
 
