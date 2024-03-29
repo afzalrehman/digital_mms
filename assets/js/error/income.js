@@ -6,19 +6,20 @@ const myConstants = {
     error: document.querySelector(".RegNumber"),
     errorMessage: "براۓ مہربانی رجسٹر نمبر ایڈ کریں",
   },
-  expance_name: {
-    element: document.getElementById("expance_name"),
-    error: document.querySelector(".expance_name"),
+  income_name: {
+    element: document.getElementById("income_name"),
+    error: document.querySelector(".income_name"),
     errorMessage: "براۓ مہربانی  نام ایڈ کریں",
   },
-  expanceـdate: {
-    element: document.getElementById("expanceـdate"),
-    error: document.querySelector(".expanceـdate"),
+  incomeDate: {
+    element: document.getElementById("incomeDate"),
+    error: document.querySelector(".incomeDate"),
     errorMessage: "براۓ مہربانی تاریخ ایڈ کریں",
   },
-  expance_month: {
-    element: document.getElementById("expance_month"),
-    error: document.querySelector(".expance_month"),
+
+  incomeMonth: {
+    element: document.getElementById("incomeMonth"),
+    error: document.querySelector(".incomeMonth"),
     errorMessage: "براۓ مہربانی مہینہ ایڈ کریں",
   },
   resiveName: {
@@ -26,9 +27,9 @@ const myConstants = {
     error: document.querySelector(".resiveName"),
     errorMessage: "براۓ مہربانی  دینے والے کا نام ایڈ کریں",
   },
-  expance_amount: {
-    element: document.getElementById("expanceAmount"),
-    error: document.querySelector(".expanceAmount"),
+  income_amount: {
+    element: document.getElementById("incomeAmount"),
+    error: document.querySelector(".incomeAmount"),
     errorMessage: "براۓ مہربانی رقم ایڈ کریں",
   },
 
@@ -37,9 +38,14 @@ const myConstants = {
     error: document.querySelector(".mad_Name"),
     errorMessage: "براۓ مہربانی مدرسہ درج کریں",
   },
-  pay_now: {
-    element: document.getElementById("pay_now"),
-    error: document.querySelector(".pay_now"),
+  payment_method: {
+    element: document.getElementById("payment_method"),
+    error: document.querySelector(".payment_method"),
+    errorMessage: "براۓ مہربانی درج کریں",
+  },
+  incomecategriy: {
+    element: document.getElementById("incomecategriy"),
+    error: document.querySelector(".incomecategriy"),
     errorMessage: "براۓ مہربانی درج کریں",
   },
 

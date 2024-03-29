@@ -747,4 +747,54 @@ if (isset($_POST['ExpanceUpdate'])) {
         }
     }
 }
+// =====================income =====================
+if (isset($_POST['incomeBtn'])) {
+    $RegNumber  = mysqli_real_escape_string($conn, $_POST['RegNumber']);
+    $madarsa = mysqli_real_escape_string($conn, $_POST['madarasa']); // Assuming 'madarasa' is the name of the input field
+    $income_name  = mysqli_real_escape_string($conn, $_POST['income_name']);
+    $incomeCategory  = mysqli_real_escape_string($conn, $_POST['incomecategriy']);
+    $incomeAmount = mysqli_real_escape_string($conn, $_POST['incomeAmount']);
+    $payment_method = mysqli_real_escape_string($conn, $_POST['payment_method']);
+    $receiverName  = mysqli_real_escape_string($conn, $_POST['resiveName']);
+    $incomeDate  = mysqli_real_escape_string($conn, $_POST['incomeDate']);
+    $income_month  = mysqli_real_escape_string($conn, $_POST['incomeMonth']);
+    $short_discription  = mysqli_real_escape_string($conn, $_POST['short_discription']);
+    $checkQuery = "SELECT * FROM `income` WHERE `RegNumber` = '$RegNumber'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['email'] = '   رسید نمبر پہلے سے موجود ہے';
+        header("location: income-form.php");
+        exit();
+    } else {
+        $insertQuery ="INSERT INTO `income`(`madarsa_id`, `RegNumber`, `income_name`, `incomeCategory`, `incomeAmount`, `payment_method`, `receiverName`, `incomedate`, `income_month`, `description`) 
+        VALUES ('$madarsa','$RegNumber','$income_name','$incomeCategory','$incomeAmount','$payment_method','$receiverName','$incomeDate','$income_month','$short_discription')";
+
+        if (mysqli_query($conn, $insertQuery)) {;
+            unset($_SESSION['input']);
+            redirect("income-form.php", "   آمدنی ایڈ ہو چکا ہے");
+            exit();
+        } else {
+            $_SESSION['error_message'] = 'Error in adding Expance. Please try again.';
+            header("location:income-form.php");
+            exit();
+        }
+    }
+}
+
+// ===================income Delete================
+if (isset($_GET['income_delete'])) {
+    $id = $_GET['income_delete'];
+    $delete_query = "UPDATE `income` SET `status` = 'غیر فعال' WHERE `income_id` = '$id'";
+
+    $sql = mysqli_query($conn, $delete_query);
+    if ($sql) {
+        redirectdelete("income-details.php", "ڈیٹا حذف کر دیا گیا ہے ");
+        exit();
+    } else {
+        $_SESSION['not_successfully'] = "ڈیٹا حذف نہیں ھوا ہے ";
+        header('location:income-details.php');
+        exit();
+    }
+}
 ?>
