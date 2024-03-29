@@ -419,6 +419,7 @@ if (isset($_POST['teacherBtn'])) {
     $teacherfathername  = mysqli_real_escape_string($conn, $_POST['teacherfathername']);
     $teachergender = mysqli_real_escape_string($conn, $_POST['teachergender']);
     $DateBirth = mysqli_real_escape_string($conn, $_POST['DateBirth']);
+    $cnic  = mysqli_real_escape_string($conn, $_POST['teacherCnic']);
     $teachernumber  = mysqli_real_escape_string($conn, $_POST['teachernumber']);
     $teacheremail  = mysqli_real_escape_string($conn, $_POST['teacheremail']);
     $teacheraddress  = mysqli_real_escape_string($conn, $_POST['teacheraddress']);
@@ -431,7 +432,7 @@ if (isset($_POST['teacherBtn'])) {
     $teacherSalary  = mysqli_real_escape_string($conn, $_POST['teacherSalary']);
     $teacherEmergNumber  = mysqli_real_escape_string($conn, $_POST['teacherEmergNumber']);
     $note  = mysqli_real_escape_string($conn, $_POST['note']);
-    $checkQuery = "SELECT * FROM `teacher` WHERE `register_num` = '$teacherReg'  AND  `madarsa_id` = '$madarasa' AND  `phone` = '$teachernumber'  AND  `email` = '$teacheremail' AND  `cnic` = '$cnic' AND  `otherNumber` = '$teacherEmergNumber'";
+    $checkQuery = "SELECT * FROM `teacher` WHERE `register_num` = '$teacherReg'  AND  `cnic` = '$cnic' AND `madarsa_id` = '$madarasa' AND  `phone` = '$teachernumber'  AND  `email` = '$teacheremail'  AND  `otherNumber` = '$teacherEmergNumber'";
     $checkResult = mysqli_query($conn, $checkQuery);
 
     if (mysqli_num_rows($checkResult) > 0) {
@@ -439,7 +440,7 @@ if (isset($_POST['teacherBtn'])) {
         header("location: madarsa_add.php");
         exit();
     }
-    $checkQuery = "SELECT * FROM `madarsa` WHERE `phone` = '$phone' ";
+    $checkQuery = "SELECT * FROM `madarsa` WHERE `phone` = '$teacherEmergNumber' ";
     $checkResult = mysqli_query($conn, $checkQuery);
 
     if (mysqli_num_rows($checkResult) > 0) {
