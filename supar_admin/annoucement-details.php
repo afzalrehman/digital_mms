@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "../includes/config.php";
 include "../includes/function.php";
 include "inc/header.php";
 include "inc/sidebar.php";
@@ -84,109 +85,56 @@ include "inc/navbar.php";
               </tr>
             </thead>
             <tbody class="border-top">
-              <tr>
-                <td>
-                  <p class="mb-0 fs-2 inter">1</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4">بنین</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4 word-spacing-2px"> ماسٹر احمد</p>
-                </td>
+              <?php
+              $fetch_announce = "SELECT * FROM annoucements";
+              $fetch_announce_result = mysqli_query($conn, $fetch_announce);
 
-                <td>
-                  <p class="mb-0 fs-2 inter">23-09-2023</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4 word-spacing-2px">عید کی چھٹی</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4 word-spacing-2px">حکومت نے عیدالاضحیٰ پر دو چھٹیوں کا اعلان کر دیا ۔۔۔</p>
-                </td>
-                <td>
-                  <div class="action-btn">
-                    <a href="javascript:void(0)" class="text-dark ms-1">
-                      <i class="ti ti-trash fs-6 text-danger"></i>
-                    </a>
-                    <a href="javascript:void(0)" class="text-info ms-1">
-                      <i class="ti ti-eye fs-6"></i>
-                    </a>
-                    <a href="javascript:void(0)" class="text-success">
-                      <i class="ti ti-edit fs-6"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p class="mb-0 fs-2 inter">2</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4">بنات</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4 word-spacing-2px"> محمد سجاد</p>
-                </td>
+              if (mysqli_num_rows($fetch_announce_result) > 0) {
+                $no = 1;
+                while ($row = mysqli_fetch_assoc($fetch_announce_result)) {
+              ?>
+                  <tr>
+                    <td>
+                      <p class="mb-0 fs-2 inter"><?= $no++ ?></p>
+                    </td>
+                    <td>
+                      <p class="mb-0 fs-4"><?= $row['announce_depart'] ?></p>
+                    </td>
+                    <td>
+                      <p class="mb-0 fs-4 word-spacing-2px"><?= $row['to_id'] ?></p>
+                    </td>
 
-                <td>
-                  <p class="mb-0 fs-2 inter">19-10-2023</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4 word-spacing-2px">بارش کی چھٹی</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4 word-spacing-2px">گرمیوں کا موسم سال کے دوران سب سے طویل عرصے تک جاری رہتا
-                    ہے ۔۔۔</p>
-                </td>
-                <td>
-                  <div class="action-btn">
-                    <a href="javascript:void(0)" class="text-dark ms-1">
-                      <i class="ti ti-trash fs-6 text-danger"></i>
-                    </a>
-                    <a href="javascript:void(0)" class="text-info ms-1">
-                      <i class="ti ti-eye fs-6"></i>
-                    </a>
-                    <a href="javascript:void(0)" class="text-success">
+                    <td>
+                      <p class="mb-0 fs-2 inter"><?= $row['announce_date'] ?></p>
+                    </td>
+                    <td>
+                      <p class="mb-0 fs-4 word-spacing-2px"><?= $row['announce_subjict'] ?></p>
+                    </td>
+                    <td style="white-space: pre-line">
+                      <p class="mb-0 fs-4 word-spacing-2px "><?= $row['announce_comment'] ?></p>
+                    </td>
+                    <td>
+                      <div class="action-btn">
+                        <a href="?announce_delete=<?= $row['id'] ?>" class="text-dark ms-1">
+                          <i class="ti ti-trash fs-6 text-danger"></i>
+                        </a>
+                        <a href="annoucement.php?announce_view=<?= $row['id'] ?>" class="text-info ms-1">
+                          <i class="ti ti-eye fs-6"></i>
+                        </a>
+                        <!-- <a href="javascript:void(0)" class="text-success">
                       <i class="ti ti-edit fs-6"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p class="mb-0 fs-2 inter">3</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4">بنین</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4 word-spacing-2px"> ماسٹر احمد</p>
-                </td>
-
-                <td>
-                  <p class="mb-0 fs-2 inter">23-09-2023</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4 word-spacing-2px">عید کی چھٹی</p>
-                </td>
-                <td>
-                  <p class="mb-0 fs-4 word-spacing-2px">حکومت نے عیدالاضحیٰ پر دو چھٹیوں کا اعلان کر دیا ۔۔۔</p>
-                </td>
-                <td>
-                  <div class="action-btn">
-                    <a href="javascript:void(0)" class="text-dark ms-1">
-                      <i class="ti ti-trash fs-6 text-danger"></i>
-                    </a>
-                    <a href="javascript:void(0)" class="text-info ms-1">
-                      <i class="ti ti-eye fs-6"></i>
-                    </a>
-                    <a href="javascript:void(0)" class="text-success">
-                      <i class="ti ti-edit fs-6"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
+                    </a> -->
+                      </div>
+                    </td>
+                  </tr>
+              <?php
+                }
+              } else {
+                echo '<tr>
+                        <td class="text-danger">سال موجود نہں ہے </td>
+                        </tr>';
+              }
+              ?>
             </tbody>
           </table>
         </div>
