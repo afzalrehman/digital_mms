@@ -119,6 +119,11 @@ include "inc/navbar.php";
                     <tr class="fw-semibold">
                       <th class="fs-5 word-spacing-2px text-primary">#</th>
                       <th class="fs-5 word-spacing-2px text-primary">مدرسہ</th>
+                      <th class="fs-5 word-spacing-2px text-primary">رسید نمبر</th>
+                      <th class="fs-5 word-spacing-2px text-primary">دینے والے کا نام</th>
+                      <th class="fs-5 word-spacing-2px text-primary">تاریخ</th>
+                      <th class="fs-5 word-spacing-2px text-primary">رقم</th>
+                      <th class="fs-5 word-spacing-2px text-primary">حالت</th>
                       <!-- Add other table headings here -->
                     </tr>
                   </thead>
@@ -133,7 +138,15 @@ include "inc/navbar.php";
                           <p class="mb-0 fs-2 inter"><?= $no++ ?></p>
                         </td>
                         <td>
-                          <p class="mb-0 fs-2 inter"><?= $row['madarsa_id'] ?></p>
+                          <?php
+                          $madarsa_id = $row['madarsa_id'];
+                          $madarsa_id_query = mysqli_query($conn, "SELECT * FROM `madarsa` WHERE `madarsa_id` ='$madarsa_id'");
+                          $madarsas_id = mysqli_fetch_object($madarsa_id_query);
+                          if ($madarsas_id) {
+                            echo '<p class="mb-0 fs-2 ">' . $madarsas_id->madarsa_name  . '</p>';
+                          }
+                          ?>
+                          <!-- <p class="mb-0 fs-2 "><?= $row['madarsa_id'] ?></p> -->
                         </td>
                         <td>
                           <p class="mb-0 fs-4 word-spacing-2px"><?= $row['RegNumber'] ?></p>
@@ -149,10 +162,10 @@ include "inc/navbar.php";
                         </td>
                         <td>
                           <div class="action-btn">
-                            <a href="madarasa_vewimore.php?madarsa_vewimore=<?= $row['expance_id'] ?>" class="text-info ms-1">
+                            <a href="expance_vewimore.php?expance_vewimore=<?= $row['expance_id'] ?>" class="text-info ms-1">
                               <i class="ti ti-eye fs-6"></i>
                             </a>
-                            <a href="salary-edit.php?edit_salary=<?= $row['expance_id'] ?>" class="text-success">
+                            <a href="expance_edit.php?expance_edit=<?= $row['expance_id'] ?>" class="text-success">
                               <i class="ti ti-edit fs-6"></i>
                             </a>
                             <button type="button" class="border-0  rounded-2 p-0 py-1 " data-bs-toggle="modal" data-bs-target="#deleteModal<?= $row['expance_id'] ?>">
@@ -168,7 +181,7 @@ include "inc/navbar.php";
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">کلوز</button>
-                                    <a href="code.php?salary_delete=<?= $row['expance_id'] ?>">
+                                    <a href="code.php?expance_delete=<?= $row['expance_id'] ?>">
                                       <button type="button" class="btn btn-danger">ڈیلیٹ</button>
                                     </a>
                                   </div>
@@ -184,7 +197,7 @@ include "inc/navbar.php";
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td >
+                      <td>
                         <h2 class="fs-6 ">ٹوٹل خرچہ</h2>
                       </td>
                       <td colspan="6">

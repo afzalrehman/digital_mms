@@ -1,124 +1,158 @@
 <?php
+session_start();
+include "../includes/function.php";
 include "inc/header.php";
 include "inc/sidebar.php";
 include "inc/navbar.php";
 ?>
-      <div class="container-fluid">
-        <!-- Main Content Header Card (Start) -->
-        <div class="card bg-light-primary position-relative overflow-hidden breadcurmb-card-shadow">
-          <div class="card-body px-4 py-3">
-            <div class="row align-items-center">
-              <div class="col-9">
-                <h4 class="my-3 fs-8 text-primary word-spacing-2px">آمدنی فارم</h4>
-                <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                      <a class="text-muted text-decoration-none fs-4" href="index.html">ڈیش بورڈ</a>
-                    </li>
-                    <li class="breadcrumb-item fs-4" aria-current="page">
-                      آمدنی فارم
-                    </li>
-                  </ol>
-                </nav>
-              </div>
-              <div class="col-3">
-                <div class="text-center mb-n5">
-                  <img src="../assets/images/ChatBc.png" alt="" class="img-fluid mb-n4" />
-                </div>
-              </div>
-            </div>
-          </div>
+<div class="container-fluid">
+  <!-- Main Content Header Card (Start) -->
+  <div class="card bg-light-primary position-relative overflow-hidden breadcurmb-card-shadow">
+    <div class="card-body px-4 py-3">
+      <div class="row align-items-center">
+        <div class="col-9">
+          <h4 class="my-3 fs-8 text-primary word-spacing-2px">آمدنی فارم</h4>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a class="text-muted text-decoration-none fs-4" href="index.html">ڈیش بورڈ</a>
+              </li>
+              <li class="breadcrumb-item fs-4" aria-current="page">
+                آمدنی فارم
+              </li>
+            </ol>
+          </nav>
         </div>
-        <!-- Main Content Header Card (End) -->
-
-        <!-- Income Form (Start) -->
-        <div class="row">
-
-          <!-- User Info -->
-          <div class="col-12">
-            <div class="card">
-              <div class="card-body">
-                <form>
-                  <div class="row g-4">
-                    <div class="col-md-6">
-                      <label class="fs-5 mb-1" for="st-reg-no">رسید نمبر</label>
-                      <input type="number" name="st-reg-no" class="form-control fs-3 inter" required
-                        placeholder="0009832" />
-                      <!-- <span class="error" id="std-area-err"></span> -->
-                    </div>
-                    <div class="col-md-6">
-                      <label class="fs-5 mb-1" for="st-name">نام</label>
-                      <input type="text" name="st-name" class="form-control fw-semibold fs-4" required
-                        placeholder="احمد" />
-                      <!-- <span class="error" id="std-area-err"></span> -->
-                    </div>
-                    <div class="col-md-6">
-                      <label class="fs-5 mb-1" for="st-father-name">والد کا نام</label>
-                      <input type="text" name="st-father-name" class="form-control fw-semibold fs-4" required
-                        placeholder="احمد شفیع" />
-                      <!-- <span class="error" id="std-area-err"></span> -->
-                    </div>
-                    
-                    <div class="col-md-6">
-                      <label class="fs-5 mb-1" for="class-select">کلاس منتخب کریں</label>
-                      <select id="user-select" name="class-select"
-                        class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
-                        <option value="" class="jameel-kasheeda">- - -</option>
-                        <option value="پہلی" class="jameel-kasheeda">پہلی</option>
-                        <option value="دوسری" class="jameel-kasheeda">دوسری</option>
-                      </select>
-                      <!-- <span class="error" id="std-area-err"></span> -->
-                    </div>
-
-                    <div class="col-md-6">
-                      <label class="fs-5 mb-1" for="dep-select">شعبہ منتخب کریں</label>
-                      <select id="user-select" name="dep-select"
-                        class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
-                        <option value="" class="jameel-kasheeda">- - -</option>
-                        <option value="بنین" class="jameel-kasheeda">بنین</option>
-                        <option value="بنات" class="jameel-kasheeda">بنات</option>
-                      </select>
-                      <!-- <span class="error" id="std-area-err"></span> -->
-                    </div>
-                    
-                    <div class="col-md-6">
-                      <label class="fs-5 mb-1" for="fees-amount">رقم</label>
-                      <input type="number" name="fees-amount" class="form-control fs-3 inter fw-semibold" required
-                        placeholder="300" />
-                      <!-- <span class="error" id="std-area-err"></span> -->
-                    </div>
-
-                    <div class="col-md-6">
-                      <label class="fs-5 mb-1" for="fees-type">قسم منتخب کریں</label>
-                      <select id="user-select" name="fees-type"
-                        class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
-                        <option value="" class="jameel-kasheeda">- - -</option>
-                        <option value="ماہانہ" class="jameel-kasheeda">ماہانہ</option>
-                        <option value="امتحان" class="jameel-kasheeda">امتحان</option>
-                      </select>
-                      <!-- <span class="error" id="std-area-err"></span> -->
-                    </div>
-
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="col-md-12 mt-4 jameel-kasheeda">
-            <button type="button" id="submit" name="submit" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
+        <div class="col-3">
+          <div class="text-center mb-n5">
+            <img src="../assets/images/ChatBc.png" alt="" class="img-fluid mb-n4" />
           </div>
         </div>
       </div>
     </div>
-    <!-- Income Form (End) -->
   </div>
-  <!-- Main Content (End) -->
-  </div>
-  <div class="dark-transparent sidebartoggler"></div>
-  </div>
+  <!-- Main Content Header Card (End) -->
 
-  <?php
+  <!-- Income Form (Start) -->
+  <div class="row">
+
+    <!-- User Info -->
+    <form method="post" action="code.php" id="income">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="RegNumber">رسید نمبر <span class="text-danger fs-7">*</span></label>
+                <input type="number" id="RegNumber" name="RegNumber" class="form-control fs-3 inter" placeholder="0009832" />
+                <span class="text-danger RegNumber"></span>
+              </div>
+
+              <div class="col-lg-6"></div>
+
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="mad_Name">مدرسہ کا نام <span class="text-danger fs-7">*</span></label>
+                <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="madarasa" id="mad_Name">
+                  <option class="jameel-kasheeda" value="">مدرسہ سلیکٹ کریں</option>
+                  <?php
+                  $sql = "SELECT * FROM madarsa";
+                  $result = $conn->query($sql);
+                  if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) { ?>
+                      <option class="jameel-kasheeda" value="<?= $row["madarsa_id"] ?>"><?= $row["madarsa_name"] ?></option>
+                  <?php
+                    }
+                  }
+                  ?>
+                </select>
+                <span class="text-danger mad_Name"></span>
+              </div>
+
+
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="income_name">دینے والے کا نام <span class="text-danger fs-7">*</span></label>
+                <input type="text" name="income_name" id="income_name" class="form-control urduInput fw-semibold fs-4" placeholder="احمد" />
+                <span class="text-danger income_name"></span>
+              </div>
+
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="incomecategriy">آمدنی کس مد میں ہوئی: <span class="text-danger fs-7">*</span></label>
+                <select id="incomecategriy" class="form-control jameel-kasheeda fw-bolder" name="incomecategriy">
+                  <option value="" class='fw-bolder'>بینک ٹرانسفر</option>
+                  <option value="ماہانہ فیس" class='fw-bolder'>ماہانہ فیس</option>
+                  <option value="امتحانی فیس" class='fw-bolder'>امتحانی فیس</option>
+                  <option value="داخلہ فیس" class='fw-bolder'>داخلہ فیس</option>
+                  <option value="زکوٰۃ" class='fw-bolder'>زکوٰۃ</option>
+                  <option value="فطرہ" class='fw-bolder'>فطرہ</option>
+                  <option value="عطیات" class='fw-bolder'>عطیات</option>
+                  <option value="کرایہ" class='fw-bolder'>کرایہ</option>
+                  <option value="دیگر" class='fw-bolder'>دیگر</option>
+                </select>
+                <span class="text-danger incomecategriy"></span>
+              </div>
+
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="incomeAmount">رقم <span class="text-danger fs-7">*</span></label>
+                <input type="number" name="incomeAmount" class="form-control fs-3 inter fw-semibold" id="incomeAmount" placeholder="300" />
+                <span class="text-danger incomeAmount"></span>
+              </div>
+
+              <div class="col-lg-6">
+                <label for="payment_method" class='fs-5 '>ادائیگی کا طریقہ: <span class="text-danger fs-7">*</span></label>
+                <select id="payment_method" class="form-control jameel-kasheeda fw-bolder" name="payment_method">
+                  <option value="" class='fw-bolder'>بینک ٹرانسفر</option>
+                  <option value="نقد" class='fw-bolder'>نقد</option>
+                  <option value="چیک" class='fw-bolder'>چیک</option>
+                </select>
+                <span class="text-danger payment_method"></span>
+              </div>
+
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="resiveName">وصول کنندہ: <span class="text-danger fs-7">*</span></label>
+                <input type="text" name="resiveName" class="form-control urduInput fw-semibold fs-4" id="resiveName" placeholder="احمد شفیع" />
+                <span class="text-danger resiveName"></span>
+              </div>
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="incomeDate"> تاریخ: <span class="text-danger fs-7">*</span></label>
+                <input type="date" name="incomeDate" class="form-control fw-semibold fs-4" id="incomeDate" placeholder="احمد شفیع" />
+                <span class="text-danger incomeDate"></span>
+              </div>
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="incomeMonth"> مہینہ: <span class="text-danger fs-7">*</span></label>
+                <input type="month" name="incomeMonth" id="incomeMonth" class="form-control fw-semibold fs-4" placeholder="احمد شفیع" />
+                <span class="text-danger incomeMonth"></span>
+              </div>
+
+
+
+              <div class="col-md-12">
+                <label class="fs-5 mb-1" for="fees-amount">تفصیل <span class="text-danger fs-7">*</span></label>
+                <textarea name="short_discription" id="short_discription" cols="30" class="form-control urduInput" rows="6"></textarea>
+                <span class="text-danger short_discription"></span>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-md-12 mt-4 jameel-kasheeda">
+          <button type="submit" name="incomeBtn" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
+        </div>
+    </form>
+  </div>
+</div>
+</div>
+<!-- Income Form (End) -->
+</div>
+<!-- Main Content (End) -->
+</div>
+<div class="dark-transparent sidebartoggler"></div>
+</div>
+
+<?php
 include "inc/mobileNavbar.php";
 include "inc/footer.php";
 ?>
+<script src="../assets/js/error/income.js"></script>

@@ -88,7 +88,7 @@ include "inc/navbar.php";
                   <input type="text" hidden name="department_id" value="<?= $fetch["depart_id"] ?>">
                   <div class="col-md-12">
                     <label class="fs-5 mb-1" for="std-area"> شعبہ<span class="text-danger fs-7">*</span></label>
-                    <input type="text" name="department" id="departmentName" class="form-control fw-semibold fs-3 " value="<?= $fetch["department_name"] ?>" placeholder="شعبہ کا  نام" />
+                    <input type="text" name="department" id="departmentName"  class="form-control fw-semibold fs-3 " value="<?= $fetch["department_name"] ?>" placeholder="شعبہ کا  نام" />
                     <span class="text-danger departmentName"></span>
                   </div>
 

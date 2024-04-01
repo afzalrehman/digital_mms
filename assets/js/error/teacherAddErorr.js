@@ -1,4 +1,4 @@
-const form = document.getElementById("salary");
+const form = document.getElementById("Teaher");
 
 const myConstants = {
   rigisterNumber: {
