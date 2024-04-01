@@ -32,58 +32,74 @@ include "inc/navbar.php";
     </div>
   </div>
 
-  <!-- Annoucement Form (Start) -->
-  <div class="row">
-    <!-- Annoucement Form -->
-    <div class="col-12">
-      <div class="card">
-        <div class="border-bottom title-part-padding mt-3">
-          <h4 class="card-title mb-0 fs-7 text-primary"> اعلان</h4>
+  <?php
+  if (isset($_GET['announce_view'])) {
+    $view_id = mysqli_real_escape_string($conn, $_GET['announce_view']);
+    $select_query = mysqli_query($conn, "SELECT * FROM `annoucements` WHERE `id` = '$view_id'");
+
+    if (mysqli_num_rows($select_query) > 0) {
+      while ($row = mysqli_fetch_assoc($select_query)) {
+
+  ?>
+
+        <!-- Annoucement Form (Start) -->
+        <div class="row">
+          <!-- Annoucement Form -->
+          <div class="col-12">
+            <div class="card">
+              <div class="border-bottom title-part-padding mt-3">
+                <h4 class="card-title mb-0 fs-7 text-primary"> اعلان</h4>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row g-4 mb-4">
+                    <div class="col-md-6 d-flex align-items-center">
+                      <div class="fs-5 jameel-kasheeda fw-semibold">نام</div>
+                      <span class="fs-5">&nbsp;&nbsp; : &nbsp;&nbsp; </span>
+                      <div class="fs-5 jameel-kasheeda fw-semibold"><?= $row['to_id'] ?></div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center">
+                      <div class="fs-5 jameel-kasheeda fw-semibold">شعبہ </div>
+                      <span class="fs-5">&nbsp;&nbsp; : &nbsp;&nbsp; </span>
+                      <div class="fs-5 jameel-kasheeda fw-semibold"><?= $row['announce_depart'] ?></div>
+                    </div>
+                  </div>
+                  <div class="row g-4 mb-4">
+                    <div class="col-md-6 d-flex align-items-center">
+                      <div class="fs-5 jameel-kasheeda fw-semibold">تاریخ </div>
+                      <span class="fs-5">&nbsp;&nbsp; : &nbsp;&nbsp; </span>
+                      <div class="fs-3 inter fw-semibold"><?= $row['announce_date'] ?></div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center">
+                      <div class="fs-5 jameel-kasheeda fw-semibold">اعلان</div>
+                      <span class="fs-5 jameel-kasheeda">&nbsp;&nbsp; : &nbsp;&nbsp; </span>
+                      <div class="fs-5 jameel-kasheeda fw-semibold"><?= $row['announce_for'] ?></div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row g-4">
+                    <div class="col-md-12 d-flex align-items-center">
+                      <div class="fs-7 jameel-kasheeda fw-semibold">اعلان</div>
+                      <span class="fs-7 jameel-kasheeda">&nbsp;&nbsp; : &nbsp;&nbsp;</span>
+                      <div class="fs-6 jameel-kasheeda fw-semibold"><?= $row['announce_subjict'] ?></div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="fs-5 jameel-kasheeda fw-semibold word-spacing-4px"><?= $row['announce_comment'] ?></div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 jameel-kasheeda">
+            <a href="annoucement-details.php" class="btn btn-danger fw-semibold fs-5">بیک</a>
+          </div>
         </div>
-        <div class="card-body">
-          <form>
-            <div class="row g-4 mb-4">
-              <div class="col-md-6 d-flex align-items-center">
-                <div class="fs-5 jameel-kasheeda fw-semibold">اساتذہ </div>
-                <span class="fs-5">&nbsp;&nbsp; : &nbsp;&nbsp; </span>
-                <div class="fs-5 jameel-kasheeda fw-semibold">ماسٹر احمد</div>
-              </div>
-              <div class="col-md-6 d-flex align-items-center">
-                <div class="fs-5 jameel-kasheeda fw-semibold">شعبہ </div>
-                <span class="fs-5">&nbsp;&nbsp; : &nbsp;&nbsp; </span>
-                <div class="fs-5 jameel-kasheeda fw-semibold">بنین</div>
-              </div>
-            </div>
-            <div class="row g-4 mb-4">
-              <div class="col-md-6 d-flex align-items-center">
-                <div class="fs-5 jameel-kasheeda fw-semibold">تاریخ </div>
-                <span class="fs-5">&nbsp;&nbsp; : &nbsp;&nbsp; </span>
-                <div class="fs-3 inter fw-semibold">23-09-2023</div>
-              </div>
-              <div class="col-md-6 d-flex align-items-center">
-                <div class="fs-5 jameel-kasheeda fw-semibold">اعلان</div>
-                <span class="fs-5 jameel-kasheeda">&nbsp;&nbsp; : &nbsp;&nbsp; </span>
-                <div class="fs-5 jameel-kasheeda fw-semibold">سوفٹ وئیر کیلئے</div>
-              </div>
-            </div>
-            <hr>
-            <div class="row g-4">
-              <div class="col-md-12 d-flex align-items-center">
-                <div class="fs-7 jameel-kasheeda fw-semibold">اعلان</div>
-                <span class="fs-7 jameel-kasheeda">&nbsp;&nbsp; : &nbsp;&nbsp;</span>
-                <div class="fs-6 jameel-kasheeda fw-semibold">عید کی چھٹی</div>
-              </div>
-              <div class="col-md-12">
-                <div class="fs-5 jameel-kasheeda fw-semibold word-spacing-4px">عید الفطر یا عید مبارک مسلمانوں کے لیے عید اور خوشی منانے کا ایک خوشگوار موقع ہے۔ یہ ایک دن ہے کہ اللہ تعالیٰ کا شکر ادا کریں کہ اس نے ہمیں جو نعمتیں عطا کی ہیں۔
-                  عید الفطر کا لفظی ترجمہ روزہ افطار کرنے کے موقع میں ہوتا ہے۔ یہ تہوار ماہ رمضان کے روزے کے اختتام کی علامت ہے۔
-                  مسلمان رمضان المبارک کے موقع پر نیا چاند دیکھنے کا انتظار کرتے ہیں تاکہ اگلی صبح تہوار شروع ہو جائیں۔</div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <?php
+      }
+    }
+  }
+  ?>
 </div>
 <!-- Annoucement Form (End) -->
 </div>

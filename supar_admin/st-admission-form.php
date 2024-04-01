@@ -84,7 +84,7 @@ include "inc/navbar.php";
 
   <!-- Annoucement Form (Start) -->
   <div class="row">
-    <form action="code.php" method="post" id="class_page">
+    <form action="" method="post" id="st-admission-form" enctype="multipart/form-data">
       <!-- Student Info -->
       <div class="col-12">
         <div class="card">
@@ -95,46 +95,52 @@ include "inc/navbar.php";
 
             <div class="row g-4">
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="roll-number">رول نمبر</label>
+                <label class="fs-5 mb-1" for="rollNumber">رول نمبر</label>
                 <input type="text" id="rollNumber" readonly name="roll_number" class="form-control fw-semibold fs-3" value="<?= $auto_reg_no ?>" />
-                <!-- <span class="error" id="std-area-err"></span> -->
               </div>
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="reg-number">جی آر نمبر</label>
-                <input type="number" name="reg_number" class="form-control fw-semibold fs-3" placeholder="#04321" />
-                <span class="error" id="std-area-err"></span>
+                <label class="fs-5 mb-1" for="reg_number">جی آر نمبر</label>
+                <input type="number" name="reg_number" id="reg_number" class="form-control fw-semibold fs-3" placeholder="#04321" />
+                <span class="error" id="reg_number_err"></span>
               </div>
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="std-name">نام</label>
-                <input type="text" name="std-name" class="form-control fw-semibold fs-4" placeholder="احمد" />
-                <!-- <span class="error" id="std-area-err"></span> -->
+                <label class="fs-5 mb-1" for="std_name">نام</label>
+                <input type="text" name="std_name" id="std_name" class="form-control fw-semibold fs-4" placeholder="احمد" />
+                <span class="error" id="std_name_err"></span>
               </div>
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="std-dbo">تاریخ پیدائش</label>
-                <input type="date" name="std-dbo" class="form-control fw-semibold fs-4" placeholder="DD/MM/YYYY" />
-                <!-- <span class="error" id="std-area-err"></span> -->
+                <label class="fs-5 mb-1" for="std_dbo">تاریخ پیدائش</label>
+                <input type="date" name="std_dbo" id="std_dbo" class="form-control fw-semibold fs-4" placeholder="DD/MM/YYYY" />
+                <span class="error" id="std_dbo_err"></span>
               </div>
-
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="std-area">رہائش منتخب کریں</label>
-                <select id="std-area" name="std-area" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                <label class="fs-5 mb-1" for="std_gender">صنف</label>
+                <select id="std_gender" name="std_gender" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                  <option value="" class="jameel-kasheeda">- - -</option>
+                  <option value="مرد" class="jameel-kasheeda">مرد</option>
+                  <option value="عورت" class="jameel-kasheeda">عورت</option>
+                </select>
+                <span class="error" id="std_gender_err"></span>
+              </div>
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="std_accommodation">رہائش منتخب کریں</label>
+                <select id="std_accommodation" name="std_accommodation" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                   <option value="" class="jameel-kasheeda">- - -</option>
                   <option value="رہائشی" class="jameel-kasheeda">رہائشی</option>
                   <option value="غیر رہائشی" class="jameel-kasheeda">غیر رہائشی</option>
                 </select>
-                <!-- <span class="error" id="std-area-err"></span> -->
+                <span class="error" id="std_accommodation_err"></span>
               </div>
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="std-birth-place">مقام پیدائش</label>
-                <input type="text" name="std-birth-place" class="form-control fw-semibold fs-3" placeholder="کراچی" />
-                <!-- <span class="error" id="std-area-err"></span> -->
+                <label class="fs-5 mb-1" for="std_birth_place">مقام پیدائش</label>
+                <input type="text" name="std_birth_place" id="std_birth_place" class="form-control fw-semibold fs-3" placeholder="کراچی" />
+                <span class="error" id="std_birth_place_err"></span>
               </div>
               <div class="col-md-12">
-                <label class="fs-5 mb-1" for="std-address">پتہ</label>
-                <input type="text" name="std-address" class="form-control fw-semibold fs-4" placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
-                <!-- <span class="error" id="std-area-err"></span> -->
+                <label class="fs-5 mb-1" for="std_address">پتہ</label>
+                <input type="text" name="std_address" id="std_address" class="form-control fw-semibold fs-4" placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
+                <span class="error" id="std_address_err"></span>
               </div>
-
             </div>
           </div>
         </div>
@@ -149,24 +155,34 @@ include "inc/navbar.php";
 
             <div class="row g-4">
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="guar-name">سرپرست کا نام</label>
-                <input type="text" name="guar-name" class="form-control fw-semibold fs-4" placeholder="شفیع عالم" />
-                <!-- <span class="error" id="std-area-err"></span> -->
+                <label class="fs-5 mb-1" for="guar_name">سرپرست کا نام</label>
+                <input type="text" name="guar_name" id="guar_name" class="form-control fw-semibold fs-4" placeholder="شفیع عالم" />
+                <span class="error" id="guar_name_err"></span>
               </div>
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="guar-relation">سرپرست سے رشتہ</label>
-                <input type="text" name="guar-relation" class="form-control fw-semibold fs-4" placeholder="والدِ محترم" />
-                <!-- <span class="error" id="std-area-err"></span> -->
+                <label class="fs-5 mb-1" for="guar_relation">سرپرست سے رشتہ</label>
+                <input type="text" name="guar_relation" class="form-control fw-semibold fs-4" placeholder="والدِ محترم" />
+                <span class="error" id="guar_relation_err"></span>
               </div>
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="guar-number">فون نمبر</label>
-                <input type="number" name="guar-number" class="form-control fw-semibold fs-3" placeholder="03186432506" />
-                <!-- <span class="error" id="std-area-err"></span> -->
+                <label class="fs-5 mb-1" for="guar_number">فون نمبر</label>
+                <input type="number" name="guar_number" id="guar_number" class="form-control fw-semibold fs-3" placeholder="03186432506" />
+                <span class="error" id="guar_number_err"></span>
               </div>
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="guar-address">پتہ</label>
-                <input type="text" name="guar-address" class="form-control fw-semibold fs-4" placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
-                <!-- <span class="error" id="std-area-err"></span> -->
+                <label class="fs-5 mb-1" for="guar_cnic">CNIC نمبر</label>
+                <input type="number" name="guar_cnic" id="guar_cnic" class="form-control fw-semibold fs-3" placeholder="03186432506" />
+                <span class="error" id="guar_cnic_err"></span>
+              </div>
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="guar_address">پتہ</label>
+                <input type="text" name="guar_address" id="guar_address" class="form-control fw-semibold fs-4" placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
+                <span class="error" id="guar_address_err"></span>
+              </div>
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="guar_address">ای میل</label>
+                <input type="text" name="guar_email" id="guar_email" class="form-control fw-semibold fs-4" placeholder="ای میل" />
+                <span class="error" id="guar_email_err"></span>
               </div>
 
             </div>
@@ -184,24 +200,24 @@ include "inc/navbar.php";
 
               <div class="row g-4">
                 <div class="col-md-6">
-                  <label class="fs-5 mb-1" for="pre-school">سابقہ مدرسہ</label>
-                  <input type="text" name="pre-school" class="form-control fw-semibold fs-4" placeholder="دارالعلوم کراچی" />
-                  <!-- <span class="error" id="std-area-err"></span> -->
+                  <label class="fs-5 mb-1" for="pre_school">سابقہ مدرسہ</label>
+                  <input type="text" name="pre_school" id="pre_school" class="form-control fw-semibold fs-4" placeholder="دارالعلوم کراچی" />
+                  <span class="error" id="pre_school_err"></span>
                 </div>
                 <div class="col-md-6">
-                  <label class="fs-5 mb-1" for="pre-class">سابقہ درجہ</label>
-                  <input type="text" name="pre-class" class="form-control fw-semibold fs-4" placeholder="اوٰلی" />
-                  <!-- <span class="error" id="std-area-err"></span> -->
+                  <label class="fs-5 mb-1" for="pre_class">سابقہ درجہ</label>
+                  <input type="text" name="pre_class" id="pre-class" class="form-control fw-semibold fs-4" placeholder="اوٰلی" />
+                  <span class="error" id="pre_class_err"></span>
                 </div>
                 <div class="col-md-6">
-                  <label class="fs-5 mb-1" for="next-class">مطلوبہ درجہ</label>
-                  <input type="text" name="next-class" class="form-control fw-semibold fs-4" placeholder="ثانیہ" />
-                  <!-- <span class="error" id="std-area-err"></span> -->
+                  <label class="fs-5 mb-1" for="next_class">مطلوبہ درجہ</label>
+                  <input type="text" name="next_class" id="next-class" class="form-control fw-semibold fs-4" placeholder="ثانیہ" />
+                  <span class="error" id="next_class_err"></span>
                 </div>
                 <div class="col-md-6">
-                  <label class="fs-5 mb-1" for="adm-date">تاریخ داخلہ</label>
-                  <input type="date" name="adm-date" class="form-control fw-semibold fs-3" placeholder="DD/MM/YYYY" />
-                  <!-- <span class="error" id="std-area-err"></span> -->
+                  <label class="fs-5 mb-1" for="adm_date">تاریخ داخلہ</label>
+                  <input type="date" id="adm_date" name="adm_date" class="form-control fw-semibold fs-3" placeholder="DD/MM/YYYY" />
+                  <span class="error" id="adm_date_err"></span>
                 </div>
 
               </div>
@@ -221,7 +237,7 @@ include "inc/navbar.php";
                     <select class="form-control fw-semibold fs-3 jameel-kasheeda" id="studentMadarasa" name="madarasa">
                       <option class="jameel-kasheeda" value="">---</option>
                     </select>
-                    <span class="text-danger studentMadarasa"></span>
+                    <span class="text-danger studentMadarasa" id="studentMadarasa_err"></span>
                   </div>
 
                   <div class="col-md-6 mb-2">
@@ -229,7 +245,7 @@ include "inc/navbar.php";
                     <select id="MadYear" name="std-dep" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                       <option value="" class="jameel-kasheeda">- - -</option>
                     </select>
-                    <!-- <span class="error" id="std-dep-err"></span> -->
+                    <span class="error" id="MadYear_err"></span>
                   </div>
 
                   <div class="col-lg-6 mb-3">
@@ -237,7 +253,7 @@ include "inc/navbar.php";
                     <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="department" id="department">
                       <option class="jameel-kasheeda" value="">---</option>
                     </select>
-                    <span class="text-danger classdepartment"></span>
+                    <span class="text-danger classdepartment" id="department_err"></span>
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label class="fs-5 mb-1">کلاس</label>
@@ -248,35 +264,44 @@ include "inc/navbar.php";
                                                             echo $_SESSION['class_exit'];
                                                             unset($_SESSION['class_exit']);
                                                           } ?></span>
+                    <span class="text-danger inter error" id="class_err"></span>
                   </div>
-
                   <div class="col-md-6 mb-2">
                     <label class="fs-5 mb-1" for="section">سیکشن منتخب کریں</label>
                     <select id="section" name="section" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                       <option value="" class="jameel-kasheeda">- - -</option>
                     </select>
-                    <!-- <span class="error" id="std-dep-err"></span> -->
+                    <span class="error" id="section_err"></span>
                   </div>
                   <div class="col-md-6 mb-2">
-                    <label class="fs-5 mb-1" for="std-qadeem">منتخب کریں</label>
-                    <select id="std-qadeem" name="std-qadeem" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                    <label class="fs-5 mb-1" for="std_qadeem">منتخب کریں</label>
+                    <select id="std_qadeem" name="std_qadeem" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                       <option value="" class="jameel-kasheeda">- - -</option>
                       <option value="قدیم" class="jameel-kasheeda">قدیم</option>
                       <option value="جدید" class="jameel-kasheeda">جدید</option>
                     </select>
-                    <!-- <span class="error" id="std-dep-err"></span> -->
+                    <span class="error" id="std_qadeem_err"></span>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <label class="fs-5 mb-1" for="admi_fees">داخلہ فیس</label>
+                    <input type="text" name="admi_fees" id="admi_fees" class="form-control fw-semibold fs-4" placeholder="داخلہ فیس" />
+                    <span class="error" id="admi_fees_err"></span>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <label class="fs-5 mb-1" for="monthly_fees">ماہانہ فیس</label>
+                    <input type="text" name="monthly_fees" id="monthly_fees" class="form-control fw-semibold fs-4" placeholder="ماہانہ فیس" />
+                    <span class="error" id="monthly_fees_err"></span>
                   </div>
                 </div>
               </div>
-
-              <!-- Submit Button -->
-
-
             </div>
-
+            <!-- Submit Button -->
             <div class="col-md-12 mt-4 jameel-kasheeda">
               <button type="button" id="submit" name="submit" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
             </div>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 </div>
@@ -295,7 +320,7 @@ include "inc/navbar.php";
 include "inc/mobileNavbar.php";
 include "inc/footer.php";
 ?>
-<script src="../assets/js/error/class.js"></script>
+<script src="../assets/js/error/st-admission-form.js"></script>
 <script>
   $(document).ready(function() {
     function loadData(type, id) {
