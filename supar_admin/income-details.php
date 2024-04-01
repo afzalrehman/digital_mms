@@ -175,7 +175,7 @@ include "inc/navbar.php";
                             <a href="income_vewimore.php?income_vewimore=<?= $row['income_id'] ?>" class="text-info ms-1">
                               <i class="ti ti-eye fs-6"></i>
                             </a>
-                            <a href="expance_edit.php?expance_edit=<?= $row['income_id'] ?>" class="text-success">
+                            <a href="income_edit.php?income_edit=<?= $row['income_id'] ?>" class="text-success">
                               <i class="ti ti-edit fs-6"></i>
                             </a>
                             <button type="button" class="border-0  rounded-2 p-0 py-1 " data-bs-toggle="modal" data-bs-target="#deleteModal<?= $row['income_id'] ?>">
@@ -301,7 +301,7 @@ include "inc/navbar.php";
                             <a href="income_vewimore.php?income_vewimore=<?= $row['income_id'] ?>" class="text-info ms-1">
                               <i class="ti ti-eye fs-6"></i>
                             </a>
-                            <a href="expance_edit.php?expance_edit=<?= $row['income_id'] ?>" class="text-success">
+                            <a href="income_edit.php?income_edit=<?= $row['income_id'] ?>" class="text-success">
                               <i class="ti ti-edit fs-6"></i>
                             </a>
                             <button type="button" class="border-0  rounded-2 p-0 py-1 " data-bs-toggle="modal" data-bs-target="#deleteModal<?= $row['income_id'] ?>">

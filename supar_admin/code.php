@@ -768,7 +768,7 @@ if (isset($_POST['incomeBtn'])) {
         header("location: income-form.php");
         exit();
     } else {
-        $insertQuery ="INSERT INTO `income`(`madarsa_id`, `RegNumber`, `income_name`, `incomeCategory`, `incomeAmount`, `payment_method`, `receiverName`, `incomedate`, `income_month`, `description`) 
+        $insertQuery = "INSERT INTO `income`(`madarsa_id`, `RegNumber`, `income_name`, `incomeCategory`, `incomeAmount`, `payment_method`, `receiverName`, `incomedate`, `income_month`, `description`) 
         VALUES ('$madarsa','$RegNumber','$income_name','$incomeCategory','$incomeAmount','$payment_method','$receiverName','$incomeDate','$income_month','$short_discription')";
 
         if (mysqli_query($conn, $insertQuery)) {;
@@ -798,4 +798,52 @@ if (isset($_GET['income_delete'])) {
         exit();
     }
 }
+
+// ====================income Update===================
+if (isset($_POST['incomeUpdate'])) {
+    $edit  = mysqli_real_escape_string($conn, $_POST['edit']);
+    $RegNumber  = mysqli_real_escape_string($conn, $_POST['RegNumber']);
+    $madarsa = mysqli_real_escape_string($conn, $_POST['madarasa']); // Assuming 'madarasa' is the name of the input field
+    $income_name  = mysqli_real_escape_string($conn, $_POST['income_name']);
+    $incomeCategory  = mysqli_real_escape_string($conn, $_POST['incomecategriy']);
+    $incomeAmount = mysqli_real_escape_string($conn, $_POST['incomeAmount']);
+    $payment_method = mysqli_real_escape_string($conn, $_POST['payment_method']);
+    $receiverName  = mysqli_real_escape_string($conn, $_POST['resiveName']);
+    $incomeDate  = mysqli_real_escape_string($conn, $_POST['incomeDate']);
+    $income_month  = mysqli_real_escape_string($conn, $_POST['incomeMonth']);
+    $short_discription  = mysqli_real_escape_string($conn, $_POST['short_discription']);
+    $checkQuery = "SELECT * FROM `income` WHERE `RegNumber` = '$RegNumber' AND `income_id` != '$edit'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['email'] = '   رسید نمبر پہلے سے موجود ہے';
+        header("location: income_edit.php?income_edit=$edit");
+        exit();
+    } else {
+        $updateQuery = "UPDATE `income` SET 
+        `RegNumber` = '$RegNumber',
+        `income_name` = '$income_name',
+        `incomeCategory` = '$incomeCategory',
+        `incomeAmount` = '$incomeAmount',
+        `payment_method` = '$payment_method',
+        `receiverName` = '$receiverName',
+        `incomedate` = '$incomeDate',
+        `income_month` = '$income_month',
+        `description` = '$short_discription',
+        `madarsa_id` = '$madarsa'
+        WHERE  `income_id` = '$edit'";
+
+
+        if (mysqli_query($conn, $updateQuery)) {;
+            unset($_SESSION['input']);
+            redirect("income-form.php", "   آمدنی آپڈیٹ ہو چکا ہے");
+            exit();
+        } else {
+            $_SESSION['error_message'] = 'Error in adding Expance. Please try again.';
+            header("location:income-form.php");
+            exit();
+        }
+    }
+}
+
 ?>

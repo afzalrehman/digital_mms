@@ -49,7 +49,6 @@ include "inc/navbar.php";
               </div>
 
               <div class="col-lg-6"></div>
-
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="mad_Name">مدرسہ کا نام <span class="text-danger fs-7">*</span></label>
                 <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="madarasa" id="mad_Name">
