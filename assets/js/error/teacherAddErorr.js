@@ -1,5 +1,4 @@
 const form = document.getElementById("Teaher");
-
 const myConstants = {
   rigisterNumber: {
     element: document.getElementById("RegNumber"),
