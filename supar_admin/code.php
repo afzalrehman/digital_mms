@@ -846,4 +846,106 @@ if (isset($_POST['incomeUpdate'])) {
     }
 }
 
+// ==================loan insert ========================
+if (isset($_POST['loanBtn'])) {
+    $madarasa = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $recipient_name = mysqli_real_escape_string($conn, $_POST['recipient_name']);
+    $registration_number = mysqli_real_escape_string($conn, $_POST['registration_number']);
+    $loan_amount = mysqli_real_escape_string($conn, $_POST['loan_amount']);
+    $loan_date = mysqli_real_escape_string($conn, $_POST['loan_date']);
+    $loan_month = mysqli_real_escape_string($conn, $_POST['loan_month']);
+    $interest_rate = mysqli_real_escape_string($conn, $_POST['interest_rate']);
+    $loan_duration = mysqli_real_escape_string($conn, $_POST['loan_duration']);
+    $payment_method = mysqli_real_escape_string($conn, $_POST['payment_method']);
+    $purpose = mysqli_real_escape_string($conn, $_POST['purpose']);
+    $agreement = mysqli_real_escape_string($conn, $_POST['agreement']);
+    $remarks = mysqli_real_escape_string($conn, $_POST['remarks']);
+    $checkQuery = "SELECT * FROM `loan` WHERE `registration_number` = '$registration_number'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['email'] = '   رسید نمبر پہلے سے موجود ہے';
+        header("location: loan_form.php");
+        exit();
+    } else {
+        $insertQuery = "INSERT INTO loan (madarasa_id, recipient_name, registration_number, loan_amount, loan_date, loan_month, interest_rate, loan_duration, payment_method, purpose, agreement, remarks)
+         VALUES ('$madarasa', '$recipient_name', '$registration_number', '$loan_amount', '$loan_date', '$loan_month', '$interest_rate', '$loan_duration', '$payment_method', '$purpose', '$agreement', '$remarks')";
+
+        if (mysqli_query($conn, $insertQuery)) {;
+            unset($_SESSION['input']);
+            redirect("loan_form.php", "   ادھار ایڈ ہو چکا ہے");
+            exit();
+        } else {
+            $_SESSION['error_message'] = 'Error in adding Expance. Please try again.';
+            header("location:loan_form.php");
+            exit();
+        }
+    }
+}
+// ===================loan Delete================
+if (isset($_GET['loan_delete'])) {
+    $id = $_GET['loan_delete'];
+    $delete_query = "UPDATE `loan` SET `status` = 'غیر فعال' WHERE `id` = '$id'";
+
+    $sql = mysqli_query($conn, $delete_query);
+    if ($sql) {
+        redirectdelete("loan-details.php", "ڈیٹا حذف کر دیا گیا ہے ");
+        exit();
+    } else {
+        $_SESSION['not_successfully'] = "ڈیٹا حذف نہیں ھوا ہے ";
+        header('location:loan-details.php');
+        exit();
+    }
+}
+// ==================loan Update ========================
+if (isset($_POST['loanUpdate'])) {
+    $edit_id = mysqli_real_escape_string($conn, $_POST['edit_id']);
+    $madarasa = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $recipient_name = mysqli_real_escape_string($conn, $_POST['recipient_name']);
+    $registration_number = mysqli_real_escape_string($conn, $_POST['registration_number']);
+    $loan_amount = mysqli_real_escape_string($conn, $_POST['loan_amount']);
+    $loan_date = mysqli_real_escape_string($conn, $_POST['loan_date']);
+    $loan_month = mysqli_real_escape_string($conn, $_POST['loan_month']);
+    $interest_rate = mysqli_real_escape_string($conn, $_POST['interest_rate']);
+    $loan_duration = mysqli_real_escape_string($conn, $_POST['loan_duration']);
+    $payment_method = mysqli_real_escape_string($conn, $_POST['payment_method']);
+    $purpose = mysqli_real_escape_string($conn, $_POST['purpose']);
+    $agreement = mysqli_real_escape_string($conn, $_POST['agreement']);
+    $remarks = mysqli_real_escape_string($conn, $_POST['remarks']);
+    $checkQuery = "SELECT * FROM `loan` WHERE `registration_number` = '$registration_number' AND `id`!='$edit_id'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['email'] = '   رسید نمبر پہلے سے موجود ہے';
+        header("location: loan_form.php");
+        exit();
+    } else {
+        $updateQuery = "UPDATE loan SET 
+    recipient_name = '$recipient_name',
+    registration_number = '$registration_number',
+    loan_amount = '$loan_amount',
+    loan_date = '$loan_date',
+    loan_month = '$loan_month',
+    interest_rate = '$interest_rate',
+    loan_duration = '$loan_duration',
+    payment_method = '$payment_method',
+    purpose = '$purpose',
+    agreement = '$agreement',
+    madarasa_id = '$madarasa',
+    remarks = '$remarks'
+WHERE id = '$edit_id'";
+
+
+        if (mysqli_query($conn, $updateQuery)) {;
+            unset($_SESSION['input']);
+            redirect("loan_form.php", "   ادھار  اپڈیٹ ہو چکا ہے");
+            exit();
+        } else {
+            $_SESSION['error_message'] = 'Error in adding Expance. Please try again.';
+            header("location:loan_form.php");
+            exit();
+        }
+    }
+}
+
 ?>

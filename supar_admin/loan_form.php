@@ -78,6 +78,11 @@ include "inc/navbar.php";
                         <input type="date" id="loan_date" name="loan_date" class="form-control">
                         <span class="text-danger loan_date"></span>
                     </div>
+                    <div class="col-lg-6">
+                        <label class="fs-5 mb-1" for="loan_month">اُدھار کا مہینہ:</label>
+                        <input type="month" id="loan_month" name="loan_month" class="form-control">
+                        <span class="text-danger loan_month"></span>
+                    </div>
 
                     <!-- فائدہ کی شرح و ادائیگی کا طریقہ -->
                     <div class="col-lg-6">
@@ -111,7 +116,7 @@ include "inc/navbar.php";
                         <span class="text-danger agreement"></span>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <label class="fs-5 mb-1" for="remarks">تبصرے:</label>
                         <textarea id="remarks" name="remarks" class="form-control"></textarea>
                         <span class="text-danger remarks"></span>
@@ -121,7 +126,7 @@ include "inc/navbar.php";
                 <!-- فارم جمع کریں -->
 
                 <div class="col-lg-12 mt-4 jameel-kasheeda">
-                    <input type="submit" value="ایڈ کریں" class="btn btn-primary fw-semibold fs-5">
+                    <input type="submit" name="loanBtn" value="ایڈ کریں" class="btn btn-primary fw-semibold fs-5">
                 </div>
 
             </form>

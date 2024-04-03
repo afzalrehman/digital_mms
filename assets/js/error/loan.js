@@ -41,6 +41,11 @@ const myConstants = {
     error: document.querySelector(".purpose"),
     errorMessage: "براۓ مہربانی قرض کی مقصد ایڈ کریں",
   },
+  loan_month: {
+    element: document.getElementById("loan_month"),
+    error: document.querySelector(".loan_month"),
+    errorMessage: "براۓ مہربانی مہینہ ایڈ کریں",
+  },
   remarks: {
     element: document.getElementById("remarks"),
     error: document.querySelector(".remarks"),
