@@ -303,7 +303,7 @@ include "inc/navbar.php";
                           if ($query_run->num_rows > 0) {
                             while ($row = mysqli_fetch_array($query_run)) {
                           ?>
-                              <option class="jameel-kasheeda" value="<?= $row['sec_id'] ?>"><?= $row['sec_id'] ?></option>
+                              <option class="jameel-kasheeda" value="<?= $row['sec_id'] ?>"><?= $row['section_name'] ?></option>
                           <?php
                             }
                           }
@@ -335,7 +335,7 @@ include "inc/navbar.php";
                 </div>
                 <!-- Submit Button -->
                 <div class="col-md-12 mt-4 jameel-kasheeda">
-                  <button type="submit" id="submit" name="std_form_submit" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
+                  <button type="submit" name="std_form_update" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
                 </div>
               </div>
             </div>
@@ -367,75 +367,7 @@ include "inc/navbar.php";
 <?php
 include "inc/mobileNavbar.php";
 ?>
-<script src="../assets/js/error/st-admission-form.js"></script>
+<!-- <script src="../assets/js/error/st-admission-form.js"></script> -->
 <?php
 include "inc/footer.php";
 ?>
-<!-- <script>
-  $(document).ready(function() {
-    function loadData(type, id) {
-      $.ajax({
-        url: 'ajex.php',
-        type: 'POST',
-        data: {
-          type: type,
-          id: id
-        },
-        dataType: 'html',
-        success: function(data) {
-          if (type === "studentMadarasa") {
-            $('#studentMadarasa').append(data);
-          } else if (type === "mad_new_year") {
-            $('#MadYear').html(data);
-          } else if (type === "Student_department") {
-            $('#department').html(data);
-          } else if (type === "student_class") {
-            $('#studentclass').html(data);
-          } else if (type === "student_section") {
-            $('#section').html(data);
-          }
-        }
-      });
-    }
-
-    loadData("studentMadarasa");
-
-    $("#studentMadarasa").on("change", function() {
-      var department = $("#studentMadarasa").val();
-      if (department != "") {
-        loadData("mad_new_year", department);
-      } else {
-        $('#MadYear').html("");
-      }
-    });
-
-    $("#studentMadarasa").on("change", function() {
-      var next_class = $("#studentMadarasa").val();
-      if (next_class != "") {
-        loadData("Student_department", next_class);
-      } else {
-        $("#department").html("");
-      }
-    });
-
-    $("#department").on("change", function() {
-      var next_class = $("#department").val();
-      if (next_class != "") {
-        loadData("student_class", next_class);
-      } else {
-        $("#studentclass").html("");
-      }
-    });
-    $("#studentclass").on("change", function() {
-      var next_class = $("#studentclass").val();
-      if (next_class != "") {
-        loadData("student_section", next_class);
-      } else {
-        $("#section").html("");
-      }
-    });
-
-
-
-  });
-</script> -->
