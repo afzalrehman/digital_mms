@@ -40,13 +40,8 @@ include "inc/navbar.php";
   if (isset($_GET['st_edit'])) {
     $st_edit_id = $_GET['st_edit'];
 
-    $query = "SELECT madarsa.*, students.*, batch.*, department.*, madarsa_class.*, section.* FROM `students` 
-    LEFT JOIN `madarsa` ON `students`.`madarsa_id` = `madarsa`.`madarsa_id`
-    LEFT JOIN `batch` ON `students`.`batch_id` = `batch`.`batch_id`
-    LEFT JOIN `department` ON `students`.`depart_id` = `department`.`depart_id`
-    LEFT JOIN `madarsa_class` ON `students`.`mada_class_id` = `madarsa_class`.`id`
-    LEFT JOIN `section` ON `students`.`sec_id` = `section`.`sec_id`
-    WHERE `students`.`id` = '$st_edit_id'";
+    $query = "SELECT * FROM `students` 
+    WHERE `id` = '$st_edit_id'";
 
     $query_run = mysqli_query($conn, $query);
 
@@ -142,27 +137,27 @@ include "inc/navbar.php";
                   </div>
                   <div class="col-md-6">
                     <label class="fs-5 mb-1" for="guar_relation">سرپرست سے رشتہ</label>
-                    <input type="text" id="guar_relation" name="guar_relation" class="form-control fw-semibold fs-4" placeholder="والدِ محترم" value="<?= $edit_std['guar_relation'] ?>"/>
+                    <input type="text" id="guar_relation" name="guar_relation" class="form-control fw-semibold fs-4" placeholder="والدِ محترم" value="<?= $edit_std['guar_relation'] ?>" />
                     <span class="error text-danger inter" id="guar_relation_err"></span>
                   </div>
                   <div class="col-md-6">
                     <label class="fs-5 mb-1" for="guar_number">فون نمبر</label>
-                    <input type="number" name="guar_number" id="guar_number" class="form-control fw-semibold fs-3" placeholder="03186432506" value="<?= $edit_std['guar_number'] ?>"/>
+                    <input type="number" name="guar_number" id="guar_number" class="form-control fw-semibold fs-3" placeholder="03186432506" value="<?= $edit_std['guar_number'] ?>" />
                     <span class="error text-danger inter" id="guar_number_err"></span>
                   </div>
                   <div class="col-md-6">
                     <label class="fs-5 mb-1" for="guar_cnic">CNIC نمبر</label>
-                    <input type="number" name="guar_cnic" id="guar_cnic" class="form-control fw-semibold fs-3" placeholder="03186432506" value="<?= $edit_std['guar_cnic'] ?>"/>
+                    <input type="number" name="guar_cnic" id="guar_cnic" class="form-control fw-semibold fs-3" placeholder="03186432506" value="<?= $edit_std['guar_cnic'] ?>" />
                     <span class="error text-danger inter" id="guar_cnic_err"></span>
                   </div>
                   <div class="col-md-6">
                     <label class="fs-5 mb-1" for="guar_address">پتہ</label>
-                    <input type="text" name="guar_address" id="guar_address" class="form-control fw-semibold fs-4" placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" value="<?= $edit_std['guar_address'] ?>"/>
+                    <input type="text" name="guar_address" id="guar_address" class="form-control fw-semibold fs-4" placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" value="<?= $edit_std['guar_address'] ?>" />
                     <span class="error text-danger inter" id="guar_address_err"></span>
                   </div>
                   <div class="col-md-6">
                     <label class="fs-5 mb-1" for="guar_address">ای میل</label>
-                    <input type="text" name="guar_email" id="guar_email" class="form-control fw-semibold fs-4" placeholder="ای میل" value="<?= $edit_std['guar_email'] ?>"/>
+                    <input type="text" name="guar_email" id="guar_email" class="form-control fw-semibold fs-4" placeholder="ای میل" value="<?= $edit_std['guar_email'] ?>" />
                     <span class="error text-danger inter" id="guar_email_err"></span>
                   </div>
 
@@ -182,22 +177,22 @@ include "inc/navbar.php";
                   <div class="row g-4">
                     <div class="col-md-6">
                       <label class="fs-5 mb-1" for="pre_school">سابقہ مدرسہ</label>
-                      <input type="text" name="pre_school" id="pre_school" class="form-control fw-semibold fs-4" placeholder="دارالعلوم کراچی" value="<?= $edit_std['pre_school'] ?>"/>
+                      <input type="text" name="pre_school" id="pre_school" class="form-control fw-semibold fs-4" placeholder="دارالعلوم کراچی" value="<?= $edit_std['pre_school'] ?>" />
                       <span class="error text-danger inter" id="pre_school_err"></span>
                     </div>
                     <div class="col-md-6">
                       <label class="fs-5 mb-1" for="pre_class">سابقہ درجہ</label>
-                      <input type="text" name="pre_class" id="pre-class" class="form-control fw-semibold fs-4" placeholder="اوٰلی" value="<?= $edit_std['pre_class'] ?>"/>
+                      <input type="text" name="pre_class" id="pre-class" class="form-control fw-semibold fs-4" placeholder="اوٰلی" value="<?= $edit_std['pre_class'] ?>" />
                       <span class="error text-danger inter" id="pre_class_err"></span>
                     </div>
                     <div class="col-md-6">
                       <label class="fs-5 mb-1" for="next_class">مطلوبہ درجہ</label>
-                      <input type="text" name="next_class" id="next-class" class="form-control fw-semibold fs-4" placeholder="ثانیہ" value="<?= $edit_std['next_class'] ?>"/>
+                      <input type="text" name="next_class" id="next-class" class="form-control fw-semibold fs-4" placeholder="ثانیہ" value="<?= $edit_std['next_class'] ?>" />
                       <span class="error text-danger inter" id="next_class_err"></span>
                     </div>
                     <div class="col-md-6">
                       <label class="fs-5 mb-1" for="adm_date">تاریخ داخلہ</label>
-                      <input type="date" id="adm_date" name="adm_date" class="form-control fw-semibold fs-3" placeholder="DD/MM/YYYY" value="<?= $edit_std['adm_date'] ?>"/>
+                      <input type="date" id="adm_date" name="adm_date" class="form-control fw-semibold fs-3" placeholder="DD/MM/YYYY" value="<?= $edit_std['adm_date'] ?>" />
                       <span class="error text-danger inter" id="adm_date_err"></span>
                     </div>
 
@@ -216,17 +211,17 @@ include "inc/navbar.php";
                       <div class="col-lg-6">
                         <label class="fs-5 mb-1">مدرسہ </label>
                         <select class="form-control fw-semibold fs-3 jameel-kasheeda" id="studentMadarasa" name="madarasa">
-                          <option class="jameel-kasheeda" value="<?= $edit_std['madarsa_id'] ?>"><?= $edit_std['madarsa_name'] ?></option>
+                          <option class="jameel-kasheeda" value="<?= $edit_std['madarsa_id'] ?>"><?= $edit_std['madarsa_id'] ?></option>
                           <?php
                           $getMadarsaID = $edit_std['madarsa_id'];
-                          $selectMadarsa = "SELECT * FROM madarsa WHERE `status` = 'فعال' AND madarsa_id = $getMadarsaID";
+                          $selectMadarsa = "SELECT * FROM madarsa WHERE `status` = 'فعال'";
                           $query_run = mysqli_query($conn, $selectMadarsa);
                           if ($query_run->num_rows > 0) {
                             while ($row = mysqli_fetch_array($query_run)) {
                               $_SESSION['getMadarsa_id'] = $row['madarsa_id'];
-                              ?>
+                          ?>
                               <option class="jameel-kasheeda" value="<?= $row['madarsa_id'] ?>"><?= $row['madarsa_name'] ?></option>
-                              <?php
+                          <?php
                             }
                           }
                           ?>
@@ -237,16 +232,16 @@ include "inc/navbar.php";
                       <div class="col-md-6 mb-2">
                         <label class="fs-5 mb-1" for="MadYear">تعلیمی سال منتخب کریں</label>
                         <select id="MadYear" name="std-dep" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
-                          <option value="<?= $edit_std['batch_id'] ?>" class="jameel-kasheeda"><?= $edit_std['Name'] ?></option>
+                          <option value="<?= $edit_std['batch_id'] ?>" class="jameel-kasheeda"><?= $edit_std['batch_id'] ?></option>
                           <?php
                           $getBatchID = $edit_std['batch_id'];
-                          $selectBatch = "SELECT * FROM batch WHERE `status` = 'فعال' AND batch_id != $getBatchID";
+                          $selectBatch = "SELECT * FROM batch WHERE `status` = 'فعال'";
                           $query_run = mysqli_query($conn, $selectBatch);
                           if ($query_run->num_rows > 0) {
                             while ($row = mysqli_fetch_array($query_run)) {
-                              ?>
+                          ?>
                               <option class="jameel-kasheeda" value="<?= $row['batch_id'] ?>"><?= $row['Name'] ?></option>
-                              <?php
+                          <?php
                             }
                           }
                           ?>
@@ -257,16 +252,16 @@ include "inc/navbar.php";
                       <div class="col-lg-6 mb-3">
                         <label class="fs-5 mb-1">شعبہ </label>
                         <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="department" id="department">
-                          <option class="jameel-kasheeda" value="<?= $edit_std['depart_id'] ?>"><?= $edit_std['department_name'] ?></option>
+                          <option class="jameel-kasheeda" value="<?= $edit_std['depart_id'] ?>"><?= $edit_std['depart_id'] ?></option>
                           <?php
                           $getDepartmentID = $edit_std['depart_id'];
-                          $selectDepartment = "SELECT * FROM department WHERE `status` != 'غیر فعال' AND depart_id = $getDepartmentID";
+                          $selectDepartment = "SELECT * FROM department WHERE `status` = 'فعال'";
                           $query_run = mysqli_query($conn, $selectDepartment);
                           if ($query_run->num_rows > 0) {
                             while ($row = mysqli_fetch_array($query_run)) {
-                              ?>
+                          ?>
                               <option class="jameel-kasheeda" value="<?= $row['depart_id'] ?>"><?= $row['department_name'] ?></option>
-                              <?php
+                          <?php
                             }
                           }
                           ?>
@@ -276,7 +271,20 @@ include "inc/navbar.php";
                       <div class="col-lg-6 mb-3">
                         <label class="fs-5 mb-1">کلاس</label>
                         <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="class" id="studentclass">
-                          <option class="jameel-kasheeda" value=""><?= $edit_std['class_name'] ?></option>
+                          <option class="jameel-kasheeda" value="<?= $edit_std['mada_class_id'] ?>"><?= $edit_std['mada_class_id'] ?></option>
+                          <?php
+                          $getClassID = $edit_std['mada_class_id'];
+                          $selectClass = "SELECT * FROM madarsa_class WHERE `status` = 'فعال'";
+                          $query_run = mysqli_query($conn, $selectClass);
+                          if ($query_run->num_rows > 0) {
+
+                            while ($row = mysqli_fetch_array($query_run)) {
+                          ?>
+                              <option class="jameel-kasheeda" value="<?= $row['id'] ?>"><?= $row['class_name'] ?></option>
+                          <?php
+                            }
+                          }
+                          ?>
                         </select>
                         <span class="inter error text-danger"><?php if (isset($_SESSION['class_exit'])) {
                                                                 echo $_SESSION['class_exit'];
@@ -294,9 +302,9 @@ include "inc/navbar.php";
                           $query_run = mysqli_query($conn, $selectSection);
                           if ($query_run->num_rows > 0) {
                             while ($row = mysqli_fetch_array($query_run)) {
-                              ?>
+                          ?>
                               <option class="jameel-kasheeda" value="<?= $row['sec_id'] ?>"><?= $row['sec_id'] ?></option>
-                              <?php
+                          <?php
                             }
                           }
                           ?>
@@ -306,7 +314,7 @@ include "inc/navbar.php";
                       <div class="col-md-6 mb-2">
                         <label class="fs-5 mb-1" for="std_qadeem">منتخب کریں</label>
                         <select id="std_qadeem" name="std_qadeem" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
-                          <option value="<?= $edit_std['guar_cnic'] ?>" class="jameel-kasheeda"><?= $edit_std['guar_cnic'] ?></option>
+                          <option value="<?= $edit_std['std_qadeem'] ?>" class="jameel-kasheeda"><?= $edit_std['std_qadeem'] ?></option>
                           <option value="قدیم" class="jameel-kasheeda" <?php if ($edit_std['guar_cnic'] == 'قدیم') echo 'hidden'; ?>>قدیم</option>
                           <option value="جدید" class="jameel-kasheeda" <?php if ($edit_std['guar_cnic'] == 'جدید') echo 'hidden'; ?>>جدید</option>
                         </select>
@@ -314,12 +322,12 @@ include "inc/navbar.php";
                       </div>
                       <div class="col-md-6 mb-2">
                         <label class="fs-5 mb-1" for="admi_fees">داخلہ فیس</label>
-                        <input type="text" name="admi_fees" id="admi_fees" class="form-control fw-semibold fs-4" placeholder="داخلہ فیس" value="<?= $edit_std['guar_cnic'] ?>"/>
+                        <input type="text" name="admi_fees" id="admi_fees" class="form-control fw-semibold fs-4" placeholder="داخلہ فیس" value="<?= $edit_std['guar_cnic'] ?>" />
                         <span class="error text-danger inter" id="admi_fees_err"></span>
                       </div>
                       <div class="col-md-6 mb-2">
                         <label class="fs-5 mb-1" for="monthly_fees">ماہانہ فیس</label>
-                        <input type="text" name="monthly_fees" id="monthly_fees" class="form-control fw-semibold fs-4" placeholder="ماہانہ فیس" value="<?= $edit_std['guar_cnic'] ?>"/>
+                        <input type="text" name="monthly_fees" id="monthly_fees" class="form-control fw-semibold fs-4" placeholder="ماہانہ فیس" value="<?= $edit_std['guar_cnic'] ?>" />
                         <span class="error text-danger inter" id="monthly_fees_err"></span>
                       </div>
                     </div>
