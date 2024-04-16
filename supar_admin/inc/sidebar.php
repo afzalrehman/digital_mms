@@ -64,29 +64,14 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="section_add.php" class="sidebar-link">
-                    <div class="round-16 d-flex align-items-center justify-content-center">
-                      <i class="ti ti-circle"></i>
-                    </div>
-                    <span class="hide-menu jameel-kasheeda fs-4">سیکشن ایڈکریں</span>
-                  </a>
-                </li>
-                <li class="sidebar-item">
                   <a href="madaris_class.php" class="sidebar-link">
-                    <div class="round-16 d-flex align-items-center justify-content-center">
-                      <i class="ti ti-circle"></i>
-                    </div>
-                    <span class="hide-menu jameel-kasheeda fs-4">کلاس ایڈکریں</span>
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a href="third.php" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
                     <span class="hide-menu jameel-kasheeda fs-4">ایڈکریں</span>
                   </a>
                 </li>
+               
                 <li class="sidebar-item">
                   <a href="blog-detail.php" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
@@ -142,17 +127,10 @@
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
-                    <span class="hide-menu jameel-kasheeda fs-4">فیس ایڈ کرایں</span>
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a href="blog-detail.php" class="sidebar-link">
-                    <div class="round-16 d-flex align-items-center justify-content-center">
-                      <i class="ti ti-circle"></i>
-                    </div>
                     <span class="hide-menu jameel-kasheeda fs-4">ایڈ کرایں</span>
                   </a>
                 </li>
+               
                 <li class="sidebar-item">
                   <a href="third.php" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
@@ -571,7 +549,7 @@
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
-                    <span class="hide-menu jameel-kasheeda fs-4">شعبہ ایڈ کریں</span>
+                    <span class="hide-menu jameel-kasheeda fs-4">شعبہ </span>
                   </a>
                 </li>
                 <li class="sidebar-item">
@@ -579,7 +557,7 @@
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
-                    <span class="hide-menu jameel-kasheeda fs-4">سیکشن ایڈ کریں</span>
+                    <span class="hide-menu jameel-kasheeda fs-4">سیکشن</span>
                   </a>
                 </li>
               </ul>

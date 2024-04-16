@@ -50,8 +50,16 @@ if (isset($_GET['income_vewimore'])) {
             <!-- Main Content Header Card (End) -->
             <!-- Teacher Profile (Start) -->
             <div class="card box_mad_vewi px-4">
-                <h5 class="pb-2 border-bottom my-4 fs-7">تفصیلات</h5>
+                <div class="row border-bottom jameel-kasheeda">
+                    <div class="col-lg-6 ">
+                        <h5 class="pb-2 my-4 fs-7">تفصیلات</h5>
+                    </div>
+                    <div class="col-lg-6 text-end">
+                        <button onclick="printContent()" class="btn btn-primary pb-1 my-4 fs-3 "> پرنٹ</button>
+                    </div>
+                </div>
                 <div class="row">
+
                     <div class="col-lg-6">
                         <div class="info-container">
                             <ul class="list-unstyled">
@@ -132,6 +140,120 @@ if (isset($_GET['income_vewimore'])) {
                 </div>
             </div>
             <!-- Teacher Profile  (End) -->
+            <div class="content-wrapper " hidden id="printable-content">
+                <style>
+                    .main {
+                        display: flex;
+                        align-items: center;
+                        font-family: Jameel-Kasheeda;
+                    }
+
+                    .box {
+                        text-align: center;
+                        margin: 0 auto;
+                        font-family: Jameel-Kasheeda;
+                    }
+
+                    .logo img {
+                        width: 200px;
+                        height: auto;
+                    }
+
+                    h1,
+                    h4 {
+                        font-family: Jameel-Kasheeda;
+                    }
+
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        border: 1px solid #000;
+                        font-family: Jameel-Kasheeda;
+                    }
+
+                    th,
+                    td {
+                        border: 1px solid #000;
+                        padding: 10px;
+                        text-align: left;
+                        font-family: Jameel-Kasheeda;
+                    }
+
+                    th {
+                        background-color: #f2f2f2;
+                        font-family: Jameel-Kasheeda;
+                    }
+
+                    td {
+                        background-color: #ffffff;
+                        font-family: Jameel-Kasheeda;
+                    }
+
+                    .box h1 {
+                        font-weight: 400;
+                        font-size: 50px;
+                    }
+
+                    .box h3 {
+                        font-weight: 500;
+                        font-size: 40px;
+                    }
+
+                    table{
+                        margin-top: 30px;
+                    }
+                </style>
+
+
+                <div class="main ">
+                    <div class="logo">
+                        <img src="../assets/images/hussiania.png" alt="">
+                    </div>
+                    <div class="box">
+                        <h3>آمدنی</h3>
+                        <h1>
+                            <?php
+                            $income_madarsa = explode(',', $fetch['madarsa_id']);
+                            foreach ($income_madarsa as $incomes_madarsa) {
+                                $seq_query = mysqli_query($conn, "SELECT * FROM `madarsa` WHERE `madarsa_id` ='$incomes_madarsa'");
+                                $sec = mysqli_fetch_object($seq_query);
+                                if ($sec) {
+                                    echo $sec->madarsa_name;
+                                }
+                            }
+                            ?>
+                        </h1>
+                        <h4>رسید نمبر :<?= $fetch['RegNumber'] ?></h4>
+                    </div>
+
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th> نام</th>
+                            <th>آمدنی کی مد</th>
+                            <th>ادائیگی کا طریقہ</th>
+                            <th>وصول کنندہ</th>
+                            <th>تاریخ </th>
+                            <th>مہینہ</th>
+                            <th>رقم</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><?= $fetch['income_name'] ?></td>
+                            <td><?= $fetch['incomeCategory'] ?></td>
+                            <td><?= $fetch['payment_method'] ?></td>
+                            <td><?= $fetch['receiverName'] ?></td>
+                            <td><?= $fetch['incomedate'] ?></td>
+                            <td><?= $fetch['income_month'] ?></td>
+                            <td><?= $fetch['incomeAmount'] ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
     <?php
     }
 } else {
@@ -144,7 +266,22 @@ if (isset($_GET['income_vewimore'])) {
         </div>
         <div class="dark-transparent sidebartoggler"></div>
         </div>
+        <script>
+            function printContent() {
+                var printWindow = window.open('', '', 'height=400,width=600');
+                printWindow.document.write('<html dir="rtl"><head><title>مدرسہ حسینیہ</title>');
+                // Include Bootstrap CSS
+                printWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">');
+                printWindow.document.write('</head><body>');
+                printWindow.document.write('<style>@font-face { font-family: "Jameel-Kasheeda"; src: url("../assets/font/urdu/Jameel-Noori-Nastaleeq-Kasheeda.ttf"); }</style>');
+                printWindow.document.write(document.getElementById('printable-content').innerHTML);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.print();
+            }
+        </script>
         <?php
         include "inc/mobileNavbar.php";
+
         include "inc/footer.php";
         ?>
