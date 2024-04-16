@@ -44,34 +44,34 @@ include "inc/navbar.php";
   <div class="row">
 
     <!-- User Info -->
-    <form method="post">
+    <form action="code2.php" method="POST" enctype="multipart/form-data">
       <div class="col-12">
         <div class="card">
           <div class="card-body">
             <div class="row g-4">
               <div class="col-lg-6 mb-3">
                 <label for="dukanName" class=" fs-5 mb-1">دکان کا نام</label>
-                <input type="text" class="form-control fs-3" id="dukanName" placeholder="دکان کا نام" required>
+                <input type="text" class="form-control fs-3" id="dukanName" name="dukan_name" placeholder="دکان کا نام" required>
               </div>
               <div class="col-lg-6 mb-3">
                 <label for="dukanAddress" class=" fs-5 mb-1">دکان کا پتہ</label>
-                <input type="text" class="form-control fs-3" id="dukanAddress" placeholder="دکان کا پتہ" required>
+                <input type="text" class="form-control fs-3" id="dukanAddress" name="dukan_address" placeholder="دکان کا پتہ" required>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 mb-3">
                 <label for="malikName" class=" fs-5 mb-1">دکان کے مالک کا نام</label>
-                <input type="text" class="form-control fs-3" id="malikName" placeholder="دکان کے مالک کا نام" required>
+                <input type="text" class="form-control fs-3" id="malikName" name="dokan_owner_name" placeholder="دکان کے مالک کا نام" required>
               </div>
               <div class="col-lg-6 mb-3">
                 <label for="dukanType" class=" fs-5 mb-1">دکان کی قسم</label>
-                <input type="text" class="form-control fs-3" id="dukanType" placeholder="دکان کی قسم" required>
+                <input type="text" class="form-control fs-3" id="dukanType" name="dukan_type" placeholder="دکان کی قسم" required>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 mb-3">
                 <label for="kiraya" class=" fs-5 mb-1">دکان کا کرایہ</label>
-                <input type="text" class="form-control fs-3" id="kiraya" placeholder="دکان کا کرایہ">
+                <input type="text" class="form-control fs-3" id="kiraya" name="dokan_rent" placeholder="دکان کا کرایہ">
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@ include "inc/navbar.php";
                 <label for="leaseAgreement" class="fs-5 mb-1">دکان کا لیز اگریمنٹ یا کرایہ کا معاہدہ</label>
                 <div class="input-group">
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" hidden id="leaseAgreement" onchange="previewImage(this, 'leasePreview')">
+                    <input type="file" name="dokan_lease" class="custom-file-input" hidden id="leaseAgreement" onchange="previewImage(this, 'leasePreview')">
                   </div>
                   <div class="input-group-append">
                     <button type="button" class="btn btn-primary rounded" onclick="document.getElementById('leaseAgreement').click()">تصویر اپلوڈ کریں</button>
@@ -102,7 +102,7 @@ include "inc/navbar.php";
                 <label for="license" class="fs-5 mb-1">دکان کا لائسنس (اگر ضروری ہے)</label>
                 <div class="input-group">
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" hidden id="license" onchange="previewImage(this, 'licensePreview')">
+                    <input type="file" name="dokan_license" class="custom-file-input" hidden id="license" onchange="previewImage(this, 'licensePreview')">
                   </div>
                   <div class="input-group-append">
                     <button type="button" class="btn btn-primary rounded" onclick="document.getElementById('license').click()">تصویر اپلوڈ کریں</button>
@@ -116,7 +116,7 @@ include "inc/navbar.php";
                 <label for="ownerID" class="fs-5 mb-1">دکان کے مالک کا شناختی کارڈ کا نسخہ</label>
                 <div class="input-group">
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" hidden id="ownerID" onchange="previewImage(this, 'ownerIDPreview')">
+                    <input type="file" name="owner_cnic" class="custom-file-input" hidden id="ownerID" onchange="previewImage(this, 'ownerIDPreview')">
                   </div>
                   <div class="input-group-append">
                     <button type="button" class="btn btn-primary rounded" onclick="document.getElementById('ownerID').click()">تصویر اپلوڈ کریں</button>
@@ -130,7 +130,7 @@ include "inc/navbar.php";
                 <label for="ownerImage" class="fs-5 mb-1">دکان کے مالک کی تصویر</label>
                 <div class="input-group">
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" hidden id="ownerImage" onchange="previewImage(this, 'ownerImagePreview')">
+                    <input type="file" name="owner_image" class="custom-file-input" hidden id="ownerImage" onchange="previewImage(this, 'ownerImagePreview')">
                   </div>
                   <div class="input-group-append ja">
                     <button type="button" class="btn btn-primary rounded" onclick="document.getElementById('ownerImage').click()">تصویر اپلوڈ کریں</button>
@@ -146,7 +146,7 @@ include "inc/navbar.php";
 
         <!-- Submit Button -->
         <div class="col-md-12 mt-4 jameel-kasheeda">
-          <button type="submit" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
+          <button type="submit" name="dokan_insert" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
         </div>
     </form>
   </div>
