@@ -63,13 +63,13 @@ include "inc/navbar.php";
         <div class="table-responsive text-center py-9">
           <table class="table align-middle text-nowrap mb-0">
             <thead>
-              <tr class="fw-semibold">
+              <tr class="fw-semibold text-center">
                 <th class="fs-5 word-spacing-2px text-primary">#</th>
                 <th class="fs-5 word-spacing-2px text-primary">دکان کا نام</th>
                 <th class="fs-5 word-spacing-2px text-primary">مالک کا نام</th>
                 <th class="fs-5 word-spacing-2px text-primary">دکان کی قسم</th>
                 <th class="fs-5 word-spacing-2px text-primary">دکان کا کرایہ</th>
-                <!-- <th class="fs-5 word-spacing-2px text-primary">حالت</th> -->
+                <th class="fs-5 word-spacing-2px text-primary">حالت</th>
                 <th class="fs-5 word-spacing-2px text-primary">انتخاب کریں</th>
               </tr>
             </thead>
@@ -83,7 +83,7 @@ include "inc/navbar.php";
 
                 while ($row_dokan = $result_madarsa->fetch_assoc()) {
               ?>
-                  <tr>
+                  <tr class="text-center">
                     <td>
                       <p class="mb-0 fs-2 inter"><?php echo $no++; ?></p>
                     </td>
@@ -99,7 +99,7 @@ include "inc/navbar.php";
                     <td>
                       <p class="mb-0 fs-2 inter"><?= $row_dokan['dokan_rent'] ?></p>
                     </td>
-                    <!-- <td>
+                    <td>
                       <?php
                       if ($row_dokan['status'] === 'فعال') {
                         echo '<p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
@@ -107,7 +107,7 @@ include "inc/navbar.php";
                         echo '<p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
                       }
                       ?>
-                    </td> -->
+                    </td>
                     <td>
                       <div class="action-btn">
                         <?php

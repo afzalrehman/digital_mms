@@ -329,12 +329,42 @@
             </li>
 
             <!-- =================== -->
-            <!-- Rent -->
+            <!-- Shop -->
             <!-- =================== -->
             <li class="sidebar-item">
               <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
                 <span class="d-flex">
                   <i class="ti ti-building-store"></i>
+                </span>
+                <span class="hide-menu jameel-kasheeda fs-5">دکان</span>
+              </a>
+              <ul aria-expanded="false" class="collapse first-level">
+                <li class="sidebar-item">
+                  <a href="dokan-form.php" class="sidebar-link">
+                    <div class="round-16 d-flex align-items-center justify-content-center">
+                      <i class="ti ti-circle"></i>
+                    </div>
+                    <span class="hide-menu jameel-kasheeda fs-4">ایڈکریں</span>
+                  </a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="dokan-details.php" class="sidebar-link">
+                    <div class="round-16 d-flex align-items-center justify-content-center">
+                      <i class="ti ti-circle"></i>
+                    </div>
+                    <span class="hide-menu jameel-kasheeda fs-4">تفصیلات</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- =================== -->
+            <!-- Rent -->
+            <!-- =================== -->
+            <li class="sidebar-item">
+              <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
+                <span class="d-flex">
+                  <i class="ti ti-brand-shopee"></i>
                 </span>
                 <span class="hide-menu jameel-kasheeda fs-5">کرایہ</span>
               </a>
@@ -355,7 +385,6 @@
                     <span class="hide-menu jameel-kasheeda fs-4">تفصیلات</span>
                   </a>
                 </li>
-
               </ul>
             </li>
 
