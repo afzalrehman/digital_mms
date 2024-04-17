@@ -164,10 +164,10 @@ if (isset($_POST['std_form_update'])) {
 
 // ====================================== dokan-form.php =========================================
 if (isset($_POST['dokan_insert'])) {
-    $dukan_name = mysqli_real_escape_string($conn, $_POST['dukan_name']);
-    $dukan_address = mysqli_real_escape_string($conn, $_POST['dukan_address']);
+    $dokan_name = mysqli_real_escape_string($conn, $_POST['dokan_name']);
+    $dokan_address = mysqli_real_escape_string($conn, $_POST['dokan_address']);
     $dokan_owner_name = mysqli_real_escape_string($conn, $_POST['dokan_owner_name']);
-    $dukan_type = mysqli_real_escape_string($conn, $_POST['dukan_type']);
+    $dokan_type = mysqli_real_escape_string($conn, $_POST['dokan_type']);
     $dokan_rent = mysqli_real_escape_string($conn, $_POST['dokan_rent']);
 
     // created_by and created_date
@@ -189,9 +189,9 @@ if (isset($_POST['dokan_insert'])) {
 
     // Proceed with inserting data into the database
     $dokan_insert_query = "INSERT INTO `dokan`(
-    `dukan_name`, `dukan_address`, `dokan_owner_name`, `dukan_type`, `dokan_rent`, `dokan_lease`, `dokan_license`, `owner_cnic`, `owner_image`, `created_by`, `created_date`) 
+    `dokan_name`, `dokan_address`, `dokan_owner_name`, `dokan_type`, `dokan_rent`, `dokan_lease`, `dokan_license`, `owner_cnic`, `owner_image`, `created_by`, `created_date`) 
     VALUES (
-    '$dukan_name', '$dukan_address', '$dokan_owner_name', '$dukan_type', '$dokan_rent', '$dokan_lease', '$dokan_license', '$owner_cnic', '$owner_image', '$created_by', '$created_date')";
+    '$dokan_name', '$dokan_address', '$dokan_owner_name', '$dokan_type', '$dokan_rent', '$dokan_lease', '$dokan_license', '$owner_cnic', '$owner_image', '$created_by', '$created_date')";
 
     $dokan_insert = mysqli_query($conn, $dokan_insert_query) or die('Query unsuccessful: ' . mysqli_error($conn));
 
@@ -202,5 +202,107 @@ if (isset($_POST['dokan_insert'])) {
         redirectdelete("dokan-form.php", "ڈیٹا داخل کرنے میں ناکام");
         exit();
     }
+}
 
+// ====================================== dokan-edit.php (dokan_update) =========================================
+
+if (isset($_POST['dokan_update_data'])) {
+    // Establish database connection (assuming $conn is already defined)
+
+    // Escape user inputs to prevent SQL injection
+    $dokan_name = mysqli_real_escape_string($conn, $_POST['dokan_name']);
+    $dokan_address = mysqli_real_escape_string($conn, $_POST['dokan_address']);
+    $dokan_owner_name = mysqli_real_escape_string($conn, $_POST['dokan_owner_name']);
+    $dokan_type = mysqli_real_escape_string($conn, $_POST['dokan_type']);
+    $dokan_rent = mysqli_real_escape_string($conn, $_POST['dokan_rent']);
+
+    // Set default values for images
+    $dokan_lease = '';
+    $dokan_license = '';
+    $owner_cnic = '';
+    $owner_image = '';
+
+    // Check if image is uploaded and update accordingly
+    if (isset($_FILES['dokan_lease']['name']) && $_FILES['dokan_lease']['error'] === UPLOAD_ERR_OK) {
+        $dokan_lease = rand(111111111, 999999999) . '_' . basename($_FILES['dokan_lease']['name']);
+        move_uploaded_file($_FILES['dokan_lease']['tmp_name'], '../media/dokan/' . $dokan_lease);
+    }
+
+    if (isset($_FILES['dokan_license']['name']) && $_FILES['dokan_license']['error'] === UPLOAD_ERR_OK) {
+        $dokan_license = rand(111111111, 999999999) . '_' . basename($_FILES['dokan_license']['name']);
+        move_uploaded_file($_FILES['dokan_license']['tmp_name'], '../media/dokan/' . $dokan_license);
+    }
+
+    if (isset($_FILES['owner_cnic']['name']) && $_FILES['owner_cnic']['error'] === UPLOAD_ERR_OK) {
+        $owner_cnic = rand(111111111, 999999999) . '_' . basename($_FILES['owner_cnic']['name']);
+        move_uploaded_file($_FILES['owner_cnic']['tmp_name'], '../media/dokan/' . $owner_cnic);
+    }
+
+    if (isset($_FILES['owner_image']['name']) && $_FILES['owner_image']['error'] === UPLOAD_ERR_OK) {
+        $owner_image = rand(111111111, 999999999) . '_' . basename($_FILES['owner_image']['name']);
+        move_uploaded_file($_FILES['owner_image']['tmp_name'], '../media/dokan/' . $owner_image);
+    }
+
+    // Set updated_by and updated_date
+    $updated_by = 'Abu Hammad';
+    $updated_date = date('Y-m-d');
+
+    // Ensure $dokan_id is properly set (assuming it's fetched or passed from somewhere)
+
+    // Construct the update query
+    $dokan_update_query = "UPDATE `dokan` SET 
+    `dokan_name` = '$dokan_name', 
+    `dokan_address` = '$dokan_address', 
+    `dokan_owner_name` = '$dokan_owner_name', 
+    `dokan_type` = '$dokan_type', 
+    `dokan_rent` = '$dokan_rent'";
+
+    // Append optional fields to the query if they are set
+    if ($dokan_lease !== '') {
+        $dokan_update_query .= ", `dokan_lease` = '$dokan_lease'";
+    }
+
+    if ($dokan_license !== '') {
+        $dokan_update_query .= ", `dokan_license` = '$dokan_license'";
+    }
+
+    if ($owner_cnic !== '') {
+        $dokan_update_query .= ", `owner_cnic` = '$owner_cnic'";
+    }
+
+    if ($owner_image !== '') {
+        $dokan_update_query .= ", `owner_image` = '$owner_image'";
+    }
+
+    // Append updated_by and updated_date
+    $dokan_update_query .= ", `updated_by` = '$updated_by', `updated_date` = '$updated_date' WHERE `dokan_id` = '$dokan_id'";
+
+    // Execute the update query
+    $dokan_update = mysqli_query($conn, $dokan_update_query);
+
+    // Check if update was successful and redirect accordingly
+    if ($dokan_update) {
+        redirect("dokan-details.php", "Your data has been updated successfully");
+        exit();
+    } else {
+        redirect("dokan-details.php", "Your data has not been updated successfully");
+        exit();
+    }
+}
+
+
+
+// ====================================== dokan-form.php (dokan_delete_id) =========================================
+
+if (isset($_GET['dokan_delete_id'])) {
+    $dokan_id = $_GET['dokan_delete_id'];
+    $update_query = "UPDATE `dokan` SET `status` = 'غیر فعال' WHERE `dokan_id` = '$dokan_id'";
+    $sql = mysqli_query($conn, $update_query);
+    if ($sql) {
+        redirectdelete("dokan-details.php", "دوکان ہوچکا ہے");
+        exit();
+    } else {
+        header("location:dokan-details.php");
+        exit();
+    }
 }

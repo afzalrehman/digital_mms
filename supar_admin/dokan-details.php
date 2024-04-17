@@ -88,13 +88,13 @@ include "inc/navbar.php";
                       <p class="mb-0 fs-2 inter"><?php echo $no++; ?></p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-2 inter"><?= $row_dokan['dukan_name'] ?></p>
+                      <p class="mb-0 fs-2 inter"><?= $row_dokan['dokan_name'] ?></p>
                     </td>
                     <td>
                       <p class="mb-0 fs-4 word-spacing-2px"><?= $row_dokan['dokan_owner_name'] ?></p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-4 word-spacing-2px"><?= $row_dokan['dukan_type'] ?></p>
+                      <p class="mb-0 fs-4 word-spacing-2px"><?= $row_dokan['dokan_type'] ?></p>
                     </td>
                     <td>
                       <p class="mb-0 fs-2 inter"><?= $row_dokan['dokan_rent'] ?></p>
@@ -112,10 +112,10 @@ include "inc/navbar.php";
                       <div class="action-btn">
                         <?php
                         if ($row_dokan['status'] !== 'غیر فعال') {
-                          echo '<a href="st-profile.php?st_view_profile=' . $row_dokan['dokan_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>';
+                          echo '<a href="dokan-view.php?dokan_view_id=' . $row_dokan['dokan_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>';
                         }
                         if ($row_dokan['status'] !== 'غیر فعال') {
-                          echo '<a href="st-admission-edit.php?st_edit=' . $row_dokan['dokan_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
+                          echo '<a href="dokan-edit.php?dokan_edit_id=' . $row_dokan['dokan_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
                         }
                         if ($row_dokan['status'] !== 'غیر فعال') {
                           echo '
@@ -135,7 +135,7 @@ include "inc/navbar.php";
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">کلوز</button>
-                                <a href="st-all-code.php?st_delete=<?= $row_dokan['dokan_id'] ?>">
+                                <a href="code2.php?dokan_delete_id=<?= $row_dokan['dokan_id'] ?>">
                                   <button type="button" class="btn btn-danger">ڈیلیٹ</button>
                                 </a>
                               </div>
