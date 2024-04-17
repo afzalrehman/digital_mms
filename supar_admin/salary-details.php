@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../includes/config.php"; 
+include "../includes/config.php";
 include "../includes/function.php";
 include "inc/header.php";
 include "inc/sidebar.php";
@@ -12,14 +12,14 @@ include "inc/navbar.php";
     <div class="card-body px-4 py-3">
       <div class="row align-items-center">
         <div class="col-9">
-          <h4 class="my-3 fs-8 text-primary">فیس کی تفصیلات</h4>
+          <h4 class="my-3 fs-8 text-primary">تنخواہ کی تفصیلات</h4>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item">
                 <a class="text-muted text-decoration-none fs-4" href="index.html">ڈیش بورڈ</a>
               </li>
               <li class="breadcrumb-item fs-4" aria-current="page">
-                فیس کی تفصیلات
+                تنخواہ کی تفصیلات
               </li>
             </ol>
           </nav>
@@ -65,7 +65,7 @@ include "inc/navbar.php";
               <tr class="fw-semibold">
                 <th class="fs-5 word-spacing-2px text-primary">#</th>
                 <th class="fs-5 word-spacing-2px text-primary">رجسٹریشن نمبر</th>
-                <th class="fs-5 word-spacing-2px text-primary">نام</th>               
+                <th class="fs-5 word-spacing-2px text-primary">نام</th>
                 <th class="fs-5 word-spacing-2px text-primary">تنخواہ</th>
                 <th class="fs-5 word-spacing-2px text-primary">امداد</th>
                 <th class="fs-5 word-spacing-2px text-primary">کٹوٹی</th>
@@ -89,42 +89,51 @@ include "inc/navbar.php";
                       <p class="mb-0 fs-2 inter">1</p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-2 inter"><?=$item['register_num']?></p>
+                      <p class="mb-0 fs-2 inter"><?= $item['register_num'] ?></p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-4 word-spacing-2px"><?=$item['register_num']?></p>
+                      <p class="mb-0 fs-4 word-spacing-2px"><?php
+                                                            $income_madarsa = explode(',', $item['register_num']);
+                                                            foreach ($income_madarsa as $incomes_madarsa) {
+                                                              $seq_query = mysqli_query($conn, "SELECT * FROM `teacher` WHERE `register_num` ='$incomes_madarsa'");
+                                                              $sec = mysqli_fetch_object($seq_query);
+                                                              if ($sec) {
+                                                                echo $sec->tea_name;
+                                                              }
+                                                            }
+                                                            ?></p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-4 word-spacing-2px"><?=$item['basic_salary']?></p>
+                      <p class="mb-0 fs-4 word-spacing-2px"><?= $item['basic_salary'] ?></p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-4 word-spacing-2px"><?=$item['allowances']?></p>
+                      <p class="mb-0 fs-4 word-spacing-2px"><?= $item['allowances'] ?></p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-2 inter"><?=$item['deductions']?></p>
+                      <p class="mb-0 fs-2 inter"><?= $item['deductions'] ?></p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-4 word-spacing-2px"><?=$item['salary_date']?></p>
+                      <p class="mb-0 fs-4 word-spacing-2px"><?= $item['salary_date'] ?></p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-4 word-spacing-2px"><?=$item['remaining_salary']?></p>
+                      <p class="mb-0 fs-4 word-spacing-2px"><?= $item['remaining_salary'] ?></p>
                     </td>
                     <td>
-                      <p class="mb-0 fs-4 word-spacing-2px text-primary"><?=$item['salary_given']?></p>
+                      <p class="mb-0 fs-4 word-spacing-2px text-primary"><?= $item['salary_given'] ?></p>
                     </td>
                     <td>
                       <div class="action-btn">
-                        <!-- <a href="madarasa_vewimore.php?madarsa_vewimore=<?= $item['id']?>" class="text-info ms-1">
+                        <a href="salary_vewimore.php?salary_vewimore=<?= $item['id'] ?>" class="text-info ms-1">
                           <i class="ti ti-eye fs-6"></i>
-                        </a> -->
-                        <a href="salary-edit.php?edit_salary=<?= $item['id']?>" class="text-success">
+                        </a>
+                        <a href="salary-edit.php?edit_salary=<?= $item['id'] ?>" class="text-success">
                           <i class="ti ti-edit fs-6"></i>
                         </a>
                         <button type="button" class="border-0  rounded-2 p-0 py-1 " data-bs-toggle="modal" data-bs-target="#deleteModal<?= $item['id'] ?>">
                           <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
                         </button>
                         <!-- ===================delete institute page modal================== -->
-                        <div class="modal fade" id="deleteModal<?= $item['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="deleteModal<?= $item['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">

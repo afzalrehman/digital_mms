@@ -7,9 +7,9 @@ include "inc/sidebar.php";
 include "inc/navbar.php";
 ?>
 <?php
-if (isset($_GET['expance_vewimore'])) {
-    $id = $_GET['expance_vewimore'];
-    $select_query = "SELECT * FROM `expance` WHERE `expance_id` = '$id'";
+if (isset($_GET['salary_vewimore'])) {
+    $id = $_GET['salary_vewimore'];
+    $select_query = "SELECT * FROM `salary` WHERE `id` = '$id'";
     $result = mysqli_query($conn, $select_query);
     if ($result->num_rows > 0) {
         $fetch = mysqli_fetch_assoc($result);
@@ -27,14 +27,14 @@ if (isset($_GET['expance_vewimore'])) {
                 <div class="card-body px-4 py-3">
                     <div class="row align-items-center">
                         <div class="col-9">
-                            <h4 class="my-3 fs-8 text-primary">خرچہ کے معلومات</h4>
+                            <h4 class="my-3 fs-8 text-primary">تنخواہ کے معلومات</h4>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
                                         <a class="text-muted text-decoration-none fs-4" href="index.html">ڈیش بورڈ</a>
                                     </li>
                                     <li class="breadcrumb-item fs-4" aria-current="page">
-                                        خرچہ کے معلومات
+                                        تنخواہ کے معلومات
                                     </li>
                                 </ol>
                             </nav>
@@ -63,21 +63,34 @@ if (isset($_GET['expance_vewimore'])) {
                         <div class="info-container">
                             <ul class="list-unstyled">
                                 <li class="mb-4">
-                                    <span class=" me-2 jameel-regular">رسید نمبر :</span>
-                                    <span class="fs-6"><?= $fetch['RegNumber'] ?></span>
+                                    <span class=" me-2 jameel-regular">رجسٹریشن نمبر:</span>
+                                    <span class="fs-6"><?= $fetch['register_num'] ?></span>
                                 </li>
 
                                 <li class="mb-4">
-                                    <span class="jameel-regular me-2">خرچہ کا نام:</span>
-                                    <span class="fs-6"><?= $fetch['expance_name'] ?></span>
+                                    <span class="jameel-regular me-2">نام:</span>
+                                    <span class="fs-6"><?php
+                                                        $income_madarsa = explode(',', $fetch['register_num']);
+                                                        foreach ($income_madarsa as $incomes_madarsa) {
+                                                            $seq_query = mysqli_query($conn, "SELECT * FROM `teacher` WHERE `register_num` ='$incomes_madarsa'");
+                                                            $sec = mysqli_fetch_object($seq_query);
+                                                            if ($sec) {
+                                                                echo $sec->tea_name;
+                                                            }
+                                                        }
+                                                        ?></span>
                                 </li>
                                 <li class="mb-4">
-                                    <span class="jameel-regular me-2">دینے والے کا نام :</span>
-                                    <span class="fs-6"><?= $fetch['resiveName'] ?></span>
+                                    <span class="jameel-regular me-2">تنخواہ :</span>
+                                    <span class="fs-6"><?= $fetch['basic_salary'] ?></span>
                                 </li>
                                 <li class="mb-4">
-                                    <span class="jameel-regular me-2">مہینہ :</span>
-                                    <span class="fs-6"><?= $fetch['expance_month'] ?></span>
+                                    <span class="jameel-regular me-2">امداد :</span>
+                                    <span class="fs-6"><?= $fetch['allowances'] ?></span>
+                                </li>
+                                <li class="mb-4">
+                                    <span class="jameel-regular me-2">ادائیگی کا طریقہ :</span>
+                                    <span class="fs-6"><?= $fetch['payment_method'] ?></span>
                                 </li>
 
                             </ul>
@@ -98,17 +111,21 @@ if (isset($_GET['expance_vewimore'])) {
                                     ?>
                                 </li>
                                 <li class="mb-4">
-                                    <span class="jameel-regular me-2">رقم :</span>
-                                    <span class="fs-6"><?= $fetch['expanceAmount'] ?></span>
+                                    <span class="jameel-regular me-2">کٹوٹی :</span>
+                                    <span class="fs-6"><?= $fetch['deductions'] ?></span>
                                 </li>
 
                                 <li class="mb-4">
-                                    <span class="jameel-regular me-2"> دیا یا نہیں :</span>
-                                    <span class="inter fs-6"><?= $fetch['pay_now'] ?></span>
+                                    <span class="jameel-regular me-2">مہینہ :</span>
+                                    <span class="inter fs-6"><?= $fetch['salary_date'] ?></span>
                                 </li>
                                 <li class="mb-4">
-                                    <span class="jameel-regular me-2">تاریخ :</span>
-                                    <span class="inter fs-6"><?= $fetch['expanceـdate'] ?></span>
+                                    <span class="jameel-regular me-2">بقایا :</span>
+                                    <span class="inter fs-6"><?= $fetch['remaining_salary'] ?></span>
+                                </li>
+                                <li class="mb-4">
+                                    <span class="jameel-regular me-2">ٹوٹل تنخواہ :</span>
+                                    <span class="inter fs-6"><?= $fetch['total_salary_given'] ?></span>
                                 </li>
                             </ul>
                         </div>
@@ -141,6 +158,7 @@ if (isset($_GET['expance_vewimore'])) {
                         width: 200px;
                         height: auto;
                     }
+
                     .main {
                         display: flex;
                         align-items: center;
@@ -196,7 +214,7 @@ if (isset($_GET['expance_vewimore'])) {
                         <img src="../assets/images/hussiania.png" alt="">
                     </div>
                     <div class="box">
-                        <h3>آمدنی</h3>
+                        <h3>تنخواہ</h3>
                         <h1>
                             <?php
                             $income_madarsa = explode(',', $fetch['madarsa_id']);
@@ -209,7 +227,7 @@ if (isset($_GET['expance_vewimore'])) {
                             }
                             ?>
                         </h1>
-                        <h4>رسید نمبر :<?= $fetch['RegNumber'] ?></h4>
+                        <h4>رسید نمبر :<?= $fetch['register_num'] ?></h4>
                     </div>
 
                 </div>
@@ -217,22 +235,35 @@ if (isset($_GET['expance_vewimore'])) {
                 <table>
                     <thead>
                         <tr>
-                            <th> خرچہ کا نام</th>
-                            <th>دینے والے کا نام </th>
-                            <th>دیا یا نہیں</th>
-                            <th>تاریخ </th>
+                            <th>نام</th>
+                            <th>تنخواہ</th>
+                            <th>امداد</th>
+                            <th>کٹوٹی </th>
+                            <th>ادائیگی کا طریقہ </th>
                             <th>مہینہ</th>
-                            <th>رقم</th>
+                            <th>بقایا</th>
+                            <th>ٹوٹل تنخواہ</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><?= $fetch['expance_name'] ?></td>
-                            <td><?= $fetch['resiveName'] ?></td>
-                            <td><?= $fetch['pay_now'] ?></td>
-                            <td><?= $fetch['expance_month'] ?></td>
-                            <td><?= $fetch['expanceـdate'] ?></td>
-                            <td><?= $fetch['expanceAmount'] ?></td>
+                            <td> <?php
+                                    $income_madarsa = explode(',', $fetch['register_num']);
+                                    foreach ($income_madarsa as $incomes_madarsa) {
+                                        $seq_query = mysqli_query($conn, "SELECT * FROM `teacher` WHERE `register_num` ='$incomes_madarsa'");
+                                        $sec = mysqli_fetch_object($seq_query);
+                                        if ($sec) {
+                                            echo $sec->tea_name;
+                                        }
+                                    }
+                                    ?></td>
+                            <td><?= $fetch['basic_salary'] ?></td>
+                            <td><?= $fetch['allowances'] ?></td>
+                            <td><?= $fetch['deductions'] ?></td>
+                            <td><?= $fetch['payment_method'] ?></td>
+                            <td><?= $fetch['salary_date'] ?></td>
+                            <td><?= $fetch['remaining_salary'] ?></td>
+                            <td><?= $fetch['total_salary_given'] ?></td>
                         </tr>
                     </tbody>
                 </table>
