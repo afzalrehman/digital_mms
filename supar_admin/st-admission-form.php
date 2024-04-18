@@ -95,7 +95,7 @@ include "inc/navbar.php";
 
             <div class="row g-4">
               <div class="col-md-6">
-                <label class="fs-5 mb-1" for="rollNumber">رول نمبر</label>
+                <label class="fs-5 mb-1" for="rollNumber">رجسٹریشن نمبر</label>
                 <input type="text" id="rollNumber" readonly name="roll_number" class="form-control fw-semibold fs-3" value="<?= $auto_reg_no ?>" />
               </div>
               <div class="col-md-6">
@@ -242,7 +242,7 @@ include "inc/navbar.php";
 
                   <div class="col-md-6 mb-2">
                     <label class="fs-5 mb-1" for="MadYear">تعلیمی سال منتخب کریں</label>
-                    <select id="MadYear" name="std-dep" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                    <select id="MadYear" name="std-dep" class="form-control fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                       <option value="" class="jameel-kasheeda">- - -</option>
                     </select>
                     <span class="error text-danger inter" id="MadYear_err"></span>
@@ -260,7 +260,7 @@ include "inc/navbar.php";
                     <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="class" id="studentclass">
                       <option class="jameel-kasheeda" value="">---</option>
                     </select>
-                    <span class="inter error text-danger"><?php if (isset($_SESSION['class_exit'])) {
+                    <span class="inter text-danger"><?php if (isset($_SESSION['class_exit'])) {
                                                             echo $_SESSION['class_exit'];
                                                             unset($_SESSION['class_exit']);
                                                           } ?></span>
@@ -268,14 +268,14 @@ include "inc/navbar.php";
                   </div>
                   <div class="col-md-6 mb-2">
                     <label class="fs-5 mb-1" for="section">سیکشن منتخب کریں</label>
-                    <select id="section" name="section" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                    <select id="section" name="section" class="form-control fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                       <option value="" class="jameel-kasheeda">- - -</option>
                     </select>
                     <span class="error text-danger inter" id="section_err"></span>
                   </div>
                   <div class="col-md-6 mb-2">
                     <label class="fs-5 mb-1" for="std_qadeem">منتخب کریں</label>
-                    <select id="std_qadeem" name="std_qadeem" class="form-select fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                    <select id="std_qadeem" name="std_qadeem" class="form-control fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                       <option value="" class="jameel-kasheeda">- - -</option>
                       <option value="قدیم" class="jameel-kasheeda">قدیم</option>
                       <option value="جدید" class="jameel-kasheeda">جدید</option>

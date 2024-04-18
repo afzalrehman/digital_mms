@@ -38,16 +38,20 @@ include "inc/navbar.php";
   <!-- Student Search Form (Start) -->
   <div class="card card-body">
     <div class="row">
-      <div class="col-md-4 col-xl-3">
+      <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="تلاش کریں &nbsp;..." />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-dokan_name" placeholder="دکان کا نام سے تلاش کریں &nbsp;......" />
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
-      <div class="col-md-8 col-xl-9 text-end mt-3 mt-md-0 jameel-kasheeda">
-        <a href="javascript:void(0)" class="btn btn-info fw-semibold word-spacing-2px fs-4">
-          ایڈ کریں
-        </a>
+      <div class="col-md-4 mb-3">
+        <form class="position-relative">
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-dokan_type" placeholder="دکان کی قسم سے تلاش کریں &nbsp;......" />
+          <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
+        </form>
+      </div>
+      <div class="col-md-4 jameel-kasheeda">
+      <button class="btn btn-info fw-semibold word-spacing-2px fs-4" id="search_button" onclick="search_dokan_Data()">تلاش کریں</button>
       </div>
     </div>
   </div>
@@ -57,8 +61,32 @@ include "inc/navbar.php";
   <div class="col-lg-12 d-flex align-items-strech">
     <div class="card w-100">
       <div class="card-body">
-        <div class="mb-7 mb-sm-0">
-          <h5 class="card-title fs-7 text-primary">تفصیلات</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-7 mb-sm-0">
+              <h5 class="card-title fs-7 text-primary">تفصیلات</h5>
+            </div>
+          </div>
+          <div class="col-md-6 text-end">
+            <div class="btn-group">
+              <div class="me-2">
+                <select id="dokan-limit" class="form-select" onchange="load_dokan_Data()">
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="75">75</option>
+                  <option value="100">100</option>
+                  <option value="125">125</option>
+                  <option value="150">150</option>
+                </select>
+              </div>
+              <div class="me-2">
+                <select id="dokan-order" class="form-select" onchange="load_dokan_Data()">
+                  <option value="ASC">Old</option>
+                  <option value="DESC">New</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="table-responsive text-center py-9">
           <table class="table align-middle text-nowrap mb-0">
@@ -73,86 +101,12 @@ include "inc/navbar.php";
                 <th class="fs-5 word-spacing-2px text-primary">انتخاب کریں</th>
               </tr>
             </thead>
-            <tbody class="border-top" id="st_details">
-              <?php
-              // Query to fetch the madarsa information
-              $selec_madarsa = "SELECT * FROM `dokan`";
-              $result_madarsa = $conn->query($selec_madarsa);
-              if (mysqli_num_rows($result_madarsa) > 0) {
-                $no = 1;
-
-                while ($row_dokan = $result_madarsa->fetch_assoc()) {
-              ?>
-                  <tr class="text-center">
-                    <td>
-                      <p class="mb-0 fs-2 inter"><?php echo $no++; ?></p>
-                    </td>
-                    <td>
-                      <p class="mb-0 fs-2 inter"><?= $row_dokan['dokan_name'] ?></p>
-                    </td>
-                    <td>
-                      <p class="mb-0 fs-4 word-spacing-2px"><?= $row_dokan['dokan_owner_name'] ?></p>
-                    </td>
-                    <td>
-                      <p class="mb-0 fs-4 word-spacing-2px"><?= $row_dokan['dokan_type'] ?></p>
-                    </td>
-                    <td>
-                      <p class="mb-0 fs-2 inter"><?= $row_dokan['dokan_rent'] ?></p>
-                    </td>
-                    <td>
-                      <?php
-                      if ($row_dokan['status'] === 'فعال') {
-                        echo '<p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
-                      } elseif ($row_dokan['status'] === 'غیر فعال') {
-                        echo '<p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
-                      }
-                      ?>
-                    </td>
-                    <td>
-                      <div class="action-btn">
-                        <?php
-                        if ($row_dokan['status'] !== 'غیر فعال') {
-                          echo '<a href="dokan-view.php?dokan_view_id=' . $row_dokan['dokan_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>';
-                        }
-                        if ($row_dokan['status'] !== 'غیر فعال') {
-                          echo '<a href="dokan-edit.php?dokan_edit_id=' . $row_dokan['dokan_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
-                        }
-                        if ($row_dokan['status'] !== 'غیر فعال') {
-                          echo '
-                          <button type="button" class="border-0  rounded-2 p-0 py-1 bg-white" data-bs-toggle="modal" data-bs-target="#deleteModal' . $row_dokan['dokan_id'] . '">
-                          <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
-                        </button>
-                          ';
-                        }
-                        ?>
-                        <!-- ===================delete institute page modal================== -->
-                        <div class="modal fade" id="deleteModal<?= $row_dokan['dokan_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">یقینی طور پر حذف کر رہے ہیں؟ </h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">کلوز</button>
-                                <a href="code2.php?dokan_delete_id=<?= $row_dokan['dokan_id'] ?>">
-                                  <button type="button" class="btn btn-danger">ڈیلیٹ</button>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-              <?php
-                }
-              } else {
-                echo '<tr>
-                      <td class="text-danger">دوکان موجود نہں ہے </td>
-                      </tr>';
-              }
-              ?>
+            <tbody class="border-top" id="dokan_details">
+              <center id="users_spinner" style="display: none;">
+                <div class="spinner-border text-primary" role="status" style="position: absolute; top:70%;">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </center>
             </tbody>
           </table>
         </div>
@@ -171,7 +125,65 @@ include "inc/mobileNavbar.php";
 include "inc/footer.php";
 ?>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Load data on page load with default value (10)
+    load_dokan_Data();
+  });
 
-<!-- <script src="type/javascript">
-  // show data from database
-</script> -->
+  function load_dokan_Data() {
+    users_spinner.style.display = "block";
+    let dokanLimited = $("#dokan-limit").val();
+    let dokanOrder = $("#dokan-order").val();
+
+    $.ajax({
+      url: 'filter_fetch_data.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        action: 'load-dokan-Data',
+        dokanLimited: dokanLimited,
+        dokanOrder: dokanOrder
+      },
+      success: function(response) {
+        console.log(response);
+        // Update the result div with the loaded data
+        $("#dokan_details").html(response.data);
+      },
+      error: function(xhr, status, error) {
+        users_spinner.style.display = "none";
+        console.error(xhr.responseText);
+      }
+    });
+  }
+
+
+  function search_dokan_Data() {
+    users_spinner.style.display = "block";
+    let searchName = $("#search-dokan_name").value;
+    let searchType = $("#search-dokan_type").value;
+
+    $.ajax({
+      url: 'filter_fetch_data.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        action: 'search-dokan_Data',
+        searchName: searchName,
+        searchType: searchType
+      },
+      success: function(response) {
+        console.log(response);
+        // Update the result div with the loaded data
+        $("#dokan_details").html(response.data);
+      },
+      error: function(xhr, status, error) {
+        users_spinner.style.display = "none";
+        console.error(xhr.responseText);
+      }
+    });
+  }
+
+
+
+</script>

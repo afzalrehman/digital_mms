@@ -40,28 +40,28 @@ include "inc/navbar.php";
     <div class="row">
       <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="رجسٹریشن نمبر تلاش کریں &nbsp;......" />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-student_" placeholder="رجسٹریشن نمبر سے تلاش کریں &nbsp;......" />
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
       <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="نام تلاش کریں &nbsp;......" />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="نام سے تلاش کریں &nbsp;......" />
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
       <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="	فون نمبر تلاش کریں &nbsp;......" />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="	فون نمبر سے تلاش کریں &nbsp;......" />
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
       <div class="col-md-4 mb-3">
-      <input type="date" id="member_deposit-date" class="form-control" value="<?php echo date('Y-m-h'); ?>">
+        <input type="date" id="students-date" class="form-control" value="<?php echo date('Y-m-h'); ?>">
       </div>
       <div class="col-md-4 jameel-kasheeda">
         <a href="javascript:void(0)" class="btn btn-info fw-semibold word-spacing-2px fs-4">
-        تلاش کریں 
+          تلاش کریں
         </a>
       </div>
     </div>
@@ -81,15 +81,17 @@ include "inc/navbar.php";
           <div class="col-md-6 text-end">
             <div class="btn-group">
               <div class="me-2">
-                <select id="member_deposit-limit" class="form-select" onchange="load_member_deposit_Data()">
+                <select id="students-limit" class="form-select" onchange="load_students_Data()">
                   <option value="25">25</option>
                   <option value="50">50</option>
                   <option value="75">75</option>
                   <option value="100">100</option>
+                  <option value="125">125</option>
+                  <option value="150">150</option>
                 </select>
               </div>
               <div class="me-2">
-                <select id="member_deposit-order" class="form-select" onchange="load_member_deposit_Data()">
+                <select id="students-order" class="form-select" onchange="load_students_Data()">
                   <option value="ASC">Old</option>
                   <option value="DESC">New</option>
                 </select>
@@ -111,86 +113,12 @@ include "inc/navbar.php";
                 <th class="fs-5 word-spacing-2px text-primary">انتخاب کریں</th>
               </tr>
             </thead>
-            <tbody class="border-top" id="st_details">
-              <?php
-              // Query to fetch the madarsa information
-              $selec_madarsa = "SELECT * FROM students";
-              $result_madarsa = $conn->query($selec_madarsa);
-              if (mysqli_num_rows($result_madarsa) > 0) {
-                $no = 1;
-
-                while ($row_madarsa = $result_madarsa->fetch_assoc()) {
-              ?>
-                  <tr>
-                    <td>
-                      <p class="mb-0 fs-2 inter"><?php echo $no++; ?></p>
-                    </td>
-                    <td>
-                      <p class="mb-0 fs-2 inter"><?= $row_madarsa['st_roll_no'] ?></p>
-                    </td>
-                    <td>
-                      <p class="mb-0 fs-4 word-spacing-2px"><?= $row_madarsa['std_name'] ?></p>
-                    </td>
-                    <td>
-                      <p class="mb-0 fs-4 word-spacing-2px"><?= $row_madarsa['guar_name'] ?></p>
-                    </td>
-                    <td>
-                      <p class="mb-0 fs-2 inter"><?= $row_madarsa['guar_number'] ?></p>
-                    </td>
-                    <td>
-                      <?php
-                      if ($row_madarsa['status'] === 'فعال') {
-                        echo '<p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $row_madarsa['status'] . '</p>';
-                      } elseif ($row_madarsa['status'] === 'غیر فعال') {
-                        echo '<p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $row_madarsa['status'] . '</p>';
-                      }
-                      ?>
-                    </td>
-                    <td>
-                      <div class="action-btn">
-                        <?php
-                        if ($row_madarsa['status'] !== 'غیر فعال') {
-                          echo '<a href="st-profile.php?st_view_profile=' . $row_madarsa['id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>';
-                        }
-                        if ($row_madarsa['status'] !== 'غیر فعال') {
-                          echo '<a href="st-admission-edit.php?st_edit=' . $row_madarsa['id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
-                        }
-                        if ($row_madarsa['status'] !== 'غیر فعال') {
-                          echo '
-                          <button type="button" class="border-0  rounded-2 p-0 py-1 bg-white" data-bs-toggle="modal" data-bs-target="#deleteModal' . $row_madarsa['id'] . '">
-                          <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
-                        </button>
-                          ';
-                        }
-                        ?>
-                        <!-- ===================delete institute page modal================== -->
-                        <div class="modal fade" id="deleteModal<?= $row_madarsa['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">یقینی طور پر حذف کر رہے ہیں؟ </h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">کلوز</button>
-                                <a href="st-all-code.php?st_delete=<?= $row_madarsa['id'] ?>">
-                                  <button type="button" class="btn btn-danger">ڈیلیٹ</button>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-              <?php
-                }
-              } else {
-                echo '<tr>
-                      <td class="text-danger">طلبہ موجود نہں ہے </td>
-                      </tr>';
-              }
-              ?>
+            <tbody class="border-top" id="student_details">
+              <center id="users_spinner" style="display: none;">
+                <div class="spinner-border text-primary" role="status" style="position: absolute; top:70%;">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </center>
             </tbody>
           </table>
         </div>
@@ -210,6 +138,35 @@ include "inc/footer.php";
 ?>
 
 
-<!-- <script src="type/javascript">
-  // show data from database
-</script> -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Load data on page load with default value (10)
+    load_students_Data();
+  });
+
+  function load_students_Data() {
+    users_spinner.style.display = "block";
+    let studentsLimited = $("#students-limit").val();
+    let studentsOrder = $("#students-order").val();
+
+    $.ajax({
+      url: 'filter_fetch_data.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        action: 'load-students-Data',
+        studentsLimited: studentsLimited,
+        studentsOrder: studentsOrder
+      },
+      success: function(response) {
+        console.log(response);
+        // Update the result div with the loaded data
+        $("#student_details").html(response.data);
+      },
+      error: function(xhr, status, error) {
+        users_spinner.style.display = "none";
+        console.error(xhr.responseText);
+      }
+    });
+  }
+</script>
