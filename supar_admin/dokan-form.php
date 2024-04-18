@@ -50,12 +50,12 @@ include "inc/navbar.php";
           <div class="card-body">
             <div class="row g-4">
               <div class="col-lg-6 mb-3">
-                <label for="dukanName" class=" fs-5 mb-1">دکان کا نام</label>
-                <input type="text" class="form-control fs-3" id="dukanName" name="dukan_name" placeholder="دکان کا نام" required>
+                <label for="dokanName" class=" fs-5 mb-1">دکان کا نام</label>
+                <input type="text" class="form-control fs-3" id="dokanName" name="dokan_name" placeholder="دکان کا نام" required>
               </div>
               <div class="col-lg-6 mb-3">
-                <label for="dukanAddress" class=" fs-5 mb-1">دکان کا پتہ</label>
-                <input type="text" class="form-control fs-3" id="dukanAddress" name="dukan_address" placeholder="دکان کا پتہ" required>
+                <label for="dokanAddress" class=" fs-5 mb-1">دکان کا پتہ</label>
+                <input type="text" class="form-control fs-3" id="dokanAddress" name="dokan_address" placeholder="دکان کا پتہ" required>
               </div>
             </div>
             <div class="row">
@@ -64,8 +64,8 @@ include "inc/navbar.php";
                 <input type="text" class="form-control fs-3" id="malikName" name="dokan_owner_name" placeholder="دکان کے مالک کا نام" required>
               </div>
               <div class="col-lg-6 mb-3">
-                <label for="dukanType" class=" fs-5 mb-1">دکان کی قسم</label>
-                <input type="text" class="form-control fs-3" id="dukanType" name="dukan_type" placeholder="دکان کی قسم" required>
+                <label for="dokanType" class=" fs-5 mb-1">دکان کی قسم</label>
+                <input type="text" class="form-control fs-3" id="dokanType" name="dokan_type" placeholder="دکان کی قسم" required>
               </div>
             </div>
             <div class="row">
