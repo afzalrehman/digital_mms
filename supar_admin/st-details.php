@@ -38,15 +38,30 @@ include "inc/navbar.php";
   <!-- Student Search Form (Start) -->
   <div class="card card-body">
     <div class="row">
-      <div class="col-md-4 col-xl-3">
+      <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="تلاش کریں &nbsp;..." />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="رجسٹریشن نمبر تلاش کریں &nbsp;......" />
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
-      <div class="col-md-8 col-xl-9 text-end mt-3 mt-md-0 jameel-kasheeda">
+      <div class="col-md-4 mb-3">
+        <form class="position-relative">
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="نام تلاش کریں &nbsp;......" />
+          <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
+        </form>
+      </div>
+      <div class="col-md-4 mb-3">
+        <form class="position-relative">
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="	فون نمبر تلاش کریں &nbsp;......" />
+          <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
+        </form>
+      </div>
+      <div class="col-md-4 mb-3">
+      <input type="date" id="member_deposit-date" class="form-control" value="<?php echo date('Y-m-h'); ?>">
+      </div>
+      <div class="col-md-4 jameel-kasheeda">
         <a href="javascript:void(0)" class="btn btn-info fw-semibold word-spacing-2px fs-4">
-          ایڈ کریں
+        تلاش کریں 
         </a>
       </div>
     </div>
@@ -57,9 +72,32 @@ include "inc/navbar.php";
   <div class="col-lg-12 d-flex align-items-strech">
     <div class="card w-100">
       <div class="card-body">
-        <div class="mb-7 mb-sm-0">
-          <h5 class="card-title fs-7 text-primary">تفصیلات</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-7 mb-sm-0">
+              <h5 class="card-title fs-7 text-primary">تفصیلات</h5>
+            </div>
+          </div>
+          <div class="col-md-6 text-end">
+            <div class="btn-group">
+              <div class="me-2">
+                <select id="member_deposit-limit" class="form-select" onchange="load_member_deposit_Data()">
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="75">75</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+              <div class="me-2">
+                <select id="member_deposit-order" class="form-select" onchange="load_member_deposit_Data()">
+                  <option value="ASC">Old</option>
+                  <option value="DESC">New</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
+
         <div class="table-responsive text-center py-9">
           <table class="table align-middle text-nowrap mb-0">
             <thead>
