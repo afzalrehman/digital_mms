@@ -40,13 +40,13 @@ include "inc/navbar.php";
     <div class="row">
       <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-dokan_name" placeholder="دکان کا نام سے تلاش کریں &nbsp;......" />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-dokan_name" placeholder="دکان کا نام سے تلاش کریں &nbsp;......"/>
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
       <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-dokan_type" placeholder="دکان کی قسم سے تلاش کریں &nbsp;......" />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-dokan_type" placeholder="دکان کی قسم سے تلاش کریں &nbsp;......"/>
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
@@ -102,11 +102,11 @@ include "inc/navbar.php";
               </tr>
             </thead>
             <tbody class="border-top" id="dokan_details">
-              <center id="users_spinner" style="display: none;">
+              <!-- <center id="users_spinner" style="display: none;">
                 <div class="spinner-border text-primary" role="status" style="position: absolute; top:70%;">
                   <span class="visually-hidden">Loading...</span>
                 </div>
-              </center>
+              </center> -->
             </tbody>
           </table>
         </div>
@@ -132,7 +132,7 @@ include "inc/footer.php";
   });
 
   function load_dokan_Data() {
-    users_spinner.style.display = "block";
+    // users_spinner.style.display = "block";
     let dokanLimited = $("#dokan-limit").val();
     let dokanOrder = $("#dokan-order").val();
 
@@ -150,18 +150,18 @@ include "inc/footer.php";
         // Update the result div with the loaded data
         $("#dokan_details").html(response.data);
       },
-      error: function(xhr, status, error) {
-        users_spinner.style.display = "none";
-        console.error(xhr.responseText);
-      }
+      // error: function(xhr, status, error) {
+      //   users_spinner.style.display = "none";
+      //   console.error(xhr.responseText);
+      // }
     });
   }
 
 
   function search_dokan_Data() {
-    users_spinner.style.display = "block";
-    let searchName = $("#search-dokan_name").value;
-    let searchType = $("#search-dokan_type").value;
+    // users_spinner.style.display = "block";
+    let searchName = document.getElementById("search-dokan_name").value;
+    let searchType = document.getElementById("search-dokan_type").value;
 
     $.ajax({
       url: 'filter_fetch_data.php',
@@ -177,10 +177,10 @@ include "inc/footer.php";
         // Update the result div with the loaded data
         $("#dokan_details").html(response.data);
       },
-      error: function(xhr, status, error) {
-        users_spinner.style.display = "none";
-        console.error(xhr.responseText);
-      }
+      // error: function(xhr, status, error) {
+      //   users_spinner.style.display = "none";
+      //   console.error(xhr.responseText);
+      // }
     });
   }
 

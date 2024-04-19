@@ -4,20 +4,20 @@ include_once('../includes/config.php');
 
 function filter_students_data_in_database($studentsLimited, $studentsOrder)
 {
-    global $conn;
+  global $conn;
 
-    // Modify the query based on your database structure
-    $students_query = "SELECT * FROM `students`
+  // Modify the query based on your database structure
+  $students_query = "SELECT * FROM `students`
     ORDER BY `id` $studentsOrder LIMIT $studentsLimited";
 
-    $students_result = mysqli_query($conn, $students_query);
-    $students_data = mysqli_fetch_all($students_result, MYSQLI_ASSOC);
+  $students_result = mysqli_query($conn, $students_query);
+  $students_data = mysqli_fetch_all($students_result, MYSQLI_ASSOC);
 
-    $data = '';
-    $no = 1;
-    foreach ($students_data as $students) {
+  $data = '';
+  $no = 1;
+  foreach ($students_data as $students) {
 
-        $data .= '
+    $data .= '
 
         <tr>
         <td>
@@ -36,27 +36,27 @@ function filter_students_data_in_database($studentsLimited, $studentsOrder)
           <p class="mb-0 fs-2 inter">' . $students['guar_number'] . '</p>
         </td>
         <td>';
-        if ($students['status'] === 'فعال') {
-            $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $students['status'] . '</p>';
-        } elseif ($students['status'] === 'غیر فعال') {
-            $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $students['status'] . '</p>';
-        }
-        $data .= ' </td>
+    if ($students['status'] === 'فعال') {
+      $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $students['status'] . '</p>';
+    } elseif ($students['status'] === 'غیر فعال') {
+      $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $students['status'] . '</p>';
+    }
+    $data .= ' </td>
         <td>
           <div class="action-btn">';
-        if ($students['status'] !== 'غیر فعال') {
-            $data .= '<a href="st-profile.php?st_view_profile=' . $students['id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>';
-        }
-        if ($students['status'] !== 'غیر فعال') {
-            $data .= '<a href="st-admission-edit.php?st_edit=' . $students['id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
-        }
-        if ($students['status'] !== 'غیر فعال') {
-            $data .= '
+    if ($students['status'] !== 'غیر فعال') {
+      $data .= '<a href="st-profile.php?st_view_profile=' . $students['id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>';
+    }
+    if ($students['status'] !== 'غیر فعال') {
+      $data .= '<a href="st-admission-edit.php?st_edit=' . $students['id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
+    }
+    if ($students['status'] !== 'غیر فعال') {
+      $data .= '
               <button type="button" class="border-0  rounded-2 p-0 py-1 bg-white" data-bs-toggle="modal" data-bs-target="#deleteModal' . $students['id'] . '">
               <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
             </button>';
-        }
-        $data .= ' <div class="modal fade" id="deleteModal' . $students['id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    }
+    $data .= ' <div class="modal fade" id="deleteModal' . $students['id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -77,34 +77,34 @@ function filter_students_data_in_database($studentsLimited, $studentsOrder)
       </tr>
 
                 ';
-    }
+  }
 
-    // Check if $data is empty
-    if (empty($data)) {
-        $data = '<tr>
+  // Check if $data is empty
+  if (empty($data)) {
+    $data = '<tr>
                     <td colspan="7" class="fw-semibold bg-light-warning text-warning text-center">There are no Students data from database.</td>
                 </tr>';
-    }
+  }
 
-    return $data;
+  return $data;
 }
 
 function filter_dokan_data_in_database($studentsLimited, $studentsOrder)
 {
-    global $conn;
+  global $conn;
 
-    // Modify the query based on your database structure
-    $dokan_query = "SELECT * FROM `dokan`
+  // Modify the query based on your database structure
+  $dokan_query = "SELECT * FROM `dokan`
     ORDER BY `dokan_id` $studentsOrder LIMIT $studentsLimited";
 
-    $dokan_result = mysqli_query($conn, $dokan_query);
-    $dokan_data = mysqli_fetch_all($dokan_result, MYSQLI_ASSOC);
+  $dokan_result = mysqli_query($conn, $dokan_query);
+  $dokan_data = mysqli_fetch_all($dokan_result, MYSQLI_ASSOC);
 
-    $data = '';
-    $no = 1;
-    foreach ($dokan_data as $row_dokan) {
+  $data = '';
+  $no = 1;
+  foreach ($dokan_data as $row_dokan) {
 
-        $data .= '
+    $data .= '
 
         <tr class="text-center">
         <td>
@@ -123,27 +123,27 @@ function filter_dokan_data_in_database($studentsLimited, $studentsOrder)
           <p class="mb-0 fs-2 inter">' . $row_dokan['dokan_rent'] . '</p>
         </td>
         <td>';
-        if ($row_dokan['status'] === 'فعال') {
-            $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
-        } elseif ($row_dokan['status'] === 'غیر فعال') {
-            $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
-        }
-        $data .= ' </td>
+    if ($row_dokan['status'] === 'فعال') {
+      $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
+    } elseif ($row_dokan['status'] === 'غیر فعال') {
+      $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
+    }
+    $data .= ' </td>
         <td>
           <div class="action-btn">';
-        if ($row_dokan['status'] !== 'غیر فعال') {
-            $data .= ' <a href="dokan-view.php?dokan_view_id=' . $row_dokan['dokan_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>';
-        }
-        if ($row_dokan['status'] !== 'غیر فعال') {
-            $data .= ' <a href="dokan-edit.php?dokan_edit_id=' . $row_dokan['dokan_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
-        }
-        if ($row_dokan['status'] !== 'غیر فعال') {
-            $data .= ' 
+    if ($row_dokan['status'] !== 'غیر فعال') {
+      $data .= ' <a href="dokan-view.php?dokan_view_id=' . $row_dokan['dokan_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>';
+    }
+    if ($row_dokan['status'] !== 'غیر فعال') {
+      $data .= ' <a href="dokan-edit.php?dokan_edit_id=' . $row_dokan['dokan_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
+    }
+    if ($row_dokan['status'] !== 'غیر فعال') {
+      $data .= ' 
               <button type="button" class="border-0  rounded-2 p-0 py-1 bg-white" data-bs-toggle="modal" data-bs-target="#deleteModal' . $row_dokan['dokan_id'] . '">
               <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
             </button>';
-        }
-        $data .= ' <div class="modal fade" id="deleteModal' . $row_dokan['dokan_id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    }
+    $data .= ' <div class="modal fade" id="deleteModal' . $row_dokan['dokan_id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -164,39 +164,45 @@ function filter_dokan_data_in_database($studentsLimited, $studentsOrder)
       </tr>
 
                 ';
-    }
+  }
 
-    // Check if $data is empty
-    if (empty($data)) {
-        $data = '<tr>
+  // Check if $data is empty
+  if (empty($data)) {
+    $data = '<tr>
                     <td colspan="7" class="fw-semibold bg-light-warning text-warning text-center">There are no Dokan data from database.</td>
                 </tr>';
-    }
+  }
 
-    return $data;
+  return $data;
 }
 
 function search_dokan_data_in_database($searchName, $searchType)
 {
-    global $conn;
+  global $conn;
 
-    // anitialize user input
-    $searchName = mysqli_real_escape_string($conn, $searchName);
-    $searchType = mysqli_real_escape_string($conn, $searchType);
+  // anitialize user input
+  $searchName = mysqli_real_escape_string($conn, $searchName);
+  $searchType = mysqli_real_escape_string($conn, $searchType);
 
-    // Modify the query based on your database structure
-    $dokan_query = "SELECT * FROM `dokan`
-    WHERE dokan_name LIKE $searchName
-    AND dokan_type LIKE $searchType";
+  // Modify the query based on your database structure
+  $dokan_query = "SELECT * FROM `dokan`";
 
-    $dokan_result = mysqli_query($conn, $dokan_query);
-    $dokan_data = mysqli_fetch_all($dokan_result, MYSQLI_ASSOC);
+  if (!empty($searchName) && !empty($searchType)) {
+    $dokan_query .= " WHERE `dokan_name` LIKE '%" . $searchName . "%' AND `dokan_type` LIKE '%" . $searchType . "%'";
+  } elseif (!empty($searchName)) {
+    $dokan_query .= " WHERE `dokan_name` LIKE '%" . $searchName . "%'";
+  } elseif (!empty($searchType)) {
+    $dokan_query .= " WHERE `dokan_type` LIKE '%" . $searchType . "%'";
+  }
 
-    $data = '';
-    $no = 1;
-    foreach ($dokan_data as $row_dokan) {
+  $dokan_result = mysqli_query($conn, $dokan_query);
+  $dokan_data = mysqli_fetch_all($dokan_result, MYSQLI_ASSOC);
 
-        $data .= '
+  $data = '';
+  $no = 1;
+  foreach ($dokan_data as $row_dokan) {
+
+    $data .= '
 
         <tr class="text-center">
         <td>
@@ -215,27 +221,27 @@ function search_dokan_data_in_database($searchName, $searchType)
           <p class="mb-0 fs-2 inter">' . $row_dokan['dokan_rent'] . '</p>
         </td>
         <td>';
-        if ($row_dokan['status'] === 'فعال') {
-            $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
-        } elseif ($row_dokan['status'] === 'غیر فعال') {
-            $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
-        }
-        $data .= ' </td>
+    if ($row_dokan['status'] === 'فعال') {
+      $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
+    } elseif ($row_dokan['status'] === 'غیر فعال') {
+      $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $row_dokan['status'] . '</p>';
+    }
+    $data .= ' </td>
         <td>
           <div class="action-btn">';
-        if ($row_dokan['status'] !== 'غیر فعال') {
-            $data .= ' <a href="dokan-view.php?dokan_view_id=' . $row_dokan['dokan_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>';
-        }
-        if ($row_dokan['status'] !== 'غیر فعال') {
-            $data .= ' <a href="dokan-edit.php?dokan_edit_id=' . $row_dokan['dokan_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
-        }
-        if ($row_dokan['status'] !== 'غیر فعال') {
-            $data .= ' 
+    if ($row_dokan['status'] !== 'غیر فعال') {
+      $data .= ' <a href="dokan-view.php?dokan_view_id=' . $row_dokan['dokan_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>';
+    }
+    if ($row_dokan['status'] !== 'غیر فعال') {
+      $data .= ' <a href="dokan-edit.php?dokan_edit_id=' . $row_dokan['dokan_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
+    }
+    if ($row_dokan['status'] !== 'غیر فعال') {
+      $data .= ' 
               <button type="button" class="border-0  rounded-2 p-0 py-1 bg-white" data-bs-toggle="modal" data-bs-target="#deleteModal' . $row_dokan['dokan_id'] . '">
               <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
             </button>';
-        }
-        $data .= ' <div class="modal fade" id="deleteModal' . $row_dokan['dokan_id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    }
+    $data .= ' <div class="modal fade" id="deleteModal' . $row_dokan['dokan_id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -256,16 +262,16 @@ function search_dokan_data_in_database($searchName, $searchType)
       </tr>
 
                 ';
-    }
+  }
 
-    // Check if $data is empty
-    if (empty($data)) {
-        $data = '<tr>
-                    <td colspan="7" class="fw-semibold bg-light-warning text-warning text-center">There are no Dokan data from database.</td>
+  // Check if $data is empty
+  if (empty($data)) {
+    $data = '<tr>
+                    <td colspan="7" class="fw-semibold bg-light-warning text-warning text-center">There are no matching data from the database. ' . $searchName . $searchType . '  </td>
                 </tr>';
-    }
+  }
 
-    return $data;
+  return $data;
 }
 
 
@@ -277,38 +283,38 @@ function search_dokan_data_in_database($searchName, $searchType)
 
 
 if (isset($_POST['action'])) {
-    $action = $_POST['action'];
+  $action = $_POST['action'];
 
-    // filter index-page - attendence status
-    if ($action == 'load-students-Data') {
-        $studentsLimited = $_POST['studentsLimited'];
-        $studentsOrder = $_POST['studentsOrder'];
+  // filter index-page - attendence status
+  if ($action == 'load-students-Data') {
+    $studentsLimited = $_POST['studentsLimited'];
+    $studentsOrder = $_POST['studentsOrder'];
 
-        $result = filter_students_data_in_database($studentsLimited, $studentsOrder);
+    $result = filter_students_data_in_database($studentsLimited, $studentsOrder);
 
-        $response = array('data' => $result);
-        echo json_encode($response);
-    }
+    $response = array('data' => $result);
+    echo json_encode($response);
+  }
 
-    // filter dokan-details 
-    if ($action == 'load-dokan-Data') {
-        $dokanLimited = $_POST['dokanLimited'];
-        $dokanOrder = $_POST['dokanOrder'];
+  // filter dokan-details 
+  if ($action == 'load-dokan-Data') {
+    $dokanLimited = $_POST['dokanLimited'];
+    $dokanOrder = $_POST['dokanOrder'];
 
-        $result = filter_dokan_data_in_database($dokanLimited, $dokanOrder);
+    $result = filter_dokan_data_in_database($dokanLimited, $dokanOrder);
 
-        $response = array('data' => $result);
-        echo json_encode($response);
-    }
+    $response = array('data' => $result);
+    echo json_encode($response);
+  }
 
-    // filter dokan-details 
-    if ($action == 'search-dokan_Data') {
-        $searchName = $_POST['searchName'];
-        $searchType = $_POST['searchType'];
+  // filter dokan-details 
+  if ($action == 'search-dokan_Data') {
+    $searchName = $_POST['searchName'];
+    $searchType = $_POST['searchType'];
 
-        $result = search_dokan_data_in_database($searchName, $searchType);
+    $result = search_dokan_data_in_database($searchName, $searchType);
 
-        $response = array('data' => $result);
-        echo json_encode($response);
-    }
+    $response = array('data' => $result);
+    echo json_encode($response);
+  }
 }
