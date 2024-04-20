@@ -40,29 +40,27 @@ include "inc/navbar.php";
     <div class="row">
       <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-student_" placeholder="رجسٹریشن نمبر سے تلاش کریں &nbsp;......" />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-student_roll_number" placeholder="رجسٹریشن نمبر سے تلاش کریں &nbsp;......" />
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
       <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="نام سے تلاش کریں &nbsp;......" />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-student_name" placeholder="نام سے تلاش کریں &nbsp;......" />
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
       <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="input-search" placeholder="	فون نمبر سے تلاش کریں &nbsp;......" />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-student_phone" placeholder="	فون نمبر سے تلاش کریں &nbsp;......" />
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
       <div class="col-md-4 mb-3">
-        <input type="date" id="students-date" class="form-control" value="<?php echo date('Y-m-h'); ?>">
+        <input type="date" id="search-student_date" class="form-control" value="<?php //echo date('Y-m-h'); ?>">
       </div>
       <div class="col-md-4 jameel-kasheeda">
-        <a href="javascript:void(0)" class="btn btn-info fw-semibold word-spacing-2px fs-4">
-          تلاش کریں
-        </a>
+        <button class="btn btn-info fw-semibold word-spacing-2px fs-4" id="search_button" onclick="search_student_Data()">تلاش کریں</button>
       </div>
     </div>
   </div>
@@ -114,11 +112,11 @@ include "inc/navbar.php";
               </tr>
             </thead>
             <tbody class="border-top" id="student_details">
-              <center id="users_spinner" style="display: none;">
+              <!-- <center id="users_spinner" style="display: none;">
                 <div class="spinner-border text-primary" role="status" style="position: absolute; top:70%;">
                   <span class="visually-hidden">Loading...</span>
                 </div>
-              </center>
+              </center> -->
             </tbody>
           </table>
         </div>
@@ -145,7 +143,7 @@ include "inc/footer.php";
   });
 
   function load_students_Data() {
-    users_spinner.style.display = "block";
+    // users_spinner.style.display = "block";
     let studentsLimited = $("#students-limit").val();
     let studentsOrder = $("#students-order").val();
 
@@ -163,10 +161,45 @@ include "inc/footer.php";
         // Update the result div with the loaded data
         $("#student_details").html(response.data);
       },
-      error: function(xhr, status, error) {
-        users_spinner.style.display = "none";
-        console.error(xhr.responseText);
-      }
+      // error: function(xhr, status, error) {
+      //   users_spinner.style.display = "none";
+      //   console.error(xhr.responseText);
+      // }
     });
   }
+
+  function search_student_Data() {
+
+    // users_spinner.style.display = "block";
+    let searchRollNum = document.getElementById("search-student_roll_number").value;
+    let searchName = document.getElementById("search-student_name").value;
+    let searchPhone = document.getElementById("search-student_phone").value;
+    let searchDate = document.getElementById("search-student_date").value;
+
+
+    $.ajax({
+      url: 'filter_fetch_data.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        action: 'search-student_Data',
+        searchRollNum: searchRollNum,
+        searchName: searchName,
+        searchPhone: searchPhone,
+        searchDate: searchDate
+      },
+      success: function(response) {
+        console.log(response);
+        // Update the result div with the loaded data
+        $("#student_details").html(response.data);
+      },
+      // error: function(xhr, status, error) {
+      //   users_spinner.style.display = "none";
+      //   console.error(xhr.responseText);
+      // }
+    });
+  }
+
+
+
 </script>

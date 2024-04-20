@@ -89,6 +89,112 @@ function filter_students_data_in_database($studentsLimited, $studentsOrder)
   return $data;
 }
 
+function search_students_data_in_database($searchRollNum, $searchName, $searchPhone, $searchDate)
+{
+  global $conn;
+
+  // anitialize user input
+  $searchRollNum = mysqli_real_escape_string($conn, $searchRollNum);
+  $searchName = mysqli_real_escape_string($conn, $searchName);
+  $searchPhone = mysqli_real_escape_string($conn, $searchPhone);
+  $searchDate = mysqli_real_escape_string($conn, $searchDate);
+
+  // Modify the query based on your database structure
+  $search_query = "SELECT * FROM `students`";
+
+  // search by one field
+  if (!empty($searchRollNum)) {
+    $search_query .= " WHERE `st_roll_no` LIKE '%$searchRollNum%'";
+  } elseif (!empty($searchName)) {
+    $search_query .= " WHERE `std_name` LIKE '%$searchName'";
+  } elseif (!empty($searchPhone)) {
+    $search_query .= " WHERE `guar_name` LIKE '%$searchPhone%'";
+  } elseif (!empty($searchDate)) {
+    $search_query .= " WHERE `adm_date` LIKE '%$searchDate%'";
+  }
+
+
+  $search_result = mysqli_query($conn, $search_query);
+  $search_data = mysqli_fetch_all($search_result, MYSQLI_ASSOC);
+
+  $data = '';
+  $no = 1;
+  foreach ($search_data as $search) {
+
+
+    $data .= '
+
+    <tr>
+    <td>
+      <p class="mb-0 fs-2 inter">' . $no++ . '</p>
+    </td>
+    <td>
+      <p class="mb-0 fs-2 inter">' . $search['st_roll_no'] . '</p>
+    </td>
+    <td>
+      <p class="mb-0 fs-4 word-spacing-2px">' . $search['std_name'] . '</p>
+    </td>
+    <td>
+      <p class="mb-0 fs-4 word-spacing-2px">' . $search['guar_name'] . '</p>
+    </td>
+    <td>
+      <p class="mb-0 fs-2 inter">' . $search['guar_number'] . '</p>
+    </td>
+    <td>';
+    if ($search['status'] === 'فعال') {
+      $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-primary text-center text-white rounded-2">' . $search['status'] . '</p>';
+    } elseif ($search['status'] === 'غیر فعال') {
+      $data .= ' <p class="mb-0 fs-4 jameel-kasheeda bg-danger  text-center text-white rounded-2">' . $search['status'] . '</p>';
+    }
+    $data .= ' </td>
+    <td>
+      <div class="action-btn">';
+    if ($search['status'] !== 'غیر فعال') {
+      $data .= '<a href="st-profile.php?st_view_profile=' . $search['id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>';
+    }
+    if ($search['status'] !== 'غیر فعال') {
+      $data .= '<a href="st-admission-edit.php?st_edit=' . $search['id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>';
+    }
+    if ($search['status'] !== 'غیر فعال') {
+      $data .= '
+          <button type="button" class="border-0  rounded-2 p-0 py-1 bg-white" data-bs-toggle="modal" data-bs-target="#deleteModal' . $search['id'] . '">
+          <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
+        </button>';
+    }
+    $data .= ' <div class="modal fade" id="deleteModal' . $search['id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">یقینی طور پر حذف کر رہے ہیں؟ </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">کلوز</button>
+                <a href="code2.php?st_delete=' . $search['id'] . '">
+                  <button type="button" class="btn btn-danger">ڈیلیٹ</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+            ';
+  }
+
+  // Check if $data is empty
+  if (empty($data)) {
+    $data = '<tr>
+                <td colspan="7" class="fw-semibold bg-light-warning text-warning text-center">There are no matching data from database. '.$searchRollNum.''.$searchName.''.$searchPhone.''.$searchDate.' </td>
+            </tr>';
+  }
+
+  return $data;
+}
+
+
 function filter_dokan_data_in_database($studentsLimited, $studentsOrder)
 {
   global $conn;
@@ -267,7 +373,7 @@ function search_dokan_data_in_database($searchName, $searchType)
   // Check if $data is empty
   if (empty($data)) {
     $data = '<tr>
-                    <td colspan="7" class="fw-semibold bg-light-warning text-warning text-center">There are no matching data from the database. ' . $searchName . $searchType . '  </td>
+                    <td colspan="7" class="fw-semibold bg-light-warning text-warning text-center">There are no matching data from the database. ' . $searchName . ' ' . $searchType . '  </td>
                 </tr>';
   }
 
@@ -291,6 +397,16 @@ if (isset($_POST['action'])) {
     $studentsOrder = $_POST['studentsOrder'];
 
     $result = filter_students_data_in_database($studentsLimited, $studentsOrder);
+
+    $response = array('data' => $result);
+    echo json_encode($response);
+  } elseif ($action == 'search-student_Data') {
+    $searchRollNum = $_POST['searchRollNum'];
+    $searchName = $_POST['searchName'];
+    $searchPhone = $_POST['searchPhone'];
+    $searchDate = $_POST['searchDate'];
+
+    $result = search_students_data_in_database($searchRollNum, $searchName, $searchPhone, $searchDate);
 
     $response = array('data' => $result);
     echo json_encode($response);
