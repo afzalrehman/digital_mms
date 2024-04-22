@@ -362,7 +362,7 @@
             <!-- Rent -->
             <!-- =================== -->
             <li class="sidebar-item">
-              <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
+              <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                 <span class="d-flex">
                   <i class="ti ti-brand-shopee"></i>
                 </span>
@@ -370,7 +370,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="third.php" class="sidebar-link">
+                  <a href="dokan-rent-form.php" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -378,7 +378,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="blog-detail.php" class="sidebar-link">
+                  <a href="dokan-rent-detail.php" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>

@@ -187,7 +187,7 @@ function search_students_data_in_database($searchRollNum, $searchName, $searchPh
   // Check if $data is empty
   if (empty($data)) {
     $data = '<tr>
-                <td colspan="7" class="fw-semibold bg-light-warning text-warning text-center">There are no matching data from database. '.$searchRollNum.''.$searchName.''.$searchPhone.''.$searchDate.' </td>
+                <td colspan="7" class="fw-semibold bg-light-warning text-warning text-center">There are no matching data from database. ' . $searchRollNum . '' . $searchName . '' . $searchPhone . '' . $searchDate . ' </td>
             </tr>';
   }
 
