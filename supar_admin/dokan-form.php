@@ -2,6 +2,49 @@
 session_start();
 include "../includes/function.php";
 include "inc/header.php";
+
+// ====================================== dokan-form.php =========================================
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $dokan_name = mysqli_real_escape_string($conn, $_POST['dokan_name']);
+  $dokan_address = mysqli_real_escape_string($conn, $_POST['dokan_address']);
+  $dokan_owner_name = mysqli_real_escape_string($conn, $_POST['dokan_owner_name']);
+  $dokan_type = mysqli_real_escape_string($conn, $_POST['dokan_type']);
+  $dokan_rent = mysqli_real_escape_string($conn, $_POST['dokan_rent']);
+
+  // created_by and created_date
+  $created_by = 'Abu Hammad';
+  $created_date = date('Y-m-d');
+
+  // image upload
+  $dokan_lease = rand(111111111, 999999999) . '_' . $_FILES['dokan_lease']['name'];
+  move_uploaded_file($_FILES['dokan_lease']['tmp_name'], '../media/dokan/' . $dokan_lease);
+
+  $dokan_license = rand(111111111, 999999999) . '_' . $_FILES['dokan_license']['name'];
+  move_uploaded_file($_FILES['dokan_license']['tmp_name'], '../media/dokan/' . $dokan_license);
+
+  $owner_cnic = rand(111111111, 999999999) . '_' . $_FILES['owner_cnic']['name'];
+  move_uploaded_file($_FILES['owner_cnic']['tmp_name'], '../media/dokan/' . $owner_cnic);
+
+  $owner_image = rand(111111111, 999999999) . '_' . $_FILES['owner_image']['name'];
+  move_uploaded_file($_FILES['owner_image']['tmp_name'], '../media/dokan/' . $owner_image);
+
+  // Proceed with inserting data into the database
+  $dokan_insert_query = "INSERT INTO `dokan`(
+  `dokan_name`, `dokan_address`, `dokan_owner_name`, `dokan_type`, `dokan_rent`, `dokan_lease`, `dokan_license`, `owner_cnic`, `owner_image`, `created_by`, `created_date`) 
+  VALUES (
+  '$dokan_name', '$dokan_address', '$dokan_owner_name', '$dokan_type', '$dokan_rent', '$dokan_lease', '$dokan_license', '$owner_cnic', '$owner_image', '$created_by', '$created_date')";
+
+  $dokan_insert = mysqli_query($conn, $dokan_insert_query) or die('Query unsuccessful: ' . mysqli_error($conn));
+
+  if ($dokan_insert) {
+    redirect("dokan-form.php", "ڈیٹا کامیابی سے داخل کر دیا گیا ہے، $dokan_name");
+    exit();
+  } else {
+    redirectdelete("dokan-form.php", "ڈیٹا داخل کرنے میں ناکام");
+    exit();
+  }
+}
+
 include "inc/sidebar.php";
 include "inc/navbar.php";
 ?>
@@ -44,34 +87,39 @@ include "inc/navbar.php";
   <div class="row">
 
     <!-- User Info -->
-    <form action="code2.php" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data" id="dokanForm">
       <div class="col-12">
         <div class="card">
           <div class="card-body">
-            <div class="row g-4">
+            <div class="row">
               <div class="col-lg-6 mb-3">
                 <label for="dokanName" class=" fs-5 mb-1">دکان کا نام</label>
-                <input type="text" class="form-control fs-3" id="dokanName" name="dokan_name" placeholder="دکان کا نام" required>
+                <input type="text" class="form-control fs-3" id="dokan_name" name="dokan_name" placeholder="دکان کا نام">
+                <span class="error text-danger inter" id="dokan_name_err"></span>
               </div>
               <div class="col-lg-6 mb-3">
                 <label for="dokanAddress" class=" fs-5 mb-1">دکان کا پتہ</label>
-                <input type="text" class="form-control fs-3" id="dokanAddress" name="dokan_address" placeholder="دکان کا پتہ" required>
+                <input type="text" class="form-control fs-3" id="dokan_address" name="dokan_address" placeholder="دکان کا پتہ">
+                <span class="error text-danger inter" id="dokan_address_err"></span>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 mb-3">
                 <label for="malikName" class=" fs-5 mb-1">دکان کے مالک کا نام</label>
-                <input type="text" class="form-control fs-3" id="malikName" name="dokan_owner_name" placeholder="دکان کے مالک کا نام" required>
+                <input type="text" class="form-control fs-3" id="dokan_owner_name" name="dokan_owner_name" placeholder="دکان کے مالک کا نام">
+                <span class="error text-danger inter" id="dokan_owner_name_err"></span>
               </div>
               <div class="col-lg-6 mb-3">
                 <label for="dokanType" class=" fs-5 mb-1">دکان کی قسم</label>
-                <input type="text" class="form-control fs-3" id="dokanType" name="dokan_type" placeholder="دکان کی قسم" required>
+                <input type="text" class="form-control fs-3" id="dokan_type" name="dokan_type" placeholder="دکان کی قسم">
+                <span class="error text-danger inter" id="dokan_type_err"></span>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 mb-3">
                 <label for="kiraya" class=" fs-5 mb-1">دکان کا کرایہ</label>
-                <input type="text" class="form-control fs-3" id="kiraya" name="dokan_rent" placeholder="دکان کا کرایہ">
+                <input type="text" class="form-control fs-3" id="dokan_rent" name="dokan_rent" placeholder="دکان کا کرایہ">
+                <span class="error text-danger inter" id="dokan_rent_err"></span>
               </div>
             </div>
           </div>
@@ -143,7 +191,6 @@ include "inc/navbar.php";
           </div>
         </div>
 
-
         <!-- Submit Button -->
         <div class="col-md-12 mt-4 jameel-kasheeda">
           <button type="submit" name="dokan_insert" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
@@ -159,6 +206,7 @@ include "inc/navbar.php";
 <div class="dark-transparent sidebartoggler"></div>
 </div>
 
+<script src="../assets/js/error/dokanFormError.js"></script>
 <?php
 include "inc/mobileNavbar.php";
 include "inc/footer.php";

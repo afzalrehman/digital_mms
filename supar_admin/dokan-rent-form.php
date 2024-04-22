@@ -1,6 +1,53 @@
 <?php
 session_start();
+include "../includes/config.php";
 include "../includes/function.php";
+
+// ====================================== dokan-rent-form.php =========================================
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+  $dokan_id = mysqli_real_escape_string($conn, $_POST['dokan_id']);
+  $dokan_rent = mysqli_real_escape_string($conn, $_POST['dokan_rent']);
+  $pay_amount = mysqli_real_escape_string($conn, $_POST['pay_amount']);
+  $pay_rent_date = mysqli_real_escape_string($conn, $_POST['pay_rent_date']);
+  $payment_method = mysqli_real_escape_string($conn, $_POST['payment_method']);
+  $trx_id = mysqli_real_escape_string($conn, $_POST['trx_id']);
+  $trx_number = mysqli_real_escape_string($conn, $_POST['transaction_number']);
+  $trx_image = mysqli_real_escape_string($conn, $_POST['transaction_image']);
+
+  // check if remaining amount is less than or equal to 0
+  $remaining_rent = $dokan_rent - $pay_amount;
+  if ($remaining_rent < 0) {
+    $remaining_rent = 0;
+  }
+
+  // check if pay amount greater than dokan rent
+  if ($pay_amount > $dokan_rent) {
+    redirect("dokan-rent-form.php", " تنخواہ کی رقم تنخواہ کی رقم سے زیادہ نہیں ہو سکتی");
+    exit();
+  }
+
+  // created by
+  $created_by = "Abu Hammad";
+  $created_date = date('Y-m-d');
+
+  // insert data into rent table
+  $insert_query = "INSERT INTO `shop_rent`(`dokan_id`, `pay_rent`, `pay_rent_date`, `remaining_rent`,`payment_method`, `trx_id`, 
+  `trx_number`, `trx_image`, `status`, `created_by`, `created_date`) 
+  VALUES ('$dokan_id','$pay_amount','$pay_rent_date', '$remaining_rent', '$dokan_rent',
+  '$payment_method','$trx_id','$trx_number','$trx_image','$created_by','$created_date')";
+  $insert_result = $conn->query($insert_query);
+
+  if ($insert_result) {
+    redirect("dokan-rent-form.php", "دکان کا کرایہ شامل ھوں گیا۔");
+    exit();
+  } else {
+    redirect("dokan-rent-form.php", "دکان کا کرایہ شامل نہیں ھواں");
+    exit();
+  }
+}
+
+
 include "inc/header.php";
 include "inc/sidebar.php";
 include "inc/navbar.php";
@@ -37,29 +84,37 @@ include "inc/navbar.php";
   <div class="row">
 
     <!-- User Info -->
-    <form action="code2.php" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data" id="dokanRentForm">
       <div class="col-12">
         <div class="card">
           <div class="card-body">
             <div class="row g-4">
               <div class="col-lg-6">
-                <label for="dokanName" class=" fs-5 mb-1">دکان کا نام</label>
-                <input type="text" class="form-control fs-3" id="dokanName" name="dokan_name" placeholder="دکان کا نام">
+                <label for="dokan_name" class=" fs-5 mb-1">دکان کا نام</label>
+                <select class="form-select fs-3" id="dokan_name" name="dokan_id">
+                  <option value="">------</option>
+                </select>
                 <span class="error text-danger inter" id="dokan_name_err"></span>
               </div>
               <div class="col-lg-6">
-                <label for="dokanType" class=" fs-5 mb-1">دکان کی قسم</label>
-                <input type="text" class="form-control fs-3" id="dokanType" name="dokan_type" placeholder="دکان کی قسم">
+                <label for="dokan_type" class=" fs-5 mb-1">دکان کی قسم</label>
+                <select class="form-control fs-3" id="dokan_type">
+                </select>
               </div>
               <div class="col-lg-6">
-                <label for="total_amount" class=" fs-5 mb-1">کل کرایہ</label>
-                <input type="text" class="form-control fs-3" id="total_amount" name="total_amount" placeholder="کل کرایہ">
-                <span class="error text-danger inter" id="total_amount_err"></span>
+                <label for="dokan_rent" class=" fs-5 mb-1">کل کرایہ</label>
+                <select class="form-control fs-3" id="dokan_rent" name="dokan_rent">
+                </select>
               </div>
               <div class="col-lg-6">
                 <label for="pay_amount" class=" fs-5 mb-1">کرایا اداکرو</label>
                 <input type="text" class="form-control fs-3" id="pay_amount" name="pay_amount" placeholder="کرایا اداکرو">
                 <span class="error text-danger inter" id="pay_amount_err"></span>
+              </div>
+              <div class="col-lg-6">
+                <label for="pay_rent_date" class=" fs-5 mb-1">کرایہ کی تاریخ</label>
+                <input type="date" class="form-control fs-3" id="pay_rent_date" name="pay_rent_date" placeholder="کرایہ کی تاریخ" value="<?= date('Y-m-d') ?>">
+                <span class="error text-danger inter" id="pay_rent_date_err"></span>
               </div>
               <div class="col-lg-6">
                 <label for="payment_method" class=" fs-5 mb-1">ادائیگی کا طریقہ</label>
@@ -89,7 +144,7 @@ include "inc/navbar.php";
             </div>
             <!-- Submit Button -->
             <div class="col-md-12 mt-4 jameel-kasheeda">
-              <button type="submit" name="dokan_insert" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
+              <button type="submit" name="shop_rent_insert" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
             </div>
             <!-- Submit Button -->
           </div>
@@ -129,7 +184,55 @@ include "inc/navbar.php";
 
   }
 </script>
+<script src="../assets/js/error/dokanRentFormError.js"></script>
 <?php
 include "inc/mobileNavbar.php";
 include "inc/footer.php";
 ?>
+
+<script>
+  $(document).ready(function() {
+    function loadData(type, id) {
+      $.ajax({
+        url: 'ajax.php',
+        type: 'POST',
+        data: {
+          type: type,
+          id: id
+        },
+        dataType: 'html',
+        success: function(data) {
+          if (type === "dokan_name_Data") {
+            $('#dokan_name').append(data);
+          } else if (type === "dokan_type_Data") {
+            $('#dokan_type').html(data);
+          } else if (type === "dokan_rent_Data") {
+            $('#dokan_rent').html(data);
+          }
+        }
+      });
+    }
+
+    loadData("dokan_name_Data");
+
+    $("#dokan_name").on("change", function() {
+      var incomeData = $("#dokan_name").val();
+      if (incomeData != "") {
+        loadData("dokan_type_Data", incomeData);
+      } else {
+        $('#dokan_type').html("");
+      }
+    });
+
+    $("#dokan_name").on("change", function() {
+      var incomeData = $("#dokan_name").val();
+      if (incomeData != "") {
+        loadData("dokan_rent_Data", incomeData);
+      } else {
+        $('#dokan_rent').html("");
+      }
+    });
+
+
+  });
+</script>

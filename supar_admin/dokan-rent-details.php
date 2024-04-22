@@ -70,7 +70,7 @@ include "inc/navbar.php";
           <div class="col-md-6 text-end">
             <div class="btn-group">
               <div class="me-2">
-                <select id="dokan-limit" class="form-select" onchange="load_dokan_Data()">
+                <select id="dokan_rent-limit" class="form-select" onchange="load_dokan_Data()">
                   <option value="25">25</option>
                   <option value="50">50</option>
                   <option value="75">75</option>
@@ -80,7 +80,7 @@ include "inc/navbar.php";
                 </select>
               </div>
               <div class="me-2">
-                <select id="dokan-order" class="form-select" onchange="load_dokan_Data()">
+                <select id="dokan_rent-order" class="form-select" onchange="load_dokan_Data()">
                   <option value="ASC">Old</option>
                   <option value="DESC">New</option>
                 </select>
@@ -96,8 +96,8 @@ include "inc/navbar.php";
                 <th class="fs-5 word-spacing-2px text-primary">دکان کا نام</th>
                 <th class="fs-5 word-spacing-2px text-primary">مالک کا نام</th>
                 <th class="fs-5 word-spacing-2px text-primary">دکان کی قسم</th>
-                <th class="fs-5 word-spacing-2px text-primary">دکان کا کرایہ</th>
-                <th class="fs-5 word-spacing-2px text-primary">حالت</th>
+                <th class="fs-5 word-spacing-2px text-primary">کل کرایہ</th>
+                <th class="fs-5 word-spacing-2px text-primary">کرایا اداکیا</th>
                 <th class="fs-5 word-spacing-2px text-primary">انتخاب کریں</th>
               </tr>
             </thead>
@@ -127,17 +127,17 @@ include "inc/footer.php";
   });
 
   function load_dokan_Data() {
-    let dokanLimited = $("#dokan-limit").val();
-    let dokanOrder = $("#dokan-order").val();
+    let dokanRentLimited = $("#dokan_rent-limit").val();
+    let dokanRentOrder = $("#dokan_rent-order").val();
 
     $.ajax({
       url: 'filter_fetch_data.php',
       type: 'POST',
       dataType: 'json',
       data: {
-        action: 'load-dokan-Data',
-        dokanLimited: dokanLimited,
-        dokanOrder: dokanOrder
+        action: 'load-dokan_rent-Data',
+        dokanRentLimited: dokanRentLimited,
+        dokanRentOrder: dokanRentOrder
       },
       success: function(response) {
         console.log(response);

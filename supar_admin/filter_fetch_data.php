@@ -380,6 +380,90 @@ function search_dokan_data_in_database($searchName, $searchType)
   return $data;
 }
 
+function filter_dokan_rent_data_in_database($dokanRentLimited, $dokanRentOrder)
+{
+  global $conn;
+
+  // Modify the query based on your database structure
+  $dokan_query = "SELECT dokan.dokan_name, dokan.dokan_owner_name as owner, dokan.dokan_type, dokan.dokan_rent, 
+  shop_rent.rent_id, shop_rent.pay_rent, shop_rent.remaining_rent
+  FROM `shop_rent`
+      INNER JOIN `dokan` ON `dokan`.`dokan_id` = `shop_rent`.`dokan_id`
+    ORDER BY `rent_id` $dokanRentOrder LIMIT $dokanRentLimited";
+
+  $dokan_result = mysqli_query($conn, $dokan_query);
+  $dokan_data = mysqli_fetch_all($dokan_result, MYSQLI_ASSOC);
+
+  $data = '';
+  $no = 1;
+  foreach ($dokan_data as $row_dokan) {
+
+    $data .= '
+
+        <tr class="text-center">
+        <td>
+          <p class="mb-0 fs-2 inter">' . $no++ . '</p>
+        </td>
+        <td>
+          <p class="mb-0 fs-2 inter">' . $row_dokan['dokan_name'] . '</p>
+        </td>
+        <td>
+          <p class="mb-0 fs-4 word-spacing-2px">' . $row_dokan['owner'] . '</p>
+        </td>
+        <td>
+          <p class="mb-0 fs-4 word-spacing-2px">' . $row_dokan['dokan_type'] . '</p>
+        </td>
+        <td>
+          <p class="mb-0 fs-4 word-spacing-2px">' . $row_dokan['dokan_rent'] . '</p>
+        </td>
+        <td>
+          <p class="mb-0 fs-2 inter">' . $row_dokan['pay_rent'] . '</p>
+        </td>
+        <td>
+          <div class="action-btn">';
+    if ($row_dokan['remaining_rent'] > 0) {
+
+      $data .= ' <a href="dokan-view.php?dokan_view_id=' . $row_dokan['rent_id'] . '" class="text-dark ms-1"><i class="ti ti-receipt-dollar fs-6"></i></a>';
+    }
+    $data .= '
+
+          <a href="dokan-view.php?dokan_view_id=' . $row_dokan['rent_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>
+    <a href="dokan-edit.php?dokan_edit_id=' . $row_dokan['rent_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>
+              <button type="button" class="border-0  rounded-2 p-0 py-1 bg-white" data-bs-toggle="modal" data-bs-target="#deleteModal' . $row_dokan['rent_id'] . '">
+              <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
+            </button>
+            <div class="modal fade" id="deleteModal' . $row_dokan['rent_id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">یقینی طور پر حذف کر رہے ہیں؟ </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">کلوز</button>
+                    <a href="code2.php?dokan_delete_id=' . $row_dokan['rent_id'] . '">
+                      <button type="button" class="btn btn-danger">ڈیلیٹ</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+                ';
+  }
+
+  // Check if $data is empty
+  if (empty($data)) {
+    $data = '<tr>
+                    <td colspan="7" class="fw-semibold bg-light-warning text-warning text-center">There are no Dokan data from database.</td>
+                </tr>';
+  }
+
+  return $data;
+}
 
 
 
@@ -429,6 +513,17 @@ if (isset($_POST['action'])) {
     $searchType = $_POST['searchType'];
 
     $result = search_dokan_data_in_database($searchName, $searchType);
+
+    $response = array('data' => $result);
+    echo json_encode($response);
+  }
+
+  // filter dokan-rent-details 
+  if ($action == 'load-dokan_rent-Data') {
+    $dokanRentLimited = $_POST['dokanRentLimited'];
+    $dokanRentOrder = $_POST['dokanRentOrder'];
+
+    $result = filter_dokan_rent_data_in_database($dokanRentLimited, $dokanRentOrder);
 
     $response = array('data' => $result);
     echo json_encode($response);

@@ -378,7 +378,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="dokan-rent-detail.php" class="sidebar-link">
+                  <a href="dokan-rent-details.php" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
