@@ -44,7 +44,7 @@ LEFT JOIN `batch` ON `students`.`batch_id` = `batch`.`batch_id`
 LEFT JOIN `department` ON `students`.`depart_id` = `department`.`depart_id`
 LEFT JOIN `madarsa_class` ON `students`.`mada_class_id` = `madarsa_class`.`id`
 LEFT JOIN `section` ON `students`.`sec_id` = `section`.`sec_id`
-WHERE `students`.`id` = '$st_id'";
+WHERE `students`.`st_id` = '$st_id'";
     $result = mysqli_query($conn, $select_query);
 
     if ($result->num_rows > 0) {

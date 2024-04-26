@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $payment_method = mysqli_real_escape_string($conn, $_POST['payment_method']);
   $trx_id = mysqli_real_escape_string($conn, $_POST['trx_id']);
   $trx_number = mysqli_real_escape_string($conn, $_POST['transaction_number']);
-  $trx_image = mysqli_real_escape_string($conn, $_POST['transaction_image']);
 
   // check if remaining amount is less than or equal to 0
   $remaining_rent = $dokan_rent - $pay_amount;
@@ -23,7 +22,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // check if pay amount greater than dokan rent
   if ($pay_amount > $dokan_rent) {
-    redirect("dokan-rent-form.php", " تنخواہ کی رقم تنخواہ کی رقم سے زیادہ نہیں ہو سکتی");
+    redirect("dokan-rent-form", " تنخواہ کی رقم تنخواہ کی رقم سے زیادہ نہیں ہو سکتی");
+    exit();
+  }
+
+  // check month and year
+  $pay_rent_date = date('Y-m-d', strtotime($pay_rent_date));
+  $pay_month = date('m', strtotime($pay_rent_date));
+  $pay_year = date('Y', strtotime($pay_rent_date));
+  $check_month_query = "SELECT * FROM `shop_rent` WHERE `dokan_id` = '$dokan_id' AND `pay_rent_date` LIKE '$pay_year-$pay_month%'";
+  $check_month_result = $conn->query($check_month_query);
+
+  if ($check_month_result->num_rows > 0) {
+    redirect("dokan-rent-form", "اس مہینے کا کرایہ پہلے ہی ادا کر چکا ہے۔");
     exit();
   }
 
@@ -31,18 +42,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $created_by = "Abu Hammad";
   $created_date = date('Y-m-d');
 
+  // image upload
+  $image = rand(111111111, 999999999) . '_' . $_FILES['transaction_image']['name'];
+  move_uploaded_file($_FILES['transaction_image']['tmp_name'], '../media/dokan/' . $image);
+
   // insert data into rent table
-  $insert_query = "INSERT INTO `shop_rent`(`dokan_id`, `pay_rent`, `pay_rent_date`, `remaining_rent`,`payment_method`, `trx_id`, 
-  `trx_number`, `trx_image`, `status`, `created_by`, `created_date`) 
-  VALUES ('$dokan_id','$pay_amount','$pay_rent_date', '$remaining_rent', '$dokan_rent',
-  '$payment_method','$trx_id','$trx_number','$trx_image','$created_by','$created_date')";
+  $insert_query = "INSERT INTO `shop_rent`(`dokan_id`, `pay_rent`, `pay_rent_date`, `remaining_rent`,`payment_method`, `trx_id`, `trx_number`, `trx_image`, 
+  `created_by`, `created_date`) 
+  VALUES ('$dokan_id','$pay_amount','$pay_rent_date', '$remaining_rent','$payment_method','$trx_id','$trx_number','$image',
+  '$created_by','$created_date')";
   $insert_result = $conn->query($insert_query);
 
   if ($insert_result) {
-    redirect("dokan-rent-form.php", "دکان کا کرایہ شامل ھوں گیا۔");
+    redirect("dokan-rent-form", "دکان کا کرایہ ادا کر دیا ہے۔");
     exit();
   } else {
-    redirect("dokan-rent-form.php", "دکان کا کرایہ شامل نہیں ھواں");
+    redirect("dokan-rent-form", "دکان کا کرایہ ادا نہیں ھواں");
     exit();
   }
 }
@@ -120,10 +135,10 @@ include "inc/navbar.php";
                 <label for="payment_method" class=" fs-5 mb-1">ادائیگی کا طریقہ</label>
                 <div class="input-group">
                   <select class="form-select fs-3" id="payment_method" name="payment_method" onchange="toggleFields()">
-                    <option value="Cash">Cash</option>
-                    <option value="Bank">Bank</option>
-                    <option value="Easypaisa">Easypaisa</option>
-                    <option value="JazzCash">JazzCash</option>
+                    <option value="نقد رقم">نقد رقم</option>
+                    <option value="بینک ادائیگی">بینک ادائیگی</option>
+                    <option value="ایزی پیسہ ادائیگی">ایزی پیسہ ادائیگی</option>
+                    <option value="جاز کیش ادائیگی">جاز کیش ادائیگی</option>
                   </select>
                 </div>
                 <span class="error text-danger inter" id="payment_method_err"></span>
@@ -138,7 +153,7 @@ include "inc/navbar.php";
               </div>
               <div class="col-lg-6" id="transaction_image_wrapper" style="display: none">
                 <label for="transaction_image" class=" fs-5 mb-1">ٹرانزیکشن تصویر</label>
-                <input type="text" class="form-control fs-3" id="transaction_image" name="transaction_image" placeholder="ٹرانزیکشن تصویر">
+                <input type="file" class="form-control fs-3" id="transaction_image" name="transaction_image" placeholder="ٹرانزیکشن تصویر">
               </div>
 
             </div>
@@ -168,11 +183,11 @@ include "inc/navbar.php";
     var transactionImageWrapper = document.getElementById("transaction_image_wrapper");
 
 
-    if (paymentMethod === "Bank") {
+    if (paymentMethod === "بینک ادائیگی") {
       trsIdWrapper.style.display = "none";
       transactionNumberWrapper.style.display = "none";
       transactionImageWrapper.style.display = "block";
-    } else if (paymentMethod === "Cash") {
+    } else if (paymentMethod === "نقد رقم") {
       trsIdWrapper.style.display = "none";
       transactionNumberWrapper.style.display = "none";
       transactionImageWrapper.style.display = "none";

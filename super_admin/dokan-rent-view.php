@@ -14,19 +14,17 @@ include "inc/navbar.php";
     }
 </style>
 <?php
-if (isset($_GET['dokan_view_id'])) {
-    $id = $_GET['dokan_view_id'];
-    $select_query = "SELECT * FROM `dokan` WHERE `dokan_id` = '$id'";
+if (isset($_GET['dokan_rent_view_id'])) {
+    $rent_id = mysqli_real_escape_string($conn, $_GET['dokan_rent_view_id']);
+    $select_query = "SELECT rent_id, pay_rent, pay_rent_date, remaining_rent, payment_method, trx_image, 
+	dokan.dokan_name, dokan.dokan_owner_name, dokan.dokan_type, dokan.dokan_rent
+    FROM `shop_rent` 
+    INNER JOIN `dokan` ON `shop_rent`.`dokan_id` = `dokan`.`dokan_id` 
+    WHERE `rent_id` = '$rent_id'";
     $result = mysqli_query($conn, $select_query);
     if ($result->num_rows > 0) {
         $fetch = mysqli_fetch_assoc($result);
 ?>
-        <style>
-            .box_mad_vewi:hover {
-                box-shadow: 1px 1px 5px #8C7EFD !important;
-                transition: all 1s;
-            }
-        </style>
         <!-- Main Content (Start) -->
         <div class="container-fluid">
             <!-- Main Content Header Card (Start) -->
@@ -34,14 +32,14 @@ if (isset($_GET['dokan_view_id'])) {
                 <div class="card-body px-4 py-3">
                     <div class="row align-items-center">
                         <div class="col-9">
-                            <h4 class="my-3 fs-8 text-primary">دوکان کے معلومات</h4>
+                            <h4 class="my-3 fs-8 text-primary">دوکان کرایہ کے معلومات</h4>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
                                         <a class="text-muted text-decoration-none fs-4" href="index.html">ڈیش بورڈ</a>
                                     </li>
                                     <li class="breadcrumb-item fs-4" aria-current="page">
-                                        دوکان کے معلومات
+                                        دوکان کرایہ کے معلومات
                                     </li>
                                 </ol>
                             </nav>
@@ -74,13 +72,22 @@ if (isset($_GET['dokan_view_id'])) {
                                     <span class="fs-6"><?= $fetch['dokan_name'] ?></span>
                                 </li>
                                 <li class="mb-4">
-                                    <span class="jameel-regular me-2">دکان کا پتہ:</span>
-                                    <span class="fs-6"><?= $fetch['dokan_address'] ?></span>
-                                </li>
-                                <li class="mb-4">
                                     <span class="jameel-regular me-2">دکان کے مالک کا نام :</span>
                                     <span class="fs-6"><?= $fetch['dokan_owner_name'] ?></span>
                                 </li>
+                                <li class="mb-4">
+                                    <span class="jameel-regular me-2"> دکان کی قسم :</span>
+                                    <span class=" fs-6"><?= $fetch['dokan_type'] ?></span>
+                                </li>
+                                <li class="mb-4">
+                                    <span class="jameel-regular me-2">کل کرایہ :</span>
+                                    <span class=" fs-6"><?= $fetch['dokan_rent'] ?></span>
+                                </li>
+                                <!-- <li class="mb-4">
+                                    <span class="jameel-regular me-2">ٹرانزیکشن تصویر :</span>
+                                    <span class=" fs-6"><img src="../media/dokan/<?php //$fetch['trx_image'] 
+                                                                                    ?>" alt=""></span>
+                                </li> -->
 
                             </ul>
                         </div>
@@ -89,48 +96,40 @@ if (isset($_GET['dokan_view_id'])) {
                         <div class="info-container">
                             <ul class="list-unstyled">
                                 <li class="mb-4">
-                                    <span class="jameel-regular me-2"> دکان کی قسم :</span>
-                                    <span class="inter fs-6"><?= $fetch['dokan_type'] ?></span>
+                                    <span class="jameel-regular me-2">کرایا اداکیا :</span>
+                                    <span class=" fs-6"><?= $fetch['pay_rent'] ?></span>
                                 </li>
                                 <li class="mb-4">
-                                    <span class="jameel-regular me-2">دکان کا کرایہ :</span>
-                                    <span class="inter fs-6"><?= $fetch['dokan_rent'] ?></span>
+                                    <span class="jameel-regular me-2">باقی کرایہ :</span>
+                                    <span class=" fs-6"><?= $fetch['remaining_rent'] ?></span>
+                                </li>
+                                <li class="mb-4">
+                                    <span class="jameel-regular me-2">کرایہ کی تاریخ :</span>
+                                    <span class=" fs-6"><?= $fetch['pay_rent_date'] ?></span>
+                                </li>
+                                <li class="mb-4">
+                                    <span class="jameel-regular me-2">ادائیگی کا طریقہ :</span>
+                                    <span class=" fs-6"><?= $fetch['payment_method'] ?></span>
                                 </li>
                             </ul>
                         </div>
                     </div>
-
-                </div>
-
-            </div>
-
-            <div class="card mt-3 box_mad_vewi px-3">
-                <div class="container">
-                    <h5 class="pb-2 border-bottom my-4 ">دکان کے دستاویزات :</h5>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li class="mb-4">
-                                    <img src="../media/dokan/<?= $fetch['dokan_lease'] ?>" class="preview-image mt-2" alt="">
-                                </li>
-                                <li class="mb-4">
-                                    <img src="../media/dokan/<?= $fetch['dokan_license'] ?>" class="preview-image mt-2" alt="">
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li class="mb-4">
-                                    <img src="../media/dokan/<?= $fetch['owner_cnic'] ?>" class="preview-image mt-2" alt="">
-                                </li>
-                                <li class="mb-4">
-                                    <img src="../media/dokan/<?= $fetch['owner_image'] ?>" class="preview-image mt-2" alt="">
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="col-lg-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-4">
+                            <span class="jameel-regular me-2">ٹرانزیکشن تصویر :</span>
+                                <img src="../media/dokan/<?= $fetch['trx_image'] ?>" class="preview-image mt-2" alt="<?= $fetch['dokan_name'] ?>">
+                            </li>
+                        </ul>
                     </div>
+
                 </div>
             </div>
+            <!-- Submit Button -->
+            <div class="col-md-12 mt-4 jameel-kasheeda">
+                <a href="dokan-rent-details" class="btn btn-danger fw-semibold fs-5">بیک</a>
+            </div>
+            <!-- Submit Button -->
             <!-- Teacher Profile  (End) -->
 
             <!-- ==========print============= -->

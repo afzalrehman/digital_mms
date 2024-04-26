@@ -3,7 +3,7 @@
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="index.php" class="text-nowrap logo-img">
+          <a href="index" class="text-nowrap logo-img">
             <img src="../assets/images/digital_madarsa.png" class="dark-logo" width="180" alt="" />
           </a>
           <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -17,7 +17,7 @@
             <!-- Dashboard -->
             <!-- =================== -->
             <li class="sidebar-item mt-4">
-              <a class="sidebar-link" href="index.php" aria-expanded="false">
+              <a class="sidebar-link" href="index" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-grid-add"></i>
                 </span>
@@ -37,7 +37,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="madarsa_add.php" class="sidebar-link">
+                  <a href="madarsa_add" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -45,7 +45,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="madarsa_details.php" class="sidebar-link">
+                  <a href="madarsa_details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -64,7 +64,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="madaris_class.php" class="sidebar-link">
+                  <a href="madaris_class" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -73,7 +73,7 @@
                 </li>
                
                 <li class="sidebar-item">
-                  <a href="blog-detail.php" class="sidebar-link">
+                  <a href="blog-detail" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -93,7 +93,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="st-admission-form.php" class="sidebar-link">
+                  <a href="st-admission-form" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -101,7 +101,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="st-details.php" class="sidebar-link">
+                  <a href="st-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -123,7 +123,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="blog-detail.php" class="sidebar-link">
+                  <a href="st-fees-form" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -132,7 +132,7 @@
                 </li>
                
                 <li class="sidebar-item">
-                  <a href="third.php" class="sidebar-link">
+                  <a href="st-fees-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -153,7 +153,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="tc-admission-form.php" class="sidebar-link">
+                  <a href="tc-admission-form" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -161,7 +161,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="tc-details.php" class="sidebar-link">
+                  <a href="tc-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -184,7 +184,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="salary-form.php" class="sidebar-link">
+                  <a href="salary-form" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -192,7 +192,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="salary-details.php" class="sidebar-link">
+                  <a href="salary-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -216,7 +216,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="annoucement-form.php" class="sidebar-link">
+                  <a href="annoucement-form" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -224,7 +224,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="annoucement-details.php" class="sidebar-link">
+                  <a href="annoucement-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -247,7 +247,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="income-form.php" class="sidebar-link">
+                  <a href="income-form" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -255,7 +255,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="income-details.php" class="sidebar-link">
+                  <a href="income-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -278,7 +278,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="expance.php" class="sidebar-link">
+                  <a href="expance" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -286,7 +286,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="expance_details.php" class="sidebar-link">
+                  <a href="expance_details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -309,7 +309,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="loan_form.php" class="sidebar-link">
+                  <a href="loan_form" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -317,7 +317,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="loan-details.php" class="sidebar-link">
+                  <a href="loan-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -340,7 +340,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="dokan-form.php" class="sidebar-link">
+                  <a href="dokan-form" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -348,7 +348,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="dokan-details.php" class="sidebar-link">
+                  <a href="dokan-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -370,7 +370,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="dokan-rent-form.php" class="sidebar-link">
+                  <a href="dokan-rent-form" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -378,7 +378,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="dokan-rent-details.php" class="sidebar-link">
+                  <a href="dokan-rent-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -402,7 +402,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="third.php" class="sidebar-link">
+                  <a href="third" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -410,7 +410,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="blog-detail.php" class="sidebar-link">
+                  <a href="blog-detail" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -441,7 +441,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="third.php" class="sidebar-link">
+                  <a href="third" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -449,7 +449,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="blog-detail.php" class="sidebar-link">
+                  <a href="blog-detail" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -472,7 +472,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="./user-form.php" class="sidebar-link">
+                  <a href="./user-form" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -480,7 +480,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="./user-details.php" class="sidebar-link">
+                  <a href="./user-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -488,7 +488,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="./madarsa-access.php" class="sidebar-link">
+                  <a href="./madarsa-access" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -496,7 +496,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="./madarsa-access-details.php" class="sidebar-link">
+                  <a href="./madarsa-access-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -504,7 +504,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="./teacher-access.php" class="sidebar-link">
+                  <a href="./teacher-access" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -512,7 +512,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="./teacher-access-details.php" class="sidebar-link">
+                  <a href="./teacher-access-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -535,7 +535,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="third.php" class="sidebar-link">
+                  <a href="third" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -543,7 +543,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="blog-detail.php" class="sidebar-link">
+                  <a href="blog-detail" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -566,7 +566,7 @@
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="batch.php" class="sidebar-link">
+                  <a href="batch" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -574,7 +574,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="department.php" class="sidebar-link">
+                  <a href="department" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>
@@ -582,7 +582,7 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="section.php" class="sidebar-link">
+                  <a href="section" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
                       <i class="ti ti-circle"></i>
                     </div>

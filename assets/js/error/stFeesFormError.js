@@ -42,16 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-
-
-
 // ======================== Validation of fields  ======================
 document.addEventListener('DOMContentLoaded', function () {
-    const userForm = document.getElementById('dokanRentForm');
-    const dokanNameInput = document.getElementById('dokan_name');
-    const payAmountInput = document.getElementById('pay_amount');
-    const payRentDateINput = document.getElementById('pay_rent_date');
+    const userForm = document.getElementById('stFeesForm');
+    const dokanNameInput = document.getElementById('st_roll_no');
+    const payAmountInput = document.getElementById('pay_admi_fees');
+    const payRentDateINput = document.getElementById('pay_fees_date');
 
     function validateForm(event) {
         event.preventDefault();
@@ -67,17 +63,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validate each input field
         if (!dokanNameInput.value.trim()) {
-            document.getElementById('dokan_name_err').textContent = 'براہ کرم دکان کا نام درج کریں۔';
+            document.getElementById('st_roll_no_err').textContent = 'براہ کرم رجسٹریشن نمبر منتخب کریں';
             dokanNameInput.classList.add('is-invalid');
             isValid = false;
         }
         if (!payAmountInput.value.trim()) {
-            document.getElementById('pay_amount_err').textContent = 'براہ کرم دکان کا پتہ درج کریں۔';
+            document.getElementById('pay_admi_fees_err').textContent = 'داخلہ فیس کی ادائیگی درج کریں۔';
             payAmountInput.classList.add('is-invalid');
             isValid = false;
         }
         if (!payRentDateINput.value.trim()) {
-            document.getElementById('pay_rent_date_err').textContent = 'براہ کرم پرائیمنٹ کا طہر درج کریں۔';
+            document.getElementById('pay_fees_date_err').textContent = 'براہ کرم فیس کی تاریخ درج کریں۔';
             payRentDateINput.classList.add('is-invalid');
             isValid = false;
         }

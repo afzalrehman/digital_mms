@@ -40,18 +40,21 @@ include "inc/navbar.php";
     <div class="row">
       <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-dokan_name" placeholder="دکان کا نام سے تلاش کریں &nbsp;......" />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-dokan_rent_name" placeholder="دکان کا نام سے تلاش کریں &nbsp;......" />
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
       <div class="col-md-4 mb-3">
         <form class="position-relative">
-          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-dokan_type" placeholder="دکان کی قسم سے تلاش کریں &nbsp;......" />
+          <input type="text" class="form-control product-search ps-5 jameel-kasheeda fw-semibold fs-4 word-spacing-2px" id="search-dokan_rent_type" placeholder="دکان کی قسم سے تلاش کریں &nbsp;......" />
           <i class="ti ti-search position-absolute top-50 start-1 translate-middle-y fs-6 mx-3"></i>
         </form>
       </div>
-      <div class="col-md-4 jameel-kasheeda">
-        <button class="btn btn-info fw-semibold word-spacing-2px fs-4" id="search_button" onclick="search_dokan_Data()">تلاش کریں</button>
+      <div class="col-md-4 mb-3">
+        <input type="month" class="form-control fs-3" id="search-dokan_rent_month">
+      </div>
+      <div class="col-md-4 mb-3 jameel-kasheeda">
+        <button class="btn btn-info fw-semibold word-spacing-2px fs-4" id="search_button" onclick="search_dokan_rent_Data()">تلاش کریں</button>
       </div>
     </div>
   </div>
@@ -94,10 +97,11 @@ include "inc/navbar.php";
               <tr class="fw-semibold text-center">
                 <th class="fs-5 word-spacing-2px text-primary">#</th>
                 <th class="fs-5 word-spacing-2px text-primary">دکان کا نام</th>
-                <th class="fs-5 word-spacing-2px text-primary">مالک کا نام</th>
                 <th class="fs-5 word-spacing-2px text-primary">دکان کی قسم</th>
                 <th class="fs-5 word-spacing-2px text-primary">کل کرایہ</th>
                 <th class="fs-5 word-spacing-2px text-primary">کرایا اداکیا</th>
+                <th class="fs-5 word-spacing-2px text-primary">بقایا کرایہ</th>
+                <th class="fs-5 word-spacing-2px text-primary">کرایہ کی تاریخ</th>
                 <th class="fs-5 word-spacing-2px text-primary">انتخاب کریں</th>
               </tr>
             </thead>
@@ -148,18 +152,20 @@ include "inc/footer.php";
   }
 
 
-  function search_dokan_Data() {
-    let searchName = document.getElementById("search-dokan_name").value;
-    let searchType = document.getElementById("search-dokan_type").value;
+  function search_dokan_rent_Data() {
+    let searchRentName = document.getElementById("search-dokan_rent_name").value;
+    let searchRentType = document.getElementById("search-dokan_rent_type").value;
+    let searchRentMonth = document.getElementById("search-dokan_rent_month").value;
 
     $.ajax({
       url: 'filter_fetch_data.php',
       type: 'POST',
       dataType: 'json',
       data: {
-        action: 'search-dokan_Data',
-        searchName: searchName,
-        searchType: searchType
+        action: 'search-dokan_rent-Data',
+        searchRentName: searchRentName,
+        searchRentType: searchRentType,
+        searchRentMonth: searchRentMonth
       },
       success: function(response) {
         console.log(response);

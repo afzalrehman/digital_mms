@@ -41,7 +41,7 @@ include "inc/navbar.php";
     $st_edit_id = $_GET['st_edit'];
 
     $query = "SELECT * FROM `students` 
-    WHERE `id` = '$st_edit_id'";
+    WHERE `st_id` = '$st_edit_id'";
 
     $query_run = mysqli_query($conn, $query);
 
