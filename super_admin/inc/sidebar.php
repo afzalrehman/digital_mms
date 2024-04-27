@@ -71,7 +71,7 @@
                     <span class="hide-menu jameel-kasheeda fs-4">ایڈکریں</span>
                   </a>
                 </li>
-               
+
                 <li class="sidebar-item">
                   <a href="blog-detail" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
@@ -112,12 +112,23 @@
             </li>
 
             <!-- =================== -->
+            <!-- Fees Type -->
+            <!-- =================== -->
+            <li class="sidebar-item">
+              <a href="st-fees-types" class="sidebar-link">
+                <span class="d-flex">
+                  <i class="ti ti-currency-dollar"></i>
+                </span>
+                <span class="hide-menu jameel-kasheeda fs-4">فیس کی اقسام</span>
+              </a>
+            </li>
+            <!-- =================== -->
             <!-- Fees -->
             <!-- =================== -->
             <li class="sidebar-item">
-              <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
+              <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                 <span class="d-flex">
-                  <i class="ti ti-currency-dollar"></i>
+                  <i class="ti ti-user-dollar"></i>
                 </span>
                 <span class="hide-menu jameel-kasheeda fs-5">فیس</span>
               </a>
@@ -130,7 +141,7 @@
                     <span class="hide-menu jameel-kasheeda fs-4">ایڈ کرایں</span>
                   </a>
                 </li>
-               
+
                 <li class="sidebar-item">
                   <a href="st-fees-details" class="sidebar-link">
                     <div class="round-16 d-flex align-items-center justify-content-center">
@@ -145,7 +156,7 @@
             <!-- Teacher -->
             <!-- =================== -->
             <li class="sidebar-item">
-              <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
+              <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                 <span class="d-flex">
                   <i class="ti ti-user"></i>
                 </span>

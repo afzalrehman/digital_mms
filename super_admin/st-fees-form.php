@@ -124,15 +124,44 @@ include "inc/navbar.php";
                                 <select class="form-control fs-3" id="guar_name" name="guar_name">
                                 </select>
                             </div>
+
                             <div class="col-lg-6">
-                                <label for="guar_cnic" class=" fs-5 mb-1">CNIC نمبر</label>
-                                <select class="form-control fs-3" id="guar_cnic" name="guar_cnic">
+                                <label class="fs-5 mb-1">مدرسہ </label>
+                                <select class="form-control fw-semibold fs-3 jameel-kasheeda" id="madarasa" name="madarasa">
                                 </select>
+                                <!-- <span class="text-danger inter error" id="studentMadarasa_err"></span> -->
                             </div>
-                            <div class="col-lg-6">
-                                <label for="admi_fees" class=" fs-5 mb-1">داخلہ فیس</label>
-                                <select class="form-control fs-3" id="admi_fees" name="admi_fees">
+                            <div class="col-lg-6 mb-3">
+                                <label class="fs-5 mb-1">شعبہ </label>
+                                <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="department" id="department">
                                 </select>
+                                <!-- <span class="text-danger inter error" id="department_err"></span> -->
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label class="fs-5 mb-1">کلاس</label>
+                                <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="class" id="madarsaClass">
+                                </select>
+                                <!-- <span class="text-danger inter error" id="class_err"></span> -->
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="fs-5 mb-1" for="section">سیکشن منتخب کریں</label>
+                                <select id="section" name="section" class="form-control fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
+                                </select>
+                                <!-- <span class="error text-danger inter" id="section_err"></span> -->
+                            </div>
+
+                            <div class="col-lg-6 mb-3">
+                                <label for="fees_type_name" class="fs-5 mb-1">فیس کا نام</label>
+                                <select class="form-select fs-3" name="fees_type_name" id="fees_type_name">
+                                    <option value="">------</option>
+                                </select>
+                                <span class="text-danger error" id="fees_type_name_err"></span>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="fees_type_amount" class="fs-5 mb-1">فیس کی رقم</label>
+                                <select class="form-control fs-3" name="fees_type_amount" id="fees_type_amount">
+                                </select>
+                                <!-- <span class="text-danger error" id="fees_type_amount_err"></span> -->
                             </div>
 
                             <div class="col-lg-6">
@@ -239,16 +268,25 @@ include "inc/footer.php";
                         $('#st_name').html(data);
                     } else if (type === "guar_name_Data") {
                         $('#guar_name').html(data);
-                    } else if (type === "guar_cnic_Data") {
-                        $('#guar_cnic').html(data);
-                    } else if (type === "admi_fees_Data") {
-                        $('#admi_fees').html(data);
+                    } else if (type === "madarasa_Data") {
+                        $('#madarasa').html(data);
+                    } else if (type === "department_Data") {
+                        $('#department').html(data);
+                    } else if (type == "madarsaClass_Data") {
+                        $('#madarsaClass').html(data);
+                    } else if (type === "section_data") {
+                        $('#section').html(data);
+                    } else if (type === 'fees_type_name_Data') {
+                        $('#fees_type_name').html(data);
+                    } else if (type === 'fees_type_amount_Data') {
+                        $('#fees_type_amount').html(data);
                     }
                 }
             });
         }
 
         loadData("st_roll_no_Data");
+        loadData("fees_type_name_Data");
 
         $("#st_roll_no").on("change", function() {
             var stIdData = $("#st_roll_no").val();
@@ -280,20 +318,48 @@ include "inc/footer.php";
         $("#st_roll_no").on("change", function() {
             var guarCnicData = $("#st_roll_no").val();
             if (guarCnicData != "") {
-                loadData("guar_cnic_Data", guarCnicData);
+                loadData("madarasa_Data", guarCnicData);
             } else {
-                $('#guar_cnic').html("");
+                $('#madarasa').html("");
             }
         });
 
         $("#st_roll_no").on("change", function() {
             var admiFeesData = $("#st_roll_no").val();
             if (admiFeesData != "") {
-                loadData("admi_fees_Data", admiFeesData);
+                loadData("department_Data", admiFeesData);
             } else {
-                $('#admi_fees').html("");
+                $('#department').html("");
             }
         });
+        $("#st_roll_no").on("change", function() {
+            var guarCnicData = $("#st_roll_no").val();
+            if (guarCnicData != "") {
+                loadData("madarsaClass_Data", guarCnicData);
+            } else {
+                $('#madarsaClass').html("");
+            }
+        });
+
+        $("#st_roll_no").on("change", function() {
+            var admiFeesData = $("#st_roll_no").val();
+            if (admiFeesData != "") {
+                loadData("section_data", admiFeesData);
+            } else {
+                $('#section').html("");
+            }
+        });
+
+        $("#fees_type_name").on("change", function() {
+            var feesTypeAmountData = $("#fees_type_name").val();
+            if (feesTypeAmountData != "") {
+                loadData("fees_type_amount_Data", feesTypeAmountData);
+            } else {
+                $('#fees_type_amount').html("");
+            }
+        });
+
+
 
 
     });

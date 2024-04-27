@@ -44,15 +44,7 @@ if (isset($_POST['type'])) {
 } else {
     $shop_rent = 'Type parameter not set';
 }
-echo $shop_rent;
-
-
-// st_roll_no_Data
-// st_id_Data
-// st_name_Data
-// guar_name_Data
-// guar_cnic_Data
-// admi_fees_Data
+echo $shop_rent;    
 
 
 if (isset($_POST['type'])) {
@@ -98,30 +90,83 @@ if (isset($_POST['type'])) {
             $student_fees = 'ID not provided for batch Data';
         }
     }
-    elseif ($_POST['type'] == "guar_cnic_Data") {
+    elseif ($_POST['type'] == "madarasa_Data") {
         if (isset($_POST['id'])) {
             $stId = $_POST['id'];
-            $query = mysqli_query($conn, "SELECT guar_cnic FROM students WHERE st_roll_no = '$stId'");
+            $query = mysqli_query($conn, "SELECT madarsa.madarsa_id, madarsa.madarsa_name FROM students 
+            LEFT JOIN madarsa on madarsa.madarsa_id = students.madarsa_id WHERE students.st_roll_no = '$stId'");
             $student_fees = '';
             while ($row = mysqli_fetch_assoc($query)) {
-                $student_fees .= "<option value='{$row['guar_cnic']}'>{$row['guar_cnic']}</option>";
+                $student_fees .= "<option value='{$row['madarsa_id']}'>{$row['madarsa_name']}</option>";
             }
         } else {
             $student_fees = 'ID not provided for batch Data';
         }
     }
-    elseif ($_POST['type'] == "admi_fees_Data") {
+    elseif ($_POST['type'] == "department_Data") {
         if (isset($_POST['id'])) {
             $stId = $_POST['id'];
-            $query = mysqli_query($conn, "SELECT admi_fees FROM students WHERE st_roll_no = '$stId'");
+            $query = mysqli_query($conn, "SELECT department.depart_id, department.department_name FROM students
+            LEFT JOIN department on department.depart_id = students.depart_id WHERE students.st_roll_no = '$stId'");
             $student_fees = '';
             while ($row = mysqli_fetch_assoc($query)) {
-                $student_fees .= "<option value='{$row['admi_fees']}'>{$row['admi_fees']}</option>";
+                $student_fees .= "<option value='{$row['depart_id']}'>{$row['department_name']}</option>";
             }
         } else {
             $student_fees = 'ID not provided for batch Data';
         }
     }
+    elseif ($_POST['type'] == "madarsaClass_Data") {
+        if (isset($_POST['id'])) {
+            $stId = $_POST['id'];
+            $query = mysqli_query($conn, "SELECT madarsa_class.id, madarsa_class.class_name FROM `students`
+            LEFT JOIN madarsa_class on madarsa_class.id = students.mada_class_id
+            WHERE students.st_roll_no = '$stId'");
+            $student_fees = '';
+            while ($row = mysqli_fetch_assoc($query)) {
+                $student_fees .= "<option value='{$row['id']}'>{$row['class_name']}</option>";
+            }
+        } else {
+            $student_fees = 'ID not provided for batch Data';
+        }
+    }
+    elseif ($_POST['type'] == "section_data") {
+        if (isset($_POST['id'])) {
+            $stId = $_POST['id'];
+            $query = mysqli_query($conn, "SELECT section.sec_id, section.section_name FROM students
+            LEFT JOIN section on section.sec_id = students.sec_id WHERE students.st_roll_no = '$stId'");
+            $student_fees = '';
+            while ($row = mysqli_fetch_assoc($query)) {
+                $student_fees .= "<option value='{$row['sec_id']}'>{$row['section_name']}</option>";
+            }
+        } else {
+            $student_fees = 'ID not provided for batch Data';
+        }
+    }
+    
+    else if ($_POST['type'] == "fees_type_name_Data") {
+        $sql = "SELECT fees_type_id, fees_type_name FROM st_fees_types";
+        $query = mysqli_query($conn, $sql) or die('Query unsuccessful: ' . mysqli_error($conn));
+        $student_fees = '---';
+        while ($row = mysqli_fetch_assoc($query)) {
+            $student_fees .= "<option value='{$row['fees_type_id']}'>{$row['fees_type_name']}</option>";
+        }
+    } elseif ($_POST['type'] == "fees_type_amount_Data") {
+        if (isset($_POST['id'])) {
+            $stId = $_POST['id'];
+            $query = mysqli_query($conn, "SELECT fees_type_amount FROM st_fees_types WHERE fees_type_id = '$stId'");
+            $student_fees = '';
+            while ($row = mysqli_fetch_assoc($query)) {
+                $student_fees .= "<option value='{$row['fees_type_amount']}'>{$row['fees_type_amount']}</option>";
+            }
+        } else {
+            $student_fees = 'ID not provided for batch Data';
+        }
+    }
+
+
+
+
 } else {
     $student_fees = 'Type parameter not set';
 }

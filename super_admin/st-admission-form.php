@@ -206,12 +206,12 @@ include "inc/navbar.php";
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="pre_class">سابقہ درجہ</label>
-                  <input type="text" name="pre_class" id="pre-class" class="form-control fw-semibold fs-4" placeholder="اوٰلی" />
+                  <input type="text" name="pre_class" id="pre_class" class="form-control fw-semibold fs-4" placeholder="اوٰلی" />
                   <span class="error text-danger inter" id="pre_class_err"></span>
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="next_class">مطلوبہ درجہ</label>
-                  <input type="text" name="next_class" id="next-class" class="form-control fw-semibold fs-4" placeholder="ثانیہ" />
+                  <input type="text" name="next_class" id="next_class" class="form-control fw-semibold fs-4" placeholder="ثانیہ" />
                   <span class="error text-danger inter" id="next_class_err"></span>
                 </div>
                 <div class="col-md-6">
@@ -261,9 +261,9 @@ include "inc/navbar.php";
                       <option class="jameel-kasheeda" value="">---</option>
                     </select>
                     <span class="inter text-danger"><?php if (isset($_SESSION['class_exit'])) {
-                                                            echo $_SESSION['class_exit'];
-                                                            unset($_SESSION['class_exit']);
-                                                          } ?></span>
+                                                      echo $_SESSION['class_exit'];
+                                                      unset($_SESSION['class_exit']);
+                                                    } ?></span>
                     <span class="text-danger inter error" id="class_err"></span>
                   </div>
                   <div class="col-md-6 mb-2">
@@ -319,6 +319,7 @@ include "inc/navbar.php";
 <?php
 include "inc/mobileNavbar.php";
 ?>
+
 <script src="../assets/js/error/st-admission-form.js"></script>
 <?php
 include "inc/footer.php";
