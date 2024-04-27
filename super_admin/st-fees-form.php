@@ -277,7 +277,7 @@ include "inc/footer.php";
                     } else if (type === "section_data") {
                         $('#section').html(data);
                     } else if (type === 'fees_type_name_Data') {
-                        $('#fees_type_name').html(data);
+                        $('#fees_type_name').append(data);
                     } else if (type === 'fees_type_amount_Data') {
                         $('#fees_type_amount').html(data);
                     }
