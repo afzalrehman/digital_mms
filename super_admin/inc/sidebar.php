@@ -600,6 +600,14 @@
                     <span class="hide-menu jameel-kasheeda fs-4">سیکشن</span>
                   </a>
                 </li>
+                <li class="sidebar-item">
+                  <a href="admission_Setting" class="sidebar-link">
+                    <div class="round-16 d-flex align-items-center justify-content-center">
+                      <i class="ti ti-circle"></i>
+                    </div>
+                    <span class="hide-menu jameel-kasheeda fs-4">ایڈمیشن</span>
+                  </a>
+                </li>
               </ul>
             </li>
           </ul>

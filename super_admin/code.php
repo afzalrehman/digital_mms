@@ -947,5 +947,59 @@ WHERE id = '$edit_id'";
         }
     }
 }
+// ===================Admission Setting================
+if (isset($_POST['admission_SettingBtn'])) {
+    $admission_setting = mysqli_real_escape_string($conn, $_POST['admission_setting']);
+    $admission_setting_madarsa_id = mysqli_real_escape_string($conn, $_POST['madarasa']);
+
+    $checkQuery = "SELECT * FROM `admission_setting` WHERE `madarsa_id` = '$admission_setting_madarsa_id' AND `open_close` = '$admission_setting'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['admission_setting_exit'] = 'مدرسہ پہلے سے موجود ہے';
+    } else {
+        $insertQuery = "INSERT INTO `admission_setting` (`madarsa_id`, `open_close`, `created_by`, `created_date`)
+            VALUES ('$admission_setting_madarsa_id', '$admission_setting', 'قاری عبداللہ صاحب', NOW())";
+
+        mysqli_query($conn, $insertQuery);
+    }
+    redirect("admission_Setting.php", "آپ کا دیٹا ایڈ ہوچکا ہے");
+    exit();
+}
+// ===================Admission Setting Delete================
+if (isset($_GET['Admission_Setting_delete'])) {
+    $id = $_GET['Admission_Setting_delete'];
+    $delete_query = "UPDATE `admission_setting` SET `status` = 'غیر فعال' WHERE `id` = '$id'";
+    mysqli_query($conn, $delete_query);
+    redirectdelete("admission_Setting", "ڈیٹا حذف کر دیا گیا ہے ");
+    exit();
+}
+// ===================Admission Setting Update================
+if (isset($_POST['admission_SettingUpdate'])) {
+    $admission_setting = mysqli_real_escape_string($conn, $_POST['admission_setting']);
+    $admission_setting_madarsa_id = mysqli_real_escape_string($conn, $_POST['madarasa']);
+    $edit_id = mysqli_real_escape_string($conn, $_POST['edit_id']);
+
+    $checkQuery = "SELECT * FROM `admission_setting` WHERE `madarsa_id` = '$admission_setting_madarsa_id' AND  `id` != $edit_id";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $_SESSION['admission_setting_exit'] = 'مدرسہ پہلے سے موجود ہے';
+        header("location:admission_Setting.php");
+        exit();
+    }
+    // If the class doesn't exist, proceed with insertion
+    $updateQuery = "UPDATE `admission_setting` SET `open_close` = '$admission_setting', `updated_by` = 'قاری عبداللہ صاحب', `updated_date` = NOW() WHERE `id` = '$edit_id'";
+
+    if (mysqli_query($conn, $updateQuery)) {
+        redirect("admission_Setting.php", "آپ کا دیٹا اپڈیٹ ہوچکا ہے");
+        exit();
+    } else {
+        // Insertion failed
+        $_SESSION['error_message'] = 'Error in adding admission_setting. Please try again.';
+        header("location:admission_Setting.php");
+        exit();
+    }
+}
 
 ?>
