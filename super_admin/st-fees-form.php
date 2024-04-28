@@ -6,7 +6,8 @@ include "../includes/function.php";
 // ====================================== dokan-fees-form.php =========================================
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $st_id = mysqli_real_escape_string($conn, $_POST['st_id']);
-    $admi_fees = mysqli_real_escape_string($conn, $_POST['admi_fees']);
+    $fees_type_id = mysqli_real_escape_string($conn, $_POST['fees_type_id']);
+    $fees_type_amount = mysqli_real_escape_string($conn, $_POST['fees_type_amount']);
     $pay_admi_fees = mysqli_real_escape_string($conn, $_POST['pay_admi_fees']);
     $pay_fees_date = mysqli_real_escape_string($conn, $_POST['pay_fees_date']);
     $payment_method = mysqli_real_escape_string($conn, $_POST['payment_method']);
@@ -14,13 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $transaction_number = mysqli_real_escape_string($conn, $_POST['transaction_number']);
 
     // check if remaining amount is less than or equal to 0
-    $remaining_fees = $admi_fees - $pay_admi_fees;
+    $remaining_fees = $fees_type_amount - $pay_admi_fees;
     if ($remaining_fees < 0) {
         $remaining_fees = 0;
     }
 
     // check if pay amount greater than admi fees
-    if ($pay_admi_fees > $admi_fees) {
+    if ($pay_admi_fees > $fees_type_amount) {
         redirect("st-fees-form", " داخلہ فیس کی رقم ادائیگی کی رقم سے زیادہ نہیں ہو سکتی");
         exit();
     }
@@ -47,17 +48,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     move_uploaded_file($_FILES['transaction_image']['tmp_name'], '../media/std-tc/' . $image);
 
     // insert data into fees table
-    $insert_query = "INSERT INTO `student_fees`(`st_id`, `st_pay_fees`, `st_pay_fees_date`, `st_remaining_fees`, 
+    $insert_query = "INSERT INTO `student_fees`(`st_id`, `fees_type_id`, `st_pay_fees`, `st_pay_fees_date`, `st_remaining_fees`, 
     `st_payment_method`, `st_trx_id`, `st_trx_number`, `st_trx_image`, `created_by`, `created_date`) 
-    VALUES ('$st_id','$pay_admi_fees', '$pay_fees_date', '$remaining_fees',
+    VALUES ('$st_id', '$fees_type_id','$pay_admi_fees', '$pay_fees_date', '$remaining_fees',
     '$payment_method','$trx_id','$transaction_number','$image','$created_by','$created_date')";
+
     $insert_result = $conn->query($insert_query);
 
     if ($insert_result) {
-        redirect("st-fees-form", "داخلہ فیس ادا کر دیا ہے۔");
+        redirect("st-fees-form", "فیس ادا کر دیا ہے۔");
         exit();
     } else {
-        redirect("st-fees-form", "داخلہ فیس ادا نہیں ھواں");
+        redirect("st-fees-form", "فیس ادا نہیں ھواں");
         exit();
     }
 }
@@ -74,14 +76,14 @@ include "inc/navbar.php";
         <div class="card-body px-4 py-3">
             <div class="row align-items-center">
                 <div class="col-9">
-                    <h4 class="my-3 fs-8 text-primary word-spacing-2px">دوکان فارم</h4>
+                    <h4 class="my-3 fs-8 text-primary word-spacing-2px">فیس فارم</h4>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a class="text-muted text-decoration-none fs-4" href="index.html">ڈیش بورڈ</a>
                             </li>
                             <li class="breadcrumb-item fs-4" aria-current="page">
-                                دوکان فارم
+                            فیس فارم
                             </li>
                         </ol>
                     </nav>
@@ -129,30 +131,26 @@ include "inc/navbar.php";
                                 <label class="fs-5 mb-1">مدرسہ </label>
                                 <select class="form-control fw-semibold fs-3 jameel-kasheeda" id="madarasa" name="madarasa">
                                 </select>
-                                <!-- <span class="text-danger inter error" id="studentMadarasa_err"></span> -->
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label class="fs-5 mb-1">شعبہ </label>
                                 <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="department" id="department">
                                 </select>
-                                <!-- <span class="text-danger inter error" id="department_err"></span> -->
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label class="fs-5 mb-1">کلاس</label>
                                 <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="class" id="madarsaClass">
                                 </select>
-                                <!-- <span class="text-danger inter error" id="class_err"></span> -->
                             </div>
                             <div class="col-md-6 mb-2">
                                 <label class="fs-5 mb-1" for="section">سیکشن منتخب کریں</label>
                                 <select id="section" name="section" class="form-control fw-semibold jameel-kasheeda fs-4 cursor-pointer" data-allow-clear="true">
                                 </select>
-                                <!-- <span class="error text-danger inter" id="section_err"></span> -->
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label for="fees_type_name" class="fs-5 mb-1">فیس کا نام</label>
-                                <select class="form-select fs-3" name="fees_type_name" id="fees_type_name">
+                                <select class="form-select fs-3" name="fees_type_id" id="fees_type_name">
                                     <option value="">------</option>
                                 </select>
                                 <span class="text-danger error" id="fees_type_name_err"></span>
@@ -161,11 +159,10 @@ include "inc/navbar.php";
                                 <label for="fees_type_amount" class="fs-5 mb-1">فیس کی رقم</label>
                                 <select class="form-control fs-3" name="fees_type_amount" id="fees_type_amount">
                                 </select>
-                                <!-- <span class="text-danger error" id="fees_type_amount_err"></span> -->
                             </div>
 
                             <div class="col-lg-6">
-                                <label for="pay_admi_fees" class=" fs-5 mb-1">داخلہ فیس کی ادائیگی</label>
+                                <label for="pay_admi_fees" class=" fs-5 mb-1">فیس کی ادائیگی</label>
                                 <input type="text" class="form-control fs-3" id="pay_admi_fees" name="pay_admi_fees" placeholder="داخلہ فیس ادائیگی">
                                 <span class="error text-danger inter" id="pay_admi_fees_err"></span>
                             </div>
@@ -198,7 +195,6 @@ include "inc/navbar.php";
                                 <label for="transaction_image" class=" fs-5 mb-1">ٹرانزیکشن تصویر</label>
                                 <input type="file" class="form-control fs-3" id="transaction_image" name="transaction_image" placeholder="ٹرانزیکشن تصویر">
                             </div>
-
                         </div>
                         <!-- Submit Button -->
                         <div class="col-md-12 mt-4 jameel-kasheeda">
