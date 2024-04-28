@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Validate phone number input
-    const payFeesInput = document.getElementById('pay_amount');
-    const payFeesError = document.getElementById('pay_amount_err');
+    const payFeesInput = document.getElementById('pay_admi_fees');
+    const payFeesError = document.getElementById('pay_admi_fees_err');
     validateNumericInput(payFeesInput, payFeesError);
 
     // Validate age input
@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     const userForm = document.getElementById('stFeesForm');
     const dokanNameInput = document.getElementById('st_roll_no');
+    const feesTypeNameInput = document.getElementById('fees_type_name');
     const payAmountInput = document.getElementById('pay_admi_fees');
     const payRentDateINput = document.getElementById('pay_fees_date');
 
@@ -65,6 +66,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!dokanNameInput.value.trim()) {
             document.getElementById('st_roll_no_err').textContent = 'براہ کرم رجسٹریشن نمبر منتخب کریں';
             dokanNameInput.classList.add('is-invalid');
+            isValid = false;
+        }
+        if (!feesTypeNameInput.value.trim()) {
+            document.getElementById('fees_type_name_err').textContent = 'براہ کرم فیس کی نام درج کریں۔';
+            feesTypeNameInput.classList.add('is-invalid');
             isValid = false;
         }
         if (!payAmountInput.value.trim()) {
@@ -88,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Event listener to clear error messages when input is changed
     dokanNameInput.addEventListener('input', clearError);
+    feesTypeNameInput.addEventListener('input', clearError);
     payAmountInput.addEventListener('input', clearError);
     payRentDateINput.addEventListener('input', clearError);
 

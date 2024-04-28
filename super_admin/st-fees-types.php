@@ -35,6 +35,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
+// Edit Fees Type
+if (isset($_GET['fees_type_edit'])) {
+  $fees_type_id = $_GET['fees_type_edit'];
+
+  $edit_query = "SELECT fees_type_name,fees_type_amount FROM st_fees_types
+  WHERE fees_type_id = '$fees_type_id'";
+  $edit_result = $conn->query($edit_query);
+
+  if ($edit_result->num_rows > 0) {
+    $fees_type = $edit_result->fetch_assoc();
+
+    $get_type_name = $fees_type['fees_type_name'];
+    $get_type_amount = $fees_type['fees_type_amount'];
+  }
+}
+
 include "inc/header.php";
 include "inc/sidebar.php";
 include "inc/navbar.php";
@@ -80,12 +96,20 @@ include "inc/navbar.php";
 
               <div class="col-lg-4 mb-3">
                 <label for="fees_type_name" class="fs-5 mb-1">فیس کا نام</label>
-                <input type="text" name="fees_type_name" id="fees_type_name" class="form-control">
+                <input type="text" name="fees_type_name" id="fees_type_name" class="form-control" placeholder="داخلہ فیس" value="<?php if (isset($_GET['fees_type_edit'])) {
+                                                                                                                                    echo $get_type_name;
+                                                                                                                                  } else {
+                                                                                                                                    echo "";
+                                                                                                                                  } ?>">
                 <span class="text-danger error" id="fees_type_name_err"></span>
               </div>
               <div class="col-lg-4 mb-3">
                 <label for="fees_type_amount" class="fs-5 mb-1">فیس کی رقم</label>
-                <input type="text" name="fees_type_amount" id="fees_type_amount" class="form-control">
+                <input type="text" name="fees_type_amount" id="fees_type_amount" class="form-control" placeholder="999" value<?php if (isset($_GET['fees_type_edit'])) {
+                                                                                                                                echo $get_type_amount;
+                                                                                                                              } else {
+                                                                                                                                echo "";
+                                                                                                                              } ?>>
                 <span class="text-danger error" id="fees_type_amount_err"></span>
               </div>
             </div>
@@ -93,7 +117,14 @@ include "inc/navbar.php";
             <!-- Submit Button -->
             <div class="col-md-12 mt-5 jameel-kasheeda">
               <button type="submit" name="fees_type_btn" class="btn btn-primary fw-semibold fs-5">
-                ایڈکریں </button>
+                <?php
+                if (isset($_GET['fees_type_edit'])) {
+                  echo "اپ ڈیٹ کریں";
+                } else {
+                  echo "ایڈ کریں";
+                }
+                ?>
+              </button>
             </div>
         </div>
         </form>
@@ -149,7 +180,7 @@ include "inc/navbar.php";
 
                     <td>
                       <div class="action-btn">
-                        <a href="madarsa_classEdit.php?class_edit=<?= $item['fees_type_id'] ?>" class="text-success">
+                        <a href="?fees_type_edit=<?= $item['fees_type_id'] ?>" class="text-success">
                           <i class="ti ti-edit fs-6"></i>
                         </a>
                         <button type="button" class="border-0  rounded-2 p-0 py-1 " data-bs-toggle="modal" data-bs-target="#deleteModal<?= $item['fees_type_id'] ?>">

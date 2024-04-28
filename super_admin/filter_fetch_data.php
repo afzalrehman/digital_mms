@@ -611,8 +611,8 @@ function filter_st_fees_data_in_database($stFeesLimited, $stFeesOrder)
         </td>
         <td>
           <div class="action-btn">
-          <a href="st-fees-view.php?dokan_rent_view_id=' . $row_dokan['st_fees_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>
-          <a href="st-fees-edit.php?dokan_rent_edit_id=' . $row_dokan['st_fees_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>
+          <a href="st-fees-view.php?st_fees_view_id=' . $row_dokan['st_fees_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>
+          <a href="st-fees-edit.php?st_fees_edit_id=' . $row_dokan['st_fees_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>
               <button type="button" class="border-0  rounded-2 p-0 py-1 bg-white" data-bs-toggle="modal" data-bs-target="#deleteModal' . $row_dokan['st_fees_id'] . '">
               <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
             </button>
@@ -713,8 +713,8 @@ function search_st_fees_data_in_database($searchStFeesRegis, $searchStFeesName, 
     </td>
     <td>
     <div class="action-btn">
-          <a href="st-fees-view.php?dokan_rent_view_id=' . $row_dokan['st_fees_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>
-          <a href="st-fees-edit.php?dokan_rent_edit_id=' . $row_dokan['st_fees_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>
+          <a href="st-fees-view.php?st_fees_view_id=' . $row_dokan['st_fees_id'] . '" class="text-info ms-1"><i class="ti ti-eye fs-6"></i></a>
+          <a href="st-fees-edit.php?st_fees_edit_id=' . $row_dokan['st_fees_id'] . '" class="text-success"><i class="ti ti-edit fs-6"></i></a>
               <button type="button" class="border-0  rounded-2 p-0 py-1 bg-white" data-bs-toggle="modal" data-bs-target="#deleteModal' . $row_dokan['st_fees_id'] . '">
               <span><i class="fs-5 ti ti-trash  text-danger p-1 "></i></span>
             </button>
