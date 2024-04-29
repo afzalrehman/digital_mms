@@ -112,11 +112,11 @@ if (isset($_GET['st_fees_view_id'])) {
                                     <span class=" fs-6"><?= $fetch['fees_type_name'] ?></span>
                                 </li>
                                 <li class="mb-4">
-                                    <span class="jameel-regular me-2">فیس کی رقم :</span>
+                                    <span class="jameel-regular me-2">کل فیس :</span>
                                     <span class=" fs-6"><?= $fetch['fees_type_amount'] ?></span>
                                 </li>
                                 <li class="mb-4">
-                                    <span class="jameel-regular me-2">فیس کی ادائیگی :</span>
+                                    <span class="jameel-regular me-2">فیس ادا کیا :</span>
                                     <span class=" fs-6"><?= $fetch['st_pay_fees'] ?></span>
                                 </li>
                                 <li class="mb-4">

@@ -156,14 +156,14 @@ include "inc/navbar.php";
                                 <span class="text-danger error" id="fees_type_name_err"></span>
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="fees_type_amount" class="fs-5 mb-1">فیس کی رقم</label>
+                                <label for="fees_type_amount" class="fs-5 mb-1">کل فیس</label>
                                 <select class="form-control fs-3" name="fees_type_amount" id="fees_type_amount">
                                 </select>
                             </div>
 
                             <div class="col-lg-6">
                                 <label for="pay_admi_fees" class=" fs-5 mb-1">فیس کی ادائیگی</label>
-                                <input type="text" class="form-control fs-3" id="pay_admi_fees" name="pay_admi_fees" placeholder="داخلہ فیس ادائیگی">
+                                <input type="text" class="form-control fs-3" id="pay_admi_fees" name="pay_admi_fees" placeholder="فیس ادائیگی">
                                 <span class="error text-danger inter" id="pay_admi_fees_err"></span>
                             </div>
                             <div class="col-lg-6">
