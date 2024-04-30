@@ -4,65 +4,69 @@ include "../includes/config.php";
 include "../includes/function.php";
 
 // ====================================== dokan-fees-form.php =========================================
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     $st_id = mysqli_real_escape_string($conn, $_POST['st_id']);
-//     $fees_type_id = mysqli_real_escape_string($conn, $_POST['fees_type_id']);
-//     $fees_type_amount = mysqli_real_escape_string($conn, $_POST['fees_type_amount']);
-//     $pay_admi_fees = mysqli_real_escape_string($conn, $_POST['pay_admi_fees']);
-//     $pay_fees_date = mysqli_real_escape_string($conn, $_POST['pay_fees_date']);
-//     $payment_method = mysqli_real_escape_string($conn, $_POST['payment_method']);
-//     $trx_id = mysqli_real_escape_string($conn, $_POST['trx_id']);
-//     $transaction_number = mysqli_real_escape_string($conn, $_POST['transaction_number']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-//     // check if remaining amount is less than or equal to 0
-//     $remaining_fees = $fees_type_amount - $pay_admi_fees;
-//     if ($remaining_fees < 0) {
-//         $remaining_fees = 0;
-//     }
+    $st_fees_id = mysqli_real_escape_string($conn, $_POST['st_fees_id']);
+    $st_id = mysqli_real_escape_string($conn, $_POST['st_id']);
+    $fees_type_id = mysqli_real_escape_string($conn, $_POST['fees_type_id']);
+    $fees_type_amount = mysqli_real_escape_string($conn, $_POST['fees_type_amount']);
+    $pay_fees = mysqli_real_escape_string($conn, $_POST['pay_fees']);
+    $payment_method = mysqli_real_escape_string($conn, $_POST['payment_method']);
+    $remaining_fees = mysqli_real_escape_string($conn, $_POST['remaining_fees']);
+    $pay_remaining_fees = mysqli_real_escape_string($conn, $_POST['pay_remaining_fees']);
 
-//     // check if pay amount greater than admi fees
-//     if ($pay_admi_fees > $fees_type_amount) {
-//         redirect("st-fees-form", " داخلہ فیس کی رقم ادائیگی کی رقم سے زیادہ نہیں ہو سکتی");
-//         exit();
-//     }
+    // check if remaining amount is less than or equal to 0
+    $remaining_fees2 = $remaining_fees - $pay_remaining_fees;
+    if ($remaining_fees2 < 0) {
+        $remaining_fees2 = 0;
+    }
 
-//     // check month and year
-//     $pay_fees_date = date('Y-m-d', strtotime($pay_fees_date));
-//     $pay_month = date('m', strtotime($pay_fees_date));
-//     $pay_year = date('Y', strtotime($pay_fees_date));
-//     $check_month_query = "SELECT * FROM `student_fees` WHERE `st_id` = '$st_id' AND `st_pay_fees_date` LIKE '$pay_year-$pay_month%'";
-//     $check_month_result = $conn->query($check_month_query);
+    // check if pay amount greater than admi fees
+    if ($pay_remaining_fees > $remaining_fees) {
+        redirect("st-fees-details", " داخلہ فیس کی رقم ادائیگی کی رقم سے زیادہ نہیں ہو سکتی");
+        exit();
+    }
 
-//     if ($check_month_result->num_rows > 0) {
-//         redirect("st-fees-form", "اس مہینے کا کرایہ پہلے ہی ادا کر چکا ہے۔");
-//         exit();
-//     }
+    // check month and year
+    $pay_fees_date = date('Y-m-d', strtotime($pay_fees_date));
+    $pay_month = date('m', strtotime($pay_fees_date));
+    $pay_year = date('Y', strtotime($pay_fees_date));
+    $check_month_query = "SELECT * FROM `student_fees` 
+    WHERE `st_id` = '$st_id' AND `st_pay_fees_date` LIKE '$pay_year-$pay_month%' AND st_fees_id != '$st_fees_id'";
+    $check_month_result = $conn->query($check_month_query);
 
-//     // created by
-//     $created_by = "Abu Hammad";
-//     $created_date = date('Y-m-d');
-//     $pay_fees_date = date('Y-m-d');
+    if ($check_month_result->num_rows > 0) {
+        redirect("st-fees-form", "اس مہینے کا کرایہ پہلے ہی ادا کر چکا ہے۔");
+        exit();
+    }
 
-//     // image upload
-//     $image = rand(111111111, 999999999) . '_' . $_FILES['transaction_image']['name'];
-//     move_uploaded_file($_FILES['transaction_image']['tmp_name'], '../media/std-tc/' . $image);
+    // updated by
+    $updated_by = "Abu Hammad";
+    $updated_date = date('Y-m-d');
+    $pay_remaining_date = date('Y-m-d');
 
-//     // insert data into fees table
-//     $insert_query = "INSERT INTO `student_fees`(`st_id`, `fees_type_id`, `st_pay_fees`, `st_pay_fees_date`, `st_remaining_fees`, 
-//     `st_payment_method`, `st_trx_id`, `st_trx_number`, `st_trx_image`, `created_by`, `created_date`) 
-//     VALUES ('$st_id', '$fees_type_id','$pay_admi_fees', '$pay_fees_date', '$remaining_fees',
-//     '$payment_method','$trx_id','$transaction_number','$image','$created_by','$created_date')";
+    // update data into fees table
+    $update_query = "
+    UPDATE `student_fees` SET
+    `st_id` = '$st_id',
+    `fees_type_id` = '$fees_type_id',
+    `st_pay_fees` = '$pay_fees' + '$pay_remaining_fees',
+    `st_remaining_fees` = '$remaining_fees2',
+    `st_remaining_fees_date` = '$pay_remaining_date',
+    `updated_by` = '$updated_by',
+    `updated_date` = '$updated_date'
+    WHERE `st_fees_id` = '$st_fees_id'";
 
-//     $insert_result = $conn->query($insert_query);
+    $update_result = $conn->query($update_query);
 
-//     if ($insert_result) {
-//         redirect("st-fees-form", "فیس ادا کر دیا ہے۔");
-//         exit();
-//     } else {
-//         redirect("st-fees-form", "فیس ادا نہیں ھواں");
-//         exit();
-//     }
-// }
+    if ($update_result) {
+        redirect("st-fees-details", "فیس اپ ڈیٹ کر دیا ہے۔");
+        exit();
+    } else {
+        redirect("st-fees-details", "فیس اپ ڈیٹ نہیں ھواں");
+        exit();
+    }
+}
 
 
 
@@ -128,7 +132,7 @@ include "inc/navbar.php";
                                     <input type="text" name="st_fees_id" value="<?= $fetch['st_fees_id'] ?>" hidden>
                                     <div class="col-lg-6">
                                         <label for="st_roll_no" class=" fs-5 mb-1">رجسٹریشن نمبر</label>
-                                        <select class="form-select fs-3" id="st_roll_no" name="st_roll_no">
+                                        <select class="form-select fs-3" id="st_roll_no" name="st_id">
                                             <option value="<?= $fetch['st_id'] ?>"><?= $fetch['std_name'] ?></option>
                                         </select>
                                         <!-- <select class="form-select fs-3" id="st_id" name="st_id" style="display: none">
@@ -182,14 +186,14 @@ include "inc/navbar.php";
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <label for="fees_type_amount" class="fs-5 mb-1">کل فیس</label>
-                                        <select class="form-control fs-3" id="fees_type_amount">
+                                        <select class="form-control fs-3" id="fees_type_amount" name="fees_type_amount">
                                             <option value="<?= $fetch['fees_type_amount'] ?>"><?= $fetch['fees_type_amount'] ?></option>
                                         </select>
                                     </div>
 
                                     <div class="col-lg-6">
                                         <label for="pay_admi_fees" class=" fs-5 mb-1">فیس کی ادائیگی</label>
-                                        <input type="text" class="form-control fs-3" id="pay_admi_fees" name="pay_admi_fees" placeholder="داخلہ فیس ادائیگی" value="<?= $fetch['st_pay_fees'] ?>" readonly>
+                                        <input type="text" class="form-control fs-3" id="pay_admi_fees" name="pay_fees" placeholder="داخلہ فیس ادائیگی" value="<?= $fetch['st_pay_fees'] ?>" readonly>
                                         <span class="error text-danger inter" id="pay_admi_fees_err"></span>
                                     </div>
                                     <div class="col-lg-6">
@@ -200,32 +204,38 @@ include "inc/navbar.php";
                                     <div class="col-lg-6">
                                         <label for="payment_method" class=" fs-5 mb-1">فیس کا طریقہ</label>
                                         <div class="input-group">
-                                            <select class="form-select fs-3" id="payment_method" name="payment_method" onchange="toggleFields()">
+                                            <select class="form-select fs-3" id="payment_method" name="payment_method">
                                                 <option value="نقد رقم">نقد رقم</option>
                                             </select>
                                         </div>
                                         <span class="error text-danger inter" id="payment_method_err"></span>
                                     </div>
-                                    <div class="col-lg-6" id="trs_id_wrapper" style="display: none">
-                                        <label for="trx_id" class=" fs-5 mb-1">ٹرانزیکشن ID</label>
-                                        <input type="text" class="form-control fs-3" id="trx_id" name="trx_id" placeholder="ٹرانزیکشن ID">
-                                    </div>
-                                    <div class="col-lg-6" id="transaction_number_wrapper" style="display: none">
-                                        <label for="transaction_number" class=" fs-5 mb-1">ٹرانزیکشن فون نمبر</label>
-                                        <input type="text" class="form-control fs-3" id="transaction_number" name="transaction_number" placeholder="ٹرانزیکشن فون نمبر">
-                                    </div>
-                                    <div class="col-lg-6" id="transaction_image_wrapper" style="display: none">
-                                        <label for="transaction_image" class=" fs-5 mb-1">ٹرانزیکشن تصویر</label>
-                                        <input type="file" class="form-control fs-3" id="transaction_image" name="transaction_image" placeholder="ٹرانزیکشن تصویر">
-                                    </div>
+                                    <?php
+                                    if ($fetch['st_remaining_fees'] != 0) {
+                                    ?>
+                                        <div class="col-lg-6">
+                                            <label for="trx_id" class=" fs-5 mb-1">بقایا فیس
+                                                <sup class="text-danger fs-6">*</sup>
+                                            </label>
+                                            <input type="text" class="form-control fs-3" name="remaining_fees" placeholder="بقایا فیس" value="<?= $fetch['st_remaining_fees'] ?>">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label for="trx_id" class=" fs-5 mb-1">بقایا فیس کی ادائیگی
+                                                <sup class="text-danger fs-6">*</sup>
+                                            </label>
+                                            <input type="text" class="form-control fs-3" name="pay_remaining_fees" placeholder="بقایا فیس کی ادائیگی">
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
-                                <!-- Submit Button -->
-                                <div class="col-md-12 mt-4 jameel-kasheeda">
-                                    <button type="submit" name="st_fees_insert" class="btn btn-primary fw-semibold fs-5">ایڈ کریں</button>
-                                </div>
-                                <!-- Submit Button -->
                             </div>
                         </div>
+                        <!-- Submit Button -->
+                        <div class="col-md-12 mt-4 jameel-kasheeda">
+                            <button type="submit" name="st_fees_update" class="btn btn-primary fw-semibold fs-5">اپ ڈیٹ</button>
+                        </div>
+                        <!-- Submit Button -->
                     </div>
                 </form>
 
@@ -233,8 +243,8 @@ include "inc/navbar.php";
             }
         } else {
             echo '<tr>
-<p class="text-danger">ڈیٹا موجود نہیں ہیں</p>
-</tr>';
+                    <p class="text-danger">ڈیٹا موجود نہیں ہیں</p>
+                </tr>';
         }
         ?>
     </div>
