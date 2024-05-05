@@ -1,777 +1,222 @@
-// ====================== number only admission fees ======================
-document.addEventListener('DOMContentLoaded', function () {
-    const userPhoneInput = document.getElementById('user_phone');
-    const userPhoneError = document.getElementById('user_phone_err');
+// ==============================student Admission code for validation========================================
+const EnrollStudent = document.getElementById("st-admission-form");
 
-    userPhoneInput.addEventListener('input', function () {
-        const inputValue = userPhoneInput.value.trim();
-        const numericValue = inputValue.replace(/\D/g, ''); // Remove non-numeric characters
+const EnrollStudent_error = {
+  EnrollStudentName: {
+    enrollStudent: document.getElementById("reg_number"),
+    errorStudentEnroll: document.querySelector(".reg_number"),
+    minLengthStudentEnroll: 3,
+    errorMessageStudentEnroll:
+      "براۓ مہربانی جی آر نمبر ایڈ کریں",
+  },
 
-        if (inputValue !== numericValue) { // If non-numeric characters are present
-            userPhoneError.textContent = '';
-            userPhoneError.style.display = 'block';
-            userPhoneInput.classList.add('is-invalid');
-        } else {
-            userPhoneError.textContent = ''; // Clear error message
-            userPhoneError.style.display = 'none';
-            userPhoneInput.classList.remove('is-invalid');
-        }
+  std_name: {
+    enrollStudent: document.getElementById("std_name"),
+    errorStudentEnroll: document.querySelector(".std_name"),
+    minLengthStudentEnroll: 3,
+    errorMessageStudentEnroll:
+      "براۓ مہربانی نام ایڈ کریں",
+  },
 
-        // Update the input value with the cleaned numeric value
-        userPhoneInput.value = numericValue;
-    });
+  StudentdateBirth: {
+    enrollStudent: document.getElementById("std_dbo"),
+    errorStudentEnroll: document.querySelector(".std_dbo"),
+    errorMessageStudentEnroll: "براۓ مہربانی تاریخ پیدائش ایڈ کریں",
+  },
+  std_birth_place: {
+    enrollStudent: document.getElementById("std_birth_place"),
+    errorStudentEnroll: document.querySelector(".std_birth_place"),
+    errorMessageStudentEnroll:
+      "براۓ مہربانی مقام پیدائش ایڈکریں",
+  },
+  std_gender: {
+    enrollStudent: document.getElementById("std_gender"),
+    errorStudentEnroll: document.querySelector(".std_gender"),
+    errorMessageStudentEnroll: "براۓ مہربانی صنف ایڈ کریں",
+  },
+  std_accommodation: {
+    enrollStudent: document.getElementById("std_accommodation"),
+    errorStudentEnroll: document.querySelector(".std_accommodation"),
+    errorMessageStudentEnroll:
+      "براۓ مہربانی رہائش منتخب کریں",
+  },
+ 
+  std_address: {
+    enrollStudent: document.getElementById("std_address"),
+    errorStudentEnroll: document.querySelector(".std_address"),
+    errorMessageStudentEnroll:
+      "براۓ مہربانی پتہ ایڈ کریں",
+  },
+  guar_name: {
+    enrollStudent: document.getElementById("guar_name"),
+    errorStudentEnroll: document.querySelector(".guar_name"),
+    errorMessageStudentEnroll:
+      "براۓ مہربانی سرپرست کا نام ایڈ کریں",
+  },
+  guar_relation: {
+    enrollStudent: document.getElementById("guar_relation"),
+    errorStudentEnroll: document.querySelector(".guar_relation"),
+    errorMessageStudentEnroll:
+      "براۓ مہربانی سرپرست سے رشتہ ایڈ کریں",
+  },
+
+  StudentCnic: {
+    enrollStudent: document.getElementById("guar_cnic"),
+    errorStudentEnroll: document.querySelector(".guar_cnic"),
+    errorMessageStudentEnroll:
+      "براۓ مہربانی شناختی کارڈ نمبر ایڈ کریں",
+    pattern: /^\d{5}-\d{7}-\d{1}$/, // Regular expression for Pakistani CNIC format
+  },
+  guar_address: {
+    enrollStudent: document.getElementById("guar_address"),
+    errorStudentEnroll: document.querySelector(".guar_address"),
+    minLengthStudentEnroll: 5,
+    errorMessageStudentEnroll:
+      "براۓ مہربانی پتہ ایڈ کریں",
+  },
+
+  StudentPhone: {
+    enrollStudent: document.getElementById("guar_number"),
+    errorStudentEnroll: document.querySelector(".guar_number"),
+    minLengthStudentEnroll: 11,
+    errorMessageStudentEnroll:
+      "براۓ مہربانی فون نمبر ایڈ کریں",
+    pattern: /^03[0-4]\d{8}$/, // Regular expression for Pakistani phone number format
+  },
+
+
+  pre_school: {
+    enrollStudent: document.getElementById("pre_school"),
+    errorStudentEnroll: document.querySelector(".pre_school"),
+    errorMessageStudentEnroll: "براۓ مہربانی مدرسہ سلیکٹ کریں",
+  },
+  pre_class: {
+    enrollStudent: document.getElementById("pre_class"),
+    errorStudentEnroll: document.querySelector(".pre_class"),
+    errorMessageStudentEnroll: "براۓ مہربانی سابقہ درجہ سلیکٹ کریں",
+  },
+  next_class: {
+    enrollStudent: document.getElementById("next_class"),
+    errorStudentEnroll: document.querySelector(".next_class"),
+    errorMessageStudentEnroll: "براۓ مہربانی مطلوبہ درجہ سلیکٹ کریں",
+  },
+  adm_date: {
+    enrollStudent: document.getElementById("adm_date"),
+    errorStudentEnroll: document.querySelector(".adm_date"),
+    errorMessageStudentEnroll: "Please Fill cannot be empty",
+  },
+  studentMadarasa: {
+    enrollStudent: document.getElementById("studentMadarasa"),
+    errorStudentEnroll: document.querySelector(".studentMadarasa"),
+    errorMessageStudentEnroll: "براۓ مہربانی تاریخ داخلہ ایڈ کریں",
+  },
+
+  MadYear: {
+    enrollStudent: document.getElementById("MadYear"),
+    errorStudentEnroll: document.querySelector(".MadYear"),
+    errorMessageStudentEnroll: "براۓ مہربانی تعلیمی سال منتخب کریں",
+  },
+
+  department: {
+    enrollStudent: document.getElementById("department"),
+    errorStudentEnroll: document.querySelector(".department"),
+    errorMessageStudentEnroll: "براۓ مہربانی شعبہ منتخب کریں",
+  },
+
+  studentclass: {
+    enrollStudent: document.getElementById("studentclass"),
+    errorStudentEnroll: document.querySelector(".studentclass"),
+    errorMessageStudentEnroll: "براۓ مہربانی کلاس سلیکٹ کریں",
+  },
+  section: {
+    enrollStudent: document.getElementById("section"),
+    errorStudentEnroll: document.querySelector(".section"),
+    errorMessageStudentEnroll: "براۓ مہربانی سیکشن منتخب کریں",
+  },
+  std_qadeem: {
+    enrollStudent: document.getElementById("std_qadeem"),
+    errorStudentEnroll: document.querySelector(".std_qadeem"),
+    errorMessageStudentEnroll: "براۓ مہربانی منتخب کریں",
+  },
+  admi_fees: {
+    enrollStudent: document.getElementById("admi_fees"),
+    errorStudentEnroll: document.querySelector(".admi_fees"),
+    errorMessageStudentEnroll: "براۓ مہربانی داخلہ فیس منتخب کریں",
+  },
+  monthly_fees: {
+    enrollStudent: document.getElementById("monthly_fees"),
+    errorStudentEnroll: document.querySelector(".monthly_fees"),
+    errorMessageStudentEnroll: "براۓ مہربانی ماہانہ فیس منتخب کریں",
+  },
+
+  StudentEmailInput: {
+    enrollStudent: document.getElementById("guar_email"),
+    errorStudentEnroll: document.querySelector(".guar_email"),
+    minLengthStudentEnroll: 3,
+    errorMessageStudentEnroll:
+      "براۓ مہربانی ای میل ایڈ کریں",
+    pattern: /^[\w-]+(\.[\w-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/, // Email pattern
+  },
+};
+
+function validateInputEnrollStudent(input) {
+  const trimmedValue1 = input.enrollStudent.value.trim();
+  let isValid1 = true;
+
+  if (trimmedValue1 === "") {
+    input.errorStudentEnroll.textContent = input.errorMessageStudentEnroll;
+    input.enrollStudent.classList.add("error-border");
+    isValid1 = false;
+  } else if (input.pattern && !input.pattern.test(trimmedValue1)) {
+    input.errorStudentEnroll.textContent = input.errorMessageStudentEnroll;
+    input.enrollStudent.classList.add("error-border");
+    isValid1 = false;
+  } else if (
+    input.minLengthStudentEnroll &&
+    trimmedValue1.length < input.minLengthStudentEnroll
+  ) {
+    input.errorStudentEnroll.textContent = input.errorMessageStudentEnroll;
+    input.enrollStudent.classList.add("error-border");
+    isValid1 = false;
+  }
+  // else if (input.maxLength && trimmedValue1.length > input.maxLength) {
+  //   input.errorStudentEnroll.textContent = input.errorMessageStudentEnroll;
+  //   input.enrollStudent.classList.add("error-border");
+  //   isValid1 = false;
+  // }
+  else {
+    input.errorStudentEnroll.textContent = "";
+    input.enrollStudent.classList.remove("error-border");
+  }
+
+  return isValid1;
+}
+
+function validateFormEnrollStudent() {
+  let isValid1 = true;
+
+  for (const key in EnrollStudent_error) {
+    if (!validateInputEnrollStudent(EnrollStudent_error[key])) {
+      isValid1 = false;
+    }
+  }
+
+  return isValid1;
+}
+
+EnrollStudent.addEventListener("submit", function (event) {
+  if (!validateFormEnrollStudent()) {
+    event.preventDefault();
+  }
 });
 
-// ======================== username lowercase only  ======================
-// document.addEventListener('DOMContentLoaded', function () {
-//     const usernameInput = document.getElementById('username');
-//     const usernameError = document.getElementById('username_err');
-
-//     usernameInput.addEventListener('input', function () {
-//         let inputValue = usernameInput.value.trim();
-
-//         // Convert input value to lowercase
-//         inputValue = inputValue.toLowerCase();
-//         usernameInput.value = inputValue;
-
-//         // Check if input value is empty
-//         if (inputValue === '') {
-//             usernameError.textContent = 'براہ کرم یوزَر نام درج کریں۔';
-//             usernameError.style.display = 'block';
-//             usernameInput.classList.add('is-invalid');
-//         }
-//         // Check if input value contains characters other than lowercase letters, '.', '-', '_'
-//         else if (!/^[a-z._-]+$/.test(inputValue)) {
-//             usernameError.textContent = 'Username should contain only lowercase letters, ".", "-", or "_".';
-//             usernameError.style.display = 'block';
-//             usernameInput.classList.add('is-invalid');
-//         } else {
-//             usernameError.textContent = '';
-//             usernameError.style.display = 'none';
-//             usernameInput.classList.remove('is-invalid');
-//         }
-//     });
-// });
-
-
-
-// // ========================================================================
-// document.addEventListener('DOMContentLoaded', function () {
-//     // Selecting form elements
-//     const userForm = document.getElementById('st-admission-form');
-//     const regNumberInput = document.getElementById('reg_number');
-//     const stdNameInput = document.getElementById('std_name');
-//     const stdDboInput = document.getElementById('std_dbo');
-//     const stdGenderSelect = document.getElementById('std_gender');
-//     const stdAccommodationSelect = document.getElementById('std_accommodation');
-//     const stdBirthPlaceInput = document.getElementById('std_birth_place');
-//     const stdAddressInput = document.getElementById('std_address');
-//     const guarNameInput = document.getElementById('guar_name');
-//     const guarRelationInput = document.getElementById('guar_relation');
-//     const guarNumberInput = document.getElementById('guar_number');
-//     const guarCnicInput = document.getElementById('guar_cnic');
-//     const guarAddressInput = document.getElementById('guar_address');
-//     const guarEmailInput = document.getElementById('guar_email');
-//     const preSchoolInput = document.getElementById('pre_school');
-//     const preClassInput = document.getElementById('pre-class');
-//     const nextClassInput = document.getElementById('next-class');
-//     const admDateInput = document.getElementById('adm_date');
-
-//     const studentMadarasaSelect = document.getElementById('studentMadarasa');
-//     const madYearSelect = document.getElementById('MadYear');
-//     const departmentSelect = document.getElementById('department');
-//     const studentClassSelect = document.getElementById('studentclass');
-//     const sectionSelect = document.getElementById('section');
-
-//     const stdQadeemSelect = document.getElementById('std_qadeem');
-//     const admiFeesInput = document.getElementById('admi_fees');
-//     const monthlyFeesInput = document.getElementById('monthly_fees');
-
-//     // Function to validate form
-//     function validateForm(event) {
-//         event.preventDefault(); // Prevent form submission
-
-//         let isValid = true;
-
-//         // Reset error messages and borders
-//         const errorSpans = document.querySelectorAll('.error');
-//         errorSpans.forEach(span => {
-//             span.textContent = '';
-//         });
-//         const inputFields = document.querySelectorAll('.form-control');
-//         inputFields.forEach(field => {
-//             field.classList.remove('is-invalid');
-//         });
-
-//         // Validate each input field
-//         if (!regNumberInput.value.trim()) {
-//             document.getElementById('reg_number_err').textContent = 'برائے کرم جی آر نمبر درج کریں۔';
-//             regNumberInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!stdNameInput.value.trim()) {
-//             document.getElementById('std_name_err').textContent = 'براہ کرم طالب علم کا نام درج کریں۔';
-//             stdNameInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!stdDboInput.value.trim()) {
-//             document.getElementById('std_dbo_err').textContent = 'براہ کرم تاریخ پیدائش درج کریں۔';
-//             stdDboInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!stdGenderSelect.value) {
-//             document.getElementById('std_gender_err').textContent = 'براہ کرم جنس منتخب کریں۔';
-//             stdGenderSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!stdAccommodationSelect.value) {
-//             document.getElementById('std_accommodation_err').textContent = 'براہ کرم رہائش کا انتخاب کریں۔';
-//             stdAccommodationSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!stdBirthPlaceInput.value.trim()) {
-//             document.getElementById('std_birth_place_err').textContent = 'براہ کرم مقام پیدائش درج کریں۔';
-//             stdBirthPlaceInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!stdAddressInput.value.trim()) {
-//             document.getElementById('std_address_err').textContent = 'براہ کرم پتہ درج کریں۔';
-//             stdAddressInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!guarNameInput.value.trim()) {
-//             document.getElementById('guar_name_err').textContent = 'براہ کرم سرپرست کا نام درج کریں۔';
-//             guarNameInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!guarRelationInput.value.trim()) {
-//             document.getElementById('guar_relation_err').textContent = 'براہ کرم سرپرست کا رشتہ درج کریں۔';
-//             guarRelationInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!guarNumberInput.value.trim()) {
-//             document.getElementById('guar_number_err').textContent = 'براہ کرم سرپرست نمبر درج کریں۔';
-//             guarNumberInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!guarCnicInput.value.trim()) {
-//             document.getElementById('guar_cnic_err').textContent = 'براہ کرم سرپرست CNIC درج کریں۔';
-//             guarCnicInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!guarAddressInput.value.trim()) {
-//             document.getElementById('guar_address_err').textContent = 'براہ کرم سرپرست کا پتہ درج کریں۔';
-//             guarAddressInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!guarEmailInput.value.trim()) {
-//             document.getElementById('guar_email_err').textContent = 'براہ کرم سرپرست ای میل درج کریں۔';
-//             guarEmailInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!preSchoolInput.value.trim()) {
-//             document.getElementById('pre_school_err').textContent = 'براہ کرم سابقہ مدرسہ درج کریں۔';
-//             preSchoolInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!preClassInput.value.trim()) {
-//             document.getElementById('pre_class_err').textContent = 'براہ کرم سابقہ درجہ درج کریں۔';
-//             preClassInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!nextClassInput.value.trim()) {
-//             document.getElementById('next_class_err').textContent = 'براہ کرم مطلوبہ درجہ درج کریں۔';
-//             nextClassInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!admDateInput.value.trim()) {
-//             document.getElementById('adm_date_err').textContent = 'براہ کرم تاریخ داخلہ درج کریں۔';
-//             admDateInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!studentMadarasaSelect.value) {
-//             document.getElementById('studentMadarasa_err').textContent = 'براہ کرم مدرسہ منتخب کریں۔';
-//             studentMadarasaSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!madYearSelect.value) {
-//             document.getElementById('MadYear_err').textContent = 'براہ کرم تعلیمی سال منتخب کریں۔';
-//             madYearSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!departmentSelect.value) {
-//             document.getElementById('department_err').textContent = 'براہ کرم شعبہ منتخب کریں۔';
-//             departmentSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!studentClassSelect.value) {
-//             document.getElementById('class_err').textContent = 'براہ کرم سیکشن منتخب کریں۔';
-//             studentClassSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (!sectionSelect.value) {
-//             document.getElementById('section_err').textContent = 'براہ کرم سابقہ سیکشن منتخب کریں۔';
-//             sectionSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-
-//         if (!stdQadeemSelect.value) {
-//             document.getElementById('std_qadeem_err').textContent = 'براہ کرم سابقہ منتخب کریں۔';
-//             stdQadeemSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-
-//         if (isValid) {
-//             userForm.submit(); // Submit the form if all inputs are valid
-//         }
-//     }
-
-//     // Event listener to validate form on submit
-//     userForm.addEventListener('submit', validateForm);
-
-//     // Event listener to clear error messages when input is changed
-//     regNumberInput.addEventListener('input', function () {
-//         document.getElementById('reg_number_err').textContent = '';
-//         regNumberInput.classList.remove('is-invalid');
-//     });
-
-//     stdNameInput.addEventListener('input', function () {
-//         document.getElementById('std_name_err').textContent = '';
-//         stdNameInput.classList.remove('is-invalid');
-//     });
-
-//     stdDboInput.addEventListener('input', function () {
-//         document.getElementById('std_dbo_err').textContent = '';
-//         stdDboInput.classList.remove('is-invalid');
-//     });
-
-//     stdDboInput.addEventListener('input', function () {
-//         document.getElementById('std_dbo_err').textContent = '';
-//         stdDboInput.classList.remove('is-invalid');
-//     });
-
-//     stdGenderSelect.addEventListener('input', function () {
-//         document.getElementById('std_gender_err').textContent = '';
-//         stdGenderSelect.classList.remove('is-invalid');
-//     });
-
-//     stdAccommodationSelect.addEventListener('input', function () {
-//         document.getElementById('std_accommodation_err').textContent = '';
-//         stdAccommodationSelect.classList.remove('is-invalid');
-//     });
-
-//     stdBirthPlaceInput.addEventListener('input', function () {
-//         document.getElementById('std_birth_place_err').textContent = '';
-//         stdBirthPlaceInput.classList.remove('is-invalid');
-//     });
-
-//     stdAddressInput.addEventListener('input', function () {
-//         document.getElementById('std_address_err').textContent = '';
-//         stdAddressInput.classList.remove('is-invalid');
-//     });
-
-//     guarNameInput.addEventListener('input', function () {
-//         document.getElementById('guar_name_err').textContent = '';
-//         guarNameInput.classList.remove('is-invalid');
-//     });
-
-//     guarRelationInput.addEventListener('input', function () {
-//         document.getElementById('guar_relation_err').textContent = '';
-//         guarRelationInput.classList.remove('is-invalid');
-//     });
-
-//     guarNumberInput.addEventListener('input', function () {
-//         document.getElementById('guar_number_err').textContent = '';
-//         guarNumberInput.classList.remove('is-invalid');
-//     });
-
-//     guarCnicInput.addEventListener('input', function () {
-//         document.getElementById('guar_cnic_err').textContent = '';
-//         guarCnicInput.classList.remove('is-invalid');
-//     });
-
-//     guarAddressInput.addEventListener('input', function () {
-//         document.getElementById('guar_address_err').textContent = '';
-//         guarAddressInput.classList.remove('is-invalid');
-//     });
-
-//     guarEmailInput.addEventListener('input', function () {
-//         document.getElementById('guar_email_err').textContent = '';
-//         guarEmailInput.classList.remove('is-invalid');
-//     });
-
-//     guarEmailInput.addEventListener('input', function () {
-//         document.getElementById('guar_email_err').textContent = '';
-//         guarEmailInput.classList.remove('is-invalid');
-//     });
-
-//     preSchoolInput.addEventListener('input', function () {
-//         document.getElementById('pre_school_err').textContent = '';
-//         preSchoolInput.classList.remove('is-invalid');
-//     });
-
-//     preClassInput.addEventListener('input', function () {
-//         document.getElementById('pre_class_err').textContent = '';
-//         preClassInput.classList.remove('is-invalid');
-//     });
-
-//     nextClassInput.addEventListener('input', function () {
-//         document.getElementById('next_class_err').textContent = '';
-//         nextClassInput.classList.remove('is-invalid');
-//     });
-
-//     admDateInput.addEventListener('input', function () {
-//         document.getElementById('adm_date_err').textContent = '';
-//         admDateInput.classList.remove('is-invalid');
-//     });
-
-//     studentMadarasaSelect.addEventListener('input', function () {
-//         document.getElementById('studentMadarasa_err').textContent = '';
-//         studentMadarasaSelect.classList.remove('is-invalid');
-//     });
-
-//     madYearSelect.addEventListener('input', function () {
-//         document.getElementById('MadYear_err').textContent = '';
-//         madYearSelect.classList.remove('is-invalid');
-//     });
-
-//     departmentSelect.addEventListener('input', function () {
-//         document.getElementById('department_err').textContent = '';
-//         departmentSelect.classList.remove('is-invalid');
-//     });
-
-//     studentClassSelect.addEventListener('input', function () {
-//         document.getElementById('class_err').textContent = '';
-//         studentClassSelect.classList.remove('is-invalid');
-//     });
-
-//     sectionSelect.addEventListener('input', function () {
-//         document.getElementById('section_err').textContent = '';
-//         sectionSelect.classList.remove('is-invalid');
-//     });
-
-//     stdQadeemSelect.addEventListener('input', function () {
-//         document.getElementById('std_qadeem_err').textContent = '';
-//         stdQadeemSelect.classList.remove('is-invalid');
-//     });
-
-// });
-
-
-
-
-
-
-
-// ======================== Validation of fields  ======================
-document.addEventListener('DOMContentLoaded', function () {
-    const userForm = document.getElementById('st-admission-form');
-    const regNumberInput = document.getElementById('reg_number');
-    const stdNameInput = document.getElementById('std_name');
-    const stdDboInput = document.getElementById('std_dbo');
-    const stdGenderSelect = document.getElementById('std_gender');
-    const stdAccommodationSelect = document.getElementById('std_accommodation');
-    const stdBirthPlaceInput = document.getElementById('std_birth_place');
-    const stdAddressInput = document.getElementById('std_address');
-    const guarNameInput = document.getElementById('guar_name');
-    const guarRelationInput = document.getElementById('guar_relation');
-    const guarNumberInput = document.getElementById('guar_number');
-    const guarCnicInput = document.getElementById('guar_cnic');
-    const guarAddressInput = document.getElementById('guar_address');
-    const guarEmailInput = document.getElementById('guar_email');
-    const preSchoolInput = document.getElementById('pre_school');
-    const preClassInput = document.getElementById('pre_class');
-    const nextClassInput = document.getElementById('next_class');
-    const admDateInput = document.getElementById('adm_date');
-    const studentMadarasaSelect = document.getElementById('studentMadarasa');
-    const madYearSelect = document.getElementById('MadYear');
-    const departmentSelect = document.getElementById('department');
-    const studentClassSelect = document.getElementById('studentclass');
-    const sectionSelect = document.getElementById('section');
-    const stdQadeemSelect = document.getElementById('std_qadeem');
-    const admiFeesInput = document.getElementById('admi_fees');
-    const monthlyFeesInput = document.getElementById('monthly_fees');
-
-    function validateForm(event) {
-        event.preventDefault();
-        let isValid = true;
-        const errorSpans = document.querySelectorAll('.error');
-        errorSpans.forEach(span => {
-            span.textContent = '';
-        });
-        const inputFields = document.querySelectorAll('.form-control');
-        inputFields.forEach(field => {
-            field.classList.remove('is-invalid');
-        });
-
-        // Validate each input field
-        if (!regNumberInput.value.trim()) {
-            document.getElementById('reg_number_err').textContent = 'Please enter registration number.';
-            regNumberInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!stdNameInput.value.trim()) {
-            document.getElementById('std_name_err').textContent = 'Please enter student name.';
-            stdNameInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!stdDboInput.value.trim()) {
-            document.getElementById('std_dbo_err').textContent = 'Please enter date of birth.';
-            stdDboInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!stdGenderSelect.value) {
-            document.getElementById('std_gender_err').textContent = 'Please select gender.';
-            stdGenderSelect.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!stdAccommodationSelect.value) {
-            document.getElementById('std_accommodation_err').textContent = 'Please select accommodation.';
-            stdAccommodationSelect.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!stdBirthPlaceInput.value.trim()) {
-            document.getElementById('std_birth_place_err').textContent = 'Please enter birth place.';
-            stdBirthPlaceInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!stdAddressInput.value.trim()) {
-            document.getElementById('std_address_err').textContent = 'Please enter address.';
-            stdAddressInput.classList.add('is-invalid');
-            isValid = false;
-        }
-
-
-        if (!guarNameInput.value.trim()) {
-            document.getElementById('guar_name_err').textContent = 'Please enter guardian name.';
-            guarNameInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!guarRelationInput.value.trim()) {
-            document.getElementById('guar_relation_err').textContent = 'Please enter guardian relation.';
-            guarRelationInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!guarNumberInput.value.trim()) {
-            document.getElementById('guar_number_err').textContent = 'Please enter guardian number.';
-            guarNumberInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!guarCnicInput.value.trim()) {
-            document.getElementById('guar_cnic_err').textContent = 'Please enter guardian CNIC.';
-            guarCnicInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!guarAddressInput.value.trim()) {
-            document.getElementById('guar_address_err').textContent = 'Please enter guardian address.';
-            guarAddressInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!guarEmailInput.value.trim()) {
-            document.getElementById('guar_email_err').textContent = 'Please enter guardian email.';
-            guarEmailInput.classList.add('is-invalid');
-            isValid = false;
-        }
-
-
-        if (!preSchoolInput.value.trim()) {
-            document.getElementById('pre_school_err').textContent = 'Please enter previous school.';
-            preSchoolInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!preClassInput.value.trim()) {
-            document.getElementById('pre_class_err').textContent = 'Please enter previous class.';
-            preClassInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!nextClassInput.value.trim()) {
-            document.getElementById('next_class_err').textContent = 'Please enter next class.';
-            nextClassInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!admDateInput.value.trim()) {
-            document.getElementById('adm_date_err').textContent = 'Please enter admission date.';
-            admDateInput.classList.add('is-invalid');
-            isValid = false;
-        }
-
-
-        if (!studentMadarasaSelect.value) {
-            document.getElementById('studentMadarasa_err').textContent = 'Please select madarasa.';
-            studentMadarasaSelect.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!madYearSelect.value) {
-            document.getElementById('MadYear_err').textContent = 'Please select madarasa year.';
-            madYearSelect.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!departmentSelect.value) {
-            document.getElementById('department_err').textContent = 'Please select department.';
-            departmentSelect.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!studentClassSelect.value) {
-            document.getElementById('class_err').textContent = 'Please select class.';
-            studentClassSelect.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!sectionSelect.value) {
-            document.getElementById('section_err').textContent = 'Please select section.';
-            sectionSelect.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!stdQadeemSelect.value) {
-            document.getElementById('std_qadeem_err').textContent = 'Please select qadeem.';
-            stdQadeemSelect.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!admiFeesInput.value.trim()) {
-            document.getElementById('admi_fees_err').textContent = 'Please enter admission fees.';
-            admiFeesInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (!monthlyFeesInput.value.trim()) {
-            document.getElementById('monthly_fees_err').textContent = 'Please enter monthly fees.';
-            monthlyFeesInput.classList.add('is-invalid');
-            isValid = false;
-        }
-        if (isValid) {
-            userForm.submit();
-        }
+for (const key in EnrollStudent_error) {
+  EnrollStudent_error[key].enrollStudent.addEventListener("input", function () {
+    if (key === "EnrollStudent_error") {
+      this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
     }
-
-    userForm.addEventListener('submit', validateForm);
-
-
-    // Event listener to clear error messages when input is changed
-    regNumberInput.addEventListener('input', clearError);
-    stdNameInput.addEventListener('input', clearError);
-    stdDboInput.addEventListener('input', clearError);
-    stdGenderSelect.addEventListener('input', clearError);
-    stdAccommodationSelect.addEventListener('input', clearError);
-    stdBirthPlaceInput.addEventListener('input', clearError);
-    stdAddressInput.addEventListener('input', clearError);
-
-    guarNameInput.addEventListener('input', clearError);
-    guarRelationInput.addEventListener('input', clearError);
-    guarNumberInput.addEventListener('input', clearError);
-    guarCnicInput.addEventListener('input', clearError);
-    guarAddressInput.addEventListener('input', clearError);
-    guarEmailInput.addEventListener('input', clearError);
-
-    preSchoolInput.addEventListener('input', clearError);
-    preClassInput.addEventListener('input', clearError);
-    nextClassInput.addEventListener('input', clearError);
-    admDateInput.addEventListener('input', clearError);
-
-    studentMadarasaSelect.addEventListener('input', clearError);
-    madYearSelect.addEventListener('input', clearError);
-    departmentSelect.addEventListener('input', clearError);
-    studentClassSelect.addEventListener('input', clearError);
-    sectionSelect.addEventListener('input', clearError);
-    stdQadeemSelect.addEventListener('input', clearError);
-    admiFeesInput.addEventListener('input', clearError);
-    monthlyFeesInput.addEventListener('input', clearError);
-
-
-    function clearError() {
-        this.classList.remove('is-invalid');
-        const errorId = this.id + '_err';
-        document.getElementById(errorId).textContent = '';
-    }
-});
-
-
-
-
-// =============================================
-// document.addEventListener('DOMContentLoaded', function() {
-//     const userForm = document.getElementById('st-admission-form');
-
-//     function validateForm(event) {
-//         event.preventDefault();
-//         let isValid = true;
-
-//         // Add validation logic for each input field here
-//         // Validate each input field
-//         if (!regNumberInput.value.trim()) {
-//             document.getElementById('reg_number_err').textContent = 'Please enter registration number.';
-//             regNumberInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!stdNameInput.value.trim()) {
-//             document.getElementById('std_name_err').textContent = 'Please enter student name.';
-//             stdNameInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!stdDboInput.value.trim()) {
-//             document.getElementById('std_dbo_err').textContent = 'Please enter date of birth.';
-//             stdDboInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!stdGenderSelect.value) {
-//             document.getElementById('std_gender_err').textContent = 'Please select gender.';
-//             stdGenderSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!stdAccommodationSelect.value) {
-//             document.getElementById('std_accommodation_err').textContent = 'Please select accommodation.';
-//             stdAccommodationSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!stdBirthPlaceInput.value.trim()) {
-//             document.getElementById('std_birth_place_err').textContent = 'Please enter birth place.';
-//             stdBirthPlaceInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!stdAddressInput.value.trim()) {
-//             document.getElementById('std_address_err').textContent = 'Please enter address.';
-//             stdAddressInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-
-//         if (!guarNameInput.value.trim()) {
-//             document.getElementById('guar_name_err').textContent = 'Please enter guardian name.';
-//             guarNameInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!guarRelationInput.value.trim()) {
-//             document.getElementById('guar_relation_err').textContent = 'Please enter guardian relation.';
-//             guarRelationInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!guarNumberInput.value.trim()) {
-//             document.getElementById('guar_number_err').textContent = 'Please enter guardian number.';
-//             guarNumberInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!guarCnicInput.value.trim()) {
-//             document.getElementById('guar_cnic_err').textContent = 'Please enter guardian CNIC.';
-//             guarCnicInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!guarAddressInput.value.trim()) {
-//             document.getElementById('guar_address_err').textContent = 'Please enter guardian address.';
-//             guarAddressInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!guarEmailInput.value.trim()) {
-//             document.getElementById('guar_email_err').textContent = 'Please enter guardian email.';
-//             guarEmailInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-
-//         if (!preSchoolInput.value.trim()) {
-//             document.getElementById('pre_school_err').textContent = 'Please enter previous school.';
-//             preSchoolInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!preClassInput.value.trim()) {
-//             document.getElementById('pre_class_err').textContent = 'Please enter previous class.';
-//             preClassInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!nextClassInput.value.trim()) {
-//             document.getElementById('next_class_err').textContent = 'Please enter next class.';
-//             nextClassInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!admDateInput.value.trim()) {
-//             document.getElementById('adm_date_err').textContent = 'Please enter admission date.';
-//             admDateInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-
-//         if (!studentMadarasaSelect.value) {
-//             document.getElementById('studentMadarasa_err').textContent = 'Please select madarasa.';
-//             studentMadarasaSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!madYearSelect.value) {
-//             document.getElementById('MadYear_err').textContent = 'Please select madarasa year.';
-//             madYearSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!departmentSelect.value) {
-//             document.getElementById('department_err').textContent = 'Please select department.';
-//             departmentSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!studentClassSelect.value) {
-//             document.getElementById('class_err').textContent = 'Please select class.';
-//             studentClassSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!sectionSelect.value) {
-//             document.getElementById('section_err').textContent = 'Please select section.';
-//             sectionSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!stdQadeemSelect.value) {
-//             document.getElementById('std_qadeem_err').textContent = 'Please select qadeem.';
-//             stdQadeemSelect.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!admiFeesInput.value.trim()) {
-//             document.getElementById('admi_fees_err').textContent = 'Please enter admission fees.';
-//             admiFeesInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-//         if (!monthlyFeesInput.value.trim()) {
-//             document.getElementById('monthly_fees_err').textContent = 'Please enter monthly fees.';
-//             monthlyFeesInput.classList.add('is-invalid');
-//             isValid = false;
-//         }
-
-//         if (isValid) {
-//             userForm.submit();
-//         }
-//     }
-
-//     userForm.addEventListener('submit', validateForm);
-
-//     function clearError() {
-//         this.classList.remove('is-invalid');
-//         const errorId = this.id + '_err';
-//         document.getElementById(errorId).textContent = '';
-//     }
-
-//     // Add event listeners to clear error messages when inputs are changed
-//     const inputFields = document.querySelectorAll('.form-control');
-//     inputFields.forEach(field => {
-//         field.addEventListener('input', clearError);
-//     });
-
-//     // Add event listeners for form-select elements
-//     const selectFields = document.querySelectorAll('.form-select');
-//     selectFields.forEach(select => {
-//         select.addEventListener('change', clearError);
-//     });
-// });
+    validateFormEnrollStudent();
+  });
+}
+EnrollStudent_error.StudentCity.toUpper();
+EnrollStudent_error.StudentFatherInput.toUpper();
