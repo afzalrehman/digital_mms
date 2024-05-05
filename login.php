@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
 
                 // Redirect based on user role
                 if ($_SESSION['role'] == 'سپر ایڈمن') {
-                    header('location: super_admin/index.php');
+                    header('location: super_admin/index');
                 } elseif ($_SESSION['role'] == 'Member') {
                     header('location: member/index');
                 } else {
@@ -82,15 +82,15 @@ if (isset($_POST['submit'])) {
     <div class="position-relative overflow-hidden radial-gradient min-vh-100">
         <div class="position-relative z-index-5">
             <div class="row">
-                <!-- <div class="col-xl-7 col-xxl-8">
+                <div class="col-xl-7 col-xxl-8">
                     <div class="d-none d-xl-flex align-items-center justify-content-center" style="height: calc(100vh - 80px);">
-                        <img src="../assets/images/login.png" alt="" class="img-fluid" width="500">
+                        <img src="assets/images/login.png" alt="" class="img-fluid" width="500">
                     </div>
-                </div> -->
+                </div>
 
-                <div class="d-flex align-items-center justify-content-center">
+                <div class="col-xl-5 col-xxl-4">
                     <div class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
-                        <div class="col-12">
+                        <div class="col-sm-8 col-md-6 col-xl-9">
                             <h2 class="mb-3 madarsa-name text-center">سائن اِن کریں</h2>
                             <p class=" mb-9 fs-4 text-primary text-center"> مدرسہ حسینیہ میں خوش آمدید 🎉</p>
                             <form method="POST">
@@ -157,7 +157,7 @@ if (isset($_POST['submit'])) {
                                         <input class="form-check-input primary" type="checkbox" name="rememberme" value="rememberme" id="rememberme">
                                         <label class="form-check-label" for="rememberme">اپنا پاس ورڈ یاد رکھیں</label>
                                     </div>
-                                    <a class="text-primary" href="./recover_email.php">پاسورڈ بھول گیا؟</a>
+                                    <a class="text-primary" href="forget_password">پاسورڈ بھول گیا؟</a>
                                 </div>
                                 <input type="submit" id="sign-in" name="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2" value="سائن ان کریں">
                             </form>
