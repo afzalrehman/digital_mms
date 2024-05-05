@@ -189,14 +189,14 @@
             <!-- <li class="nav-item dropdown-hover d-none d-lg-block">
               <a class="nav-link" href="app-chat.html"><i class="ti ti-message fs-6"></i></a>
             </li> -->
-            <li class="nav-item dropdown-hover d-none d-lg-block">
+            <!-- <li class="nav-item dropdown-hover d-none d-lg-block"> -->
               <!-- <a class="nav-link" href="app-calendar.html">Calendar</a> -->
-              <a class="nav-link" href="app-email.html"><i class="ti ti-calendar fs-6"></i></a>
-            </li>
-            <li class="nav-item dropdown-hover d-none d-lg-block jameel-kasheeda">
+              <!-- <a class="nav-link" href="app-email.html"><i class="ti ti-calendar fs-6"></i></a>
+            </li> -->
+            <!-- <li class="nav-item dropdown-hover d-none d-lg-block jameel-kasheeda"> -->
               <!-- <a class="nav-link" href="app-email.html">سیٹنگ</a> -->
-              <a class="nav-link" href="app-email.html"><i class="ti ti-settings fs-6"></i></a>
-            </li>
+              <!-- <a class="nav-link" href="app-email.html"><i class="ti ti-settings fs-6"></i></a>
+            </li> -->
           </ul>
           <div class="d-block d-lg-none">
             <img src="../assets/images/digital_madarsa.png" width="180" alt="" />
