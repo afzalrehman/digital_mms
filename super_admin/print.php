@@ -79,8 +79,7 @@
                 <span>889809890</span>
             </div>
         </div>
-
-        
+       
         <div class="main1">
             <div style="margin-bottom:28px;">
                 <span class="bold">نام :</span>
