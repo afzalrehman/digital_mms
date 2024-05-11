@@ -51,6 +51,11 @@ include "inc/navbar.php";
                 <input type="number" id="RegNumber" name="register" class="form-control fw-semibold fs-3" placeholder="#04321" />
                 <span class="text-danger RegNumber"></span>
               </div>
+              <div class="col-md-6">
+                <label class="fs-5 mb-1" for="madcode"> مدرسہ کا کوڈ <span class="text-danger fs-7">*</span></label>
+                <input type="text" id="madCode" name="mad_code" class="form-control fw-semibold fs-3" placeholder="#04321" />
+                <span class="text-danger madCode"></span>
+              </div>
 
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="std-area">مدرسہ کا نام <span class="text-danger fs-7">*</span></label>

@@ -8,6 +8,7 @@ session_start();
 $errors = [];
 if (isset($_POST['ins_submit'])) {
     $register  = mysqli_real_escape_string($conn, $_POST['register']);
+    $mad_code  = mysqli_real_escape_string($conn, $_POST['mad_code']);
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $city  = mysqli_real_escape_string($conn, $_POST['city']);
     $address  = mysqli_real_escape_string($conn, $_POST['address']);
@@ -31,8 +32,8 @@ if (isset($_POST['ins_submit'])) {
         header("location: madarsa_add.php");
         exit();
     } else {
-        $insertQuery = "INSERT INTO `madarsa` (`RigitarNumber`, `madarsa_name`, `city`, `address`, `establish_date`, `madarsa_emial`,`phone`,`description`, `created_by`,`created_date`)
-        VALUES ('$register','$name','$city','$address','$date', '$email','$phone','$description','قاری عبداللہ صاحب', NOW())";
+        $insertQuery = "INSERT INTO `madarsa` (`RigitarNumber`,`mad_code`,  `madarsa_name`, `city`, `address`, `establish_date`, `madarsa_emial`,`phone`,`description`, `created_by`,`created_date`)
+        VALUES ('$register','$mad_code','$name','$city','$address','$date', '$email','$phone','$description','قاری عبداللہ صاحب', NOW())";
         if (mysqli_query($conn, $insertQuery)) {;
             unset($_SESSION['input']);
             redirect("madarsa_add.php", " مدرسہ ایڈ ہو چکا ہے");
@@ -59,6 +60,7 @@ if (isset($_GET['madarsa_delete'])) {
 }
 // ================================institute page update code===========================
 if (isset($_POST['ins_update'])) {
+    $mad_code  = mysqli_real_escape_string($conn, $_POST['mad_code']);
     $id_update  = mysqli_real_escape_string($conn, $_POST['id_update']);
     $register  = mysqli_real_escape_string($conn, $_POST['register']);
     $name = mysqli_real_escape_string($conn, $_POST['name']);
@@ -90,6 +92,7 @@ if (isset($_POST['ins_update'])) {
         $updateQuery = "UPDATE `madarsa` 
             SET 
                 `RigitarNumber` = '$register',
+                `mad_code` = '$mad_code',
                 `madarsa_name` = '$name',
                 `city` = '$city',
                 `address` = '$address',

@@ -32,10 +32,23 @@ include "inc/navbar.php";
     </div>
   </div>
   <!-- Main Content Header Card (End) -->
-
   <?php
+  $select_batch = "SELECT * FROM `batch`  ORDER BY `batch_id` DESC LIMIT 1";
+  $query = mysqli_query($conn, $select_batch);
+
+  if ($query) {
+    $result = mysqli_fetch_assoc($query);
+    if ($result) {
+      $batch_id = $result['Name'];
+      $batchs_id = $result['batch_id'];
+    } else {
+      echo "No batches found for this institute.";
+    }
+  } else {
+    echo "Error executing query: " . mysqli_error($conn);
+  }
   // Query to fetch the madarsa information
-  $selec_madarsa = "SELECT * FROM madarsa WHERE madarsa_id = 30";
+  $selec_madarsa = "SELECT * FROM madarsa ";
   $result_madarsa = $conn->query($selec_madarsa);
 
   // Checking for errors
@@ -47,10 +60,10 @@ include "inc/navbar.php";
   if ($result_madarsa->num_rows > 0) {
     $row_madarsa = $result_madarsa->fetch_assoc();
     if ($row_madarsa['madarsa_name'] == 'مدرسہ دارالعلوم حسینیہ') {
-      $madarsa_name = 'HUS';
+      $madarsa_name = $row_madarsa['mad_code'];
     }
     // Query to fetch the last registration number
-    $gene_query = "SELECT `st_roll_no` FROM `students`  WHERE `madarsa_id` = 30";
+    $gene_query = "SELECT `st_roll_no` FROM `students` where `batch_id`='$batchs_id' ";
 
     // Executing the query
     $gene_result = mysqli_query($conn, $gene_query);
@@ -67,14 +80,14 @@ include "inc/navbar.php";
     // Generating a new registration number
     if (empty($last_reg_no)) {
       // If no previous registration number exists, start with "HUS_ST_00001"
-      $auto_reg_no = $madarsa_name . "_ST_00001";
+      $auto_reg_no = $madarsa_name . "_$batch_id" . "_00001";
     } else {
       // Extracting the numeric part of the last registration number and incrementing it
       $idd = intval(substr($last_reg_no, 7)); // Assuming the numeric part starts from index 7
       $id = str_pad(strval($idd + 1), 5, '0', STR_PAD_LEFT);
 
       // Constructing the new registration number
-      $auto_reg_no = $madarsa_name . "_ST_" . $id;
+      $auto_reg_no = $madarsa_name . "_$batch_id" . "_" . $id;
     }
   }
   ?>
@@ -87,6 +100,27 @@ include "inc/navbar.php";
     <form action="code2.php" method="post" id="st-admission-form" enctype="multipart/form-data">
       <!-- Student Info -->
       <div class="col-12">
+        <?php
+        $select = "SELECT * FROM `admission_setting` where  `status` = 'فعال'";
+        $result = mysqli_query($conn, $select);
+        if (mysqli_num_rows($result) > 0) {
+          $no = 1;
+          // output data of each row
+          $item = mysqli_fetch_assoc($result);
+          $locs = $item['open_close'];
+          if ($locs == 2) {
+        ?>
+            <div class="alert alert-danger alert-dismissible fade show fs-5 jameel-kasheeda" role="alert">
+              <strong>داخلہ بند ہیں!</strong>
+            </div>
+          <?php
+          } else { ?>
+            <div class="alert alert-primary alert-dismissible fade show fs-5 jameel-kasheeda" role="alert">
+              <strong>داخلہ جاری ہیں !</strong>
+            </div>
+        <?php  }
+        }
+        ?>
         <div class="card">
           <div class="border-bottom title-part-padding mt-3">
             <h4 class="card-title mb-0 fs-7 text-primary"> 1۔ طلبہ کے معلومات</h4>
@@ -101,17 +135,17 @@ include "inc/navbar.php";
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="reg_number">جی آر نمبر</label>
                 <input type="number" name="reg_number" id="reg_number" class="form-control fw-semibold fs-3" placeholder="#04321" />
-                <span class="error text-danger inter reg_number" ></span>
+                <span class="error text-danger inter reg_number"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="std_name">نام</label>
                 <input type="text" name="std_name" id="std_name" class="form-control fw-semibold fs-4" placeholder="احمد" />
-                <span class="error text-danger inter std_name" ></span>
+                <span class="error text-danger inter std_name"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="std_dbo">تاریخ پیدائش</label>
                 <input type="date" name="std_dbo" id="std_dbo" class="form-control fw-semibold fs-4" placeholder="DD/MM/YYYY" />
-                <span class="error text-danger inter std_dbo" ></span>
+                <span class="error text-danger inter std_dbo"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="std_gender">صنف</label>
@@ -129,17 +163,17 @@ include "inc/navbar.php";
                   <option value="رہائشی" class="jameel-kasheeda">رہائشی</option>
                   <option value="غیر رہائشی" class="jameel-kasheeda">غیر رہائشی</option>
                 </select>
-                <span class="error text-danger inter std_accommodation" ></span>
+                <span class="error text-danger inter std_accommodation"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="std_birth_place">مقام پیدائش</label>
                 <input type="text" name="std_birth_place" id="std_birth_place" class="form-control fw-semibold fs-3" placeholder="کراچی" />
-                <span class="error text-danger inter std_birth_place" ></span>
+                <span class="error text-danger inter std_birth_place"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="std_address">پتہ</label>
                 <input type="text" name="std_address" id="std_address" class="form-control fw-semibold fs-4" placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
-                <span class="error text-danger inter std_address" ></span>
+                <span class="error text-danger inter std_address"></span>
               </div>
             </div>
           </div>
@@ -157,17 +191,17 @@ include "inc/navbar.php";
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="guar_name">سرپرست کا نام</label>
                 <input type="text" name="guar_name" id="guar_name" class="form-control fw-semibold fs-4" placeholder="شفیع عالم" />
-                <span class="error text-danger inter guar_name" ></span>
+                <span class="error text-danger inter guar_name"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="guar_relation">سرپرست سے رشتہ</label>
                 <input type="text" id="guar_relation" name="guar_relation" class="form-control fw-semibold fs-4" placeholder="والدِ محترم" />
-                <span class="error text-danger inter guar_relation" ></span>
+                <span class="error text-danger inter guar_relation"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="guar_number">فون نمبر</label>
                 <input type="number" name="guar_number" id="guar_number" class="form-control fw-semibold fs-3" placeholder="03186432506" />
-                <span class="error text-danger inter guar_number" ></span>
+                <span class="error text-danger inter guar_number"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="guar_cnic">CNIC نمبر</label>
@@ -177,7 +211,7 @@ include "inc/navbar.php";
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="guar_address">پتہ</label>
                 <input type="text" name="guar_address" id="guar_address" class="form-control fw-semibold fs-4" placeholder="36/جی لانڈھی کراچی۔ گلی نمبر 1" />
-                <span class="error text-danger inter guar_address" ></span>
+                <span class="error text-danger inter guar_address"></span>
               </div>
               <div class="col-md-6">
                 <label class="fs-5 mb-1" for="guar_address">ای میل</label>
@@ -202,17 +236,17 @@ include "inc/navbar.php";
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="pre_school">سابقہ مدرسہ</label>
                   <input type="text" name="pre_school" id="pre_school" class="form-control fw-semibold fs-4" placeholder="دارالعلوم کراچی" />
-                  <span class="error text-danger inter pre_school" ></span>
+                  <span class="error text-danger inter pre_school"></span>
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="pre_class">سابقہ درجہ</label>
                   <input type="text" name="pre_class" id="pre_class" class="form-control fw-semibold fs-4" placeholder="اوٰلی" />
-                  <span class="error text-danger inter pre_class" ></span>
+                  <span class="error text-danger inter pre_class"></span>
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="next_class">مطلوبہ درجہ</label>
                   <input type="text" name="next_class" id="next_class" class="form-control fw-semibold fs-4" placeholder="ثانیہ" />
-                  <span class="error text-danger inter next_class" ></span>
+                  <span class="error text-danger inter next_class"></span>
                 </div>
                 <div class="col-md-6">
                   <label class="fs-5 mb-1" for="adm_date">تاریخ داخلہ</label>
@@ -253,7 +287,7 @@ include "inc/navbar.php";
                     <select class="form-control fw-semibold fs-3 jameel-kasheeda" name="department" id="department">
                       <option class="jameel-kasheeda" value="">---</option>
                     </select>
-                    <span class="text-danger inter classdepartment department" ></span>
+                    <span class="text-danger inter classdepartment department"></span>
                   </div>
                   <div class="col-lg-6 mb-3">
                     <label class="fs-5 mb-1">کلاس</label>
@@ -264,7 +298,7 @@ include "inc/navbar.php";
                                                       echo $_SESSION['class_exit'];
                                                       unset($_SESSION['class_exit']);
                                                     } ?></span>
-                    <span class="text-danger inter error studentclass" ></span>
+                    <span class="text-danger inter error studentclass"></span>
                   </div>
                   <div class="col-md-6 mb-2">
                     <label class="fs-5 mb-1" for="section">سیکشن منتخب کریں</label>

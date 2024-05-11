@@ -78,7 +78,7 @@ include "inc/navbar.php";
                 ?>
                     <label class="px-3">
                       <?= $row['section_name']; ?>
-                      <input type="checkbox" name="section[]" value=" <?= $row['sec_id']; ?>" class="fw-semibold fs-4" placeholder="کلاس ایڈ کریں" />
+                      <input type="checkbox" required name="section[]" value=" <?= $row['sec_id']; ?>" class="fw-semibold fs-4" placeholder="کلاس ایڈ کریں" />
                     </label>
                 <?php
                   }

@@ -52,14 +52,18 @@ if (isset($_GET['edit_madarasa'])) {
               <h4 class="card-title mb-0 fs-7 text-primary"> 1۔ مدرسہ کے معلومات</h4>
             </div>
             <div class="card-body">
-              <form method="post" action="code.php"  id="MadarsaAdd">
+              <form method="post" action="code.php" id="MadarsaAdd">
                 <div class="row g-4">
                   <div class="col-md-6">
                     <input type="number" name="id_update" hidden class="form-control fw-semibold fs-3" value="<?= $fetch['madarsa_id'] ?>" placeholder="#04321" />
                     <label class="fs-5 mb-1" for="reg-number">رجسٹریشن نمبر</label>
                     <input type="number" id="RegNumber" name="register" class="form-control fw-semibold fs-3" value="<?= $fetch['RigitarNumber'] ?>" placeholder="#04321" />
                     <span class="text-danger RegNumber"></span>
-
+                  </div>
+                  <div class="col-md-6">
+                    <label class="fs-5 mb-1" for="madcode"> مدرسہ کا کوڈ <span class="text-danger fs-7">*</span></label>
+                    <input type="text" id="madCode" name="mad_code" class="form-control fw-semibold fs-3" value="<?= $fetch['mad_code'] ?>" placeholder="مدرسہ کا کوڈ" />
+                    <span class="text-danger madCode"></span>
                   </div>
                   <div class="col-md-6">
                     <label class="fs-5 mb-1" for="std-area">مدرسہ کا نام</label>

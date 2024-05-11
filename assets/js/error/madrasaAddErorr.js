@@ -20,6 +20,11 @@ const myConstants = {
     error: document.querySelector(".Name"),
     errorMessage: "براۓ مہربانی مدرسہ کا نام ایڈ کریں",
   },
+  madCode: {
+    element: document.getElementById("madCode"),
+    error: document.querySelector(".madCode"),
+    errorMessage: "براۓ مہربانی مدرسہ کا کوڈ ایڈ کریں",
+  },
 //   ins_Name: {
 //     element: document.getElementById("ins_id"),
 //     error: document.querySelector(".InsIdError"),
